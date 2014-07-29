@@ -1,0 +1,6 @@
+<resources>
+    <!-- physical width(mm) of quickcircle window -->
+    <dimen name="physical_width_of_quickcircle">47mm</dimen>
+    <!-- physical height(mm) of quickcircle window -->
+    <dimen name="physical_height_of_quickcircle">47mm</dimen>
+</resources>

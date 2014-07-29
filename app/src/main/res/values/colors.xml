@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="torch_color_off">#747474</color>
+    <color name="torch_color_on">#33B5E5</color>
+    <color name="torch_background_color_off">#1D1D1D</color>
+    <color name="torch_background_color_on">#E1E1E1</color>
+</resources>

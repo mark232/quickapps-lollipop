@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Quick Apps</string>
+    <string name="register_us_please">We need access to notifications</string>
+    <string name="open_the_case">Open the case now</string>
+    <!-- Torch Part [START] -->
+    <string name="torch_module_name">Quick Torch</string>
+    <string name="torch_is_on">Torch is On</string>
+    <string name="touch_to_turn_off">Touch to turn off</string>
+    <!-- Torch Part {END]   -->
+    <!-- Music Part [START] -->
+    <string name="music_module_name">Quick Music</string>
+    <string name="unknown">unknown</string>
+    <!-- Music Part {END]   -->
+    <!-- Calendar Part [START] -->
+    <string name="calendar_module_name">Quick calendar</string>
+    <string name="calendar_events">Quick Agenda</string>
+    <!-- Calendar Part {END]   -->
+    <!-- Notification Part [START] -->
+    <string name="notification_module_name">Quick Notifications</string>
+    <string name="notification_empty">No notifications now</string>
+    <!-- Notification Part {END]   -->
+    <!-- Launcher Part [START] -->
+    <string name="launcher_module_name">Quick Launcher</string>
+    <!-- Launcher Part {END]   -->
+    <!-- Toggles Part [START] -->
+    <string name="toggles_module_name">Quick Toggles</string>
+    <string name="wifi">Wi-Fi</string>
+    <string name="wifi_off">Wi-Fi is turned off</string>
+    <string name="wifi_on">Wi-Fi is turned on</string>
+    <string name="wifi_connected">Connected to a Wi-Fi network <b><i>%1$s</i></b></string>
+    <string name="wifi_network_available">Open Wi-Fi networks available</string>
+    <string name="wifi_turning_off">Turning Wi-Fi off</string>
+    <string name="wifi_turning_on">Turning Wi-Fi on</string>
+    <string name="sound_sound">Sound</string>
+    <string name="sound_vibrate">Vibrate</string>
+    <string name="sound_silent">Silent</string>
+    <string name="data_data">Data</string>
+    <string name="data_off">Data connection is turned off</string>
+    <string name="data_on">Data connection is turned on</string>
+    <string name="data_off_airplane">Airplane mode - Data connection off</string>
+    <string name="bluetooth">Bluetooth</string>
+    <string name="bluetooth_off">Bluetooth is turned off</string>
+    <string name="bluetooth_on">Bluetooth is turned on</string>
+    <string name="bluetooth_turning_off">Turning Bluetooth off</string>
+    <string name="bluetooth_turning_on">Turning Bluetooth on</string>
+    <string name="airplane_mode">Airplane mode</string>
+    <string name="airplane_off">Airplane mode is disabled</string>
+    <string name="airplane_on">Airplane mode is enabled</string>
+    <string name="cant_change_airplane_mode">Can\'t change airplane mode</string>
+    <string name="brightness">Brightness</string>
+    <string name="brightness_auto">Auto brightness</string>
+    <string name="brightness_med">Medium brightness</string>
+    <string name="brightness_max">High brightness</string>
+    <string name="battery">Battery</string>
+    <string name="charging">charging</string>
+    <!-- Toggles Part {END]   -->
+</resources>

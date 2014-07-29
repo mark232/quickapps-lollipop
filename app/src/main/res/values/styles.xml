@@ -1,0 +1,26 @@
+<resources>
+
+    <style name="darkTheme" parent="android:Theme.Holo.NoActionBar.Fullscreen">
+        <item name="vpiCirclePageIndicatorStyle">@style/CustomCirclePageIndicatorDark</item>
+    </style>
+
+    <style name="lightTheme" parent="android:Theme.Holo.Light.NoActionBar.Fullscreen">
+        <item name="vpiCirclePageIndicatorStyle">@style/CustomCirclePageIndicatorLight</item>
+    </style>
+
+    <style name="CustomCirclePageIndicatorDark">
+        <item name="fillColor">#FFF</item>
+        <item name="strokeColor">#FFF</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="radius">5dp</item>
+        <item name="centered">true</item>
+    </style>
+    <style name="CustomCirclePageIndicatorLight">
+        <item name="fillColor">#000</item>
+        <item name="strokeColor">#000</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="radius">5dp</item>
+        <item name="centered">true</item>
+        <item name="android:background">#FFF</item>
+    </style>
+</resources>
