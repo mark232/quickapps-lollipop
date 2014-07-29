@@ -1,6 +1,6 @@
 # Quick Circle Apps
 
-**Quick Circle Apps* is an Android™ application made by Yoav Sternberg.
+**Quick Circle Apps** is an Android application made by Yoav Sternberg.
 The application provide modules for the G3 Quick Circle Case.
 
 [![Get it on Google Play](http://www.android.com/images/brand/get_it_on_play_logo_small.png)](https://play.google.com/store/apps/details?id=com.yoavst.quickapps)
