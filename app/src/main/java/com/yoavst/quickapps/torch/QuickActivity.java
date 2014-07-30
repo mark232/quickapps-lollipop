@@ -33,8 +33,6 @@ public class QuickActivity extends BaseQuickCircleActivity {
 	@AfterViews
 	void init() {
 		mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-		CameraManager.torch();
-		showTorchOn();
 	}
 
 	@Click(R.id.cover_main_view)

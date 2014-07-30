@@ -7,12 +7,12 @@ The application provide modules for the G3 Quick Circle Case.
 
 
 ## How it works?
-The app uses LG Quick Circle SDK. 
+The app uses LG Quick Circle SDK and QSlide SDK. 
 
 ## Acknowledgements
+* LG for their Quick Circle and QSlide SDKs.
 * Excilys team for [Android annotations](https://github.com/excilys/androidannotations/wiki) that made my life a lot easier.
 * Joan Zapata for [android-iconify](https://github.com/JoanZapata/android-iconify).
-* Alam Kanak for [Android Empty Layout](https://github.com/alamkanak/Android-Empty-Layout).
 * Google for Android, Support V4, V13 packages.
 * Jake Wharton for [viewpagerindicator](http://viewpagerindicator.com/).
 * [Jeppe Foldager](http://www.blackbearblanc.dk/) for its wonderful icons.
