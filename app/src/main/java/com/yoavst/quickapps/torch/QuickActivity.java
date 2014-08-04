@@ -3,8 +3,10 @@ package com.yoavst.quickapps.torch;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.view.Gravity;
 import android.widget.IconTextView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.yoavst.quickapps.BaseQuickCircleActivity;
 import com.yoavst.quickapps.R;
@@ -66,7 +68,13 @@ public class QuickActivity extends BaseQuickCircleActivity {
 	@Override
 	public void onResume() {
 		super.onResume();
-		CameraManager.init();
+		try {
+			CameraManager.init();
+		} catch (RuntimeException e) {
+			Toast toast = Toast.makeText(this, "Error connect camera", Toast.LENGTH_SHORT);
+			toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 0);
+			toast.show();
+		}
 		if (CameraManager.torchOn) {
 			showTorchOn();
 		}

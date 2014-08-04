@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:layout_width="285.5dp"
+                tools:layout_height="155dp"
+                tools:background="@android:color/background_light"
+                tools:ignore="SpUsage">
+
+    <TextView
+        android:id="@+id/news_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        android:layout_toRightOf="@+id/padding"
+        android:layout_alignParentTop="true"
+        tools:text="14:33"
+        android:singleLine="true"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/news_time"
+        android:layout_toRightOf="@+id/padding"
+        android:layout_marginTop="5dp"
+        android:layout_above="@+id/news_source"
+        android:paddingTop="4dp">
+    <TextView
+        android:id="@+id/news_title"
+        android:textSize="19dp"
+        android:textStyle="bold"
+        android:gravity="left"
+        android:layout_marginRight="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="Samsung Galaxy S5 LTE-A's European version (SM-G901) may not feature a Quad HD display"
+        android:textColor="@android:color/black"/>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/news_source"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textSize="15dp"
+        android:textColor="@android:color/black"
+        android:layout_toRightOf="@+id/padding"
+        android:layout_alignParentBottom="true"
+        tools:text="The Verge -  All Posts"
+        android:gravity="center"/>
+
+    <View
+        android:id="@+id/padding"
+        android:layout_width="1dp"
+        android:layout_height="1dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"/>
+</RelativeLayout>

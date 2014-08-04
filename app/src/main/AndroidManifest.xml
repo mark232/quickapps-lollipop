@@ -11,20 +11,24 @@
 
     <uses-permission android:name="android.permission.READ_CALENDAR"/>
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
-
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.BLUETOOTH"/>
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <!--<uses-permission android:name="android.permission.INTERNET"/>-->
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:largeHeap="true">
+        <service android:name="com.lge.app.floating.FloatingWindowService"/>
+        <uses-library
+            android:name="com.lge.app.floating"
+            android:required="true"/>
         <!-- Torch part [START] -->
         <activity
             android:name=".torch.PhoneActivity_"
@@ -53,6 +57,7 @@
                 <action android:name="com.lge.quickcover"/>
             </intent-filter>
         </activity>
+
         <receiver
             android:name=".torch.WidgetProvider"
             android:taskAffinity="com.yoavst.quickapps.torch"
@@ -81,8 +86,6 @@
                 </action>
             </intent-filter>
         </receiver>
-        <service android:name="com.lge.app.floating.FloatingWindowService" >
-        </service>
 
         <activity-alias
             android:name=".torch.PhoneActivity"
@@ -92,10 +95,15 @@
             android:targetActivity=".torch.PhoneActivity_">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-                <category android:name="com.lge.intent.category.QSLIDE" />
+                <category android:name="com.lge.intent.category.QSLIDE"/>
             </intent-filter>
-            <meta-data android:value="false" android:name="cleartask"/>
-            <meta-data android:value="2.5" android:name="min version"/>
+
+            <meta-data
+                android:value="false"
+                android:name="cleartask"/>
+            <meta-data
+                android:value="2.5"
+                android:name="min version"/>
         </activity-alias>
         <!-- Torch part [END]   -->
         <!-- Music part [START] -->
@@ -124,7 +132,6 @@
                 <action android:name="com.yoavst.quickmusic.BIND_RC_CONTROL_SERVICE"/>
             </intent-filter>
         </service>
-        <uses-library android:name="com.lge.app.floating" android:required="true"/>
         <!-- Music part [END]   -->
         <!-- Calendar part [START] -->
         <activity
@@ -200,6 +207,55 @@
             </intent-filter>
         </activity>
         <!-- Toggles part [END]   -->
+        <!-- News part [START] -->
+        <!--<activity-->
+            <!--android:name=".news.LoginActivity_"-->
+            <!--android:label="@string/news_module_name"-->
+            <!--android:icon="@drawable/news_launcher"-->
+            <!--android:screenOrientation="portrait"-->
+            <!--android:theme="@style/lightTheme"-->
+            <!--android:excludeFromRecents="true"-->
+            <!--android:exported="true"-->
+            <!--android:taskAffinity="com.yoavst.quickapps.news"/>-->
+        <!--<activity-->
+            <!--android:name=".news.QuickActivity_"-->
+            <!--android:label="@string/news_module_name"-->
+            <!--android:configChanges="orientation|keyboardHidden|screenSize"-->
+            <!--android:icon="@drawable/news_icon"-->
+            <!--android:theme="@style/lightTheme"-->
+            <!--android:excludeFromRecents="true"-->
+            <!--android:launchMode="singleInstance"-->
+            <!--android:taskAffinity="com.yoavst.quickapps.news"-->
+            <!--android:screenOrientation="portrait">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="com.lge.quickcover"/>-->
+            <!--</intent-filter>-->
+        <!--</activity>-->
+        <!-- News part [END]   -->
+        <!-- Stopwatch Part {START] -->
+        <activity
+            android:name=".stopwatch.QuickActivity_"
+            android:label="@string/stopwatch_module_name"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:icon="@drawable/stopwatch_icon"
+            android:theme="@style/lightTheme"
+            android:excludeFromRecents="true"
+            android:launchMode="singleInstance"
+            android:taskAffinity="com.yoavst.quickapps.stopwatch"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="com.lge.quickcover"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".stopwatch.PhoneActivity_"
+            android:label="@string/stopwatch_module_name"
+            android:screenOrientation="portrait"
+            android:icon="@drawable/stopwatch_launcher"
+            android:theme="@style/lightTheme"
+            android:taskAffinity="com.yoavst.quickapps.stopwatch"
+            android:launchMode="singleInstance"/>
+        <!-- Stopwatch Part {END]   -->
         <!--<activity-->
         <!--android:name=".MainActivity_"-->
         <!--android:label="@string/app_name">-->

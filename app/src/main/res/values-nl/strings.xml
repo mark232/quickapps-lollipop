@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Quick Apps</string>
+    <string name="register_us_please">We hebben toegang nodig tot je notificaties</string>
+    <string name="open_the_case">Doe de case open</string>
+    <!-- Torch Part [START] -->
+    <string name="torch_module_name">Quick Zaklamp</string>
+    <string name="torch_is_on">Zaklamp is ingeschakeld</string>
+    <string name="touch_to_turn_off">Raak het scherm aan om de zaklamp uit te schakelen</string>
+    <!-- Torch Part {END] -->
+    <!-- Music Part [START] -->
+    <string name="music_module_name">Muziek</string>
+    <string name="unknown">onbekend</string>
+    <!-- Music Part {END] -->
+    <!-- Calendar Part [START] -->
+    <string name="calendar_module_name">Quick Kalender</string>
+    <string name="calendar_events">Quick Agenda</string>
+    <string name="today">Vandaag</string>
+    <string name="tomorrow">Morgen</string>
+    <string name="all_day">(hele dag)</string>
+    <string name="now">Nu</string>
+    <string name="in">Over</string>
+    <string name="minute_s">minuut/minuten</string>
+    <string name="hour_s"> uur/uren</string>
+    <string name="day_s">dag/dagen</string>
+    <string name="week_s">week/weken</string>
+    <string name="month_s">maand/maanden</string>
+    <string name="more_then_year">over meer dan een jaar</string>
+    <!-- Calendar Part {END] -->
+    <!-- Notification Part [START] -->
+    <string name="notification_module_name">Notificaties</string>
+    <string name="notification_empty">Je hebt geen notificaties</string>
+    <!-- Notification Part {END] -->
+    <!-- Launcher Part [START] -->
+    <string name="launcher_module_name">Quick Launcher</string>
+    <!-- Launcher Part {END] -->
+    <!-- Toggles Part [START] -->
+    <string name="toggles_module_name">Instellingen</string>
+    <string name="wifi">Wi-Fi</string>
+    <string name="wifi_off">Wi-Fi is uitgeschakeld</string>
+    <string name="wifi_on">Wi-Fi is ingeschakeld</string>
+    <string name="wifi_connected">Verbonden met een Wi-Fi netwerk <b><i>%1$s</i></b></string>
+    <string name="wifi_network_available">Open Wi-Fi netwerk beschikbaar</string>
+    <string name="wifi_turning_off">Wi-Fi wordt uitgeschakeld</string>
+    <string name="wifi_turning_on">Wi-Fi wordt ingeschakeld</string>
+    <string name="sound_sound">Geluid aan</string>
+    <string name="sound_vibrate">Trillen</string>
+    <string name="sound_silent">Stil</string>
+    <string name="data_data">Data</string>
+    <string name="data_off">Dataverbinding is uitgeschakeld</string>
+    <string name="data_on">Dataverbinding is ingeschakeld</string>
+    <string name="data_off_airplane">Vliegtuigmodus - dataverbinding uit</string>
+    <string name="bluetooth">Bluetooth</string>
+    <string name="bluetooth_off">Bluetooth is uitgeschakeld</string>
+    <string name="bluetooth_on">Bluetooth is ingeschakeld</string>
+    <string name="bluetooth_turning_off">Bluetooth wordt uitgeschakeld</string>
+    <string name="bluetooth_turning_on">Bluetooth wordt ingeschakeld</string>
+    <string name="airplane_mode">Vliegtuigmodus</string>
+    <string name="airplane_off">Vliegtuigmodus is uitgeschakeld</string>
+    <string name="airplane_on">Vliegtuigmodus is ingeschakeld</string>
+    <string name="cant_change_airplane_mode">Kan vliegtuigmodus niet veranderen</string>
+    <string name="brightness">Helderheid</string>
+    <string name="brightness_auto">Automatische helderheid</string>
+    <string name="brightness_med">Helderheid medium</string>
+    <string name="brightness_max">Helderheid hoog</string>
+    <string name="battery">Batterij</string>
+    <string name="charging">wordt opgeladen</string>
+    <!-- Toggles Part {END] -->
+</resources>

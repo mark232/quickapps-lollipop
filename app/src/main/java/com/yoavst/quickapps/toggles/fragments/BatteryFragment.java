@@ -4,9 +4,10 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.BatteryManager;
-import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.yoavst.quickapps.R;
 import com.yoavst.quickapps.toggles.ToggleFragment;
@@ -60,10 +61,17 @@ public class BatteryFragment extends ToggleFragment {
 				else if (percents != 100) resource = "stat_sys_battery_weak_charging_90_vzw";
 				else resource = "stat_sys_battery_full_charging";
 			} else {
-				resource = "stat_sys_battery_" + ((percents + 4) / 5 * 5);
+				int percent1 = ((percents + 4) / 5 * 5);
+				if (percent1 > 100) percent1 = 100;
+				else if (percent1 < 0) percent1 = 0;
+				resource = "stat_sys_battery_" + percent1;
 			}
-			mToggleIcon.setImageDrawable(((TogglesActivity) getActivity()).getSystemUiResource().getDrawable(
-					((TogglesActivity) getActivity()).getSystemUiResource().getIdentifier(resource, "drawable", "com.android.systemui")));
+			try {
+				mToggleIcon.setImageDrawable(((TogglesActivity) getActivity()).getSystemUiResource().getDrawable(
+						((TogglesActivity) getActivity()).getSystemUiResource().getIdentifier(resource, "drawable", "com.android.systemui")));
+			} catch (Resources.NotFoundException exception) {
+				Toast.makeText(getActivity(), "Error - contact developer with battery level", Toast.LENGTH_SHORT).show();
+			}
 			mToggleText.setText(percents + "% ");
 			if (charging != 0) {
 				mToggleText.append(CHARGING);
@@ -84,5 +92,10 @@ public class BatteryFragment extends ToggleFragment {
 	@Override
 	public void onToggleButtonClicked() {
 		// Do nothing
+	}
+
+	@Override
+	public Intent getIntentForLaunch() {
+		return new Intent(Intent.ACTION_POWER_USAGE_SUMMARY);
 	}
 }

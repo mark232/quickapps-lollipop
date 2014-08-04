@@ -41,8 +41,7 @@ public class TogglesActivity extends BaseQuickCircleActivity {
 
 	@Override
 	protected Intent getIntentForOpenCase() {
-		//TODO implement here data
-		return null;
+		return ((ToggleFragment) (getFragmentManager().findFragmentByTag("android:switcher:" + R.id.quick_circle_fragment + ":" + mPager.getCurrentItem()))).getIntentForLaunch();
 	}
 
 	@Override

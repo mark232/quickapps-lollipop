@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<HorizontalScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToPadding="false"
+    android:layout_above="@+id/quick_circle_back_btn"
+    android:scrollbars="none"
+    android:paddingLeft="40dp"
+    android:paddingRight="40dp"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="30dp">
+
+    <TableLayout
+        android:id="@+id/table_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TableRow android:layout_marginTop="10dp">
+
+            <ImageButton
+                android:id="@+id/torch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:src="@drawable/torch_icon"
+                android:layout_marginRight="10dp"/>
+
+            <ImageButton
+                android:id="@+id/music"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:src="@drawable/music_icon"
+                android:layout_marginRight="10dp"/>
+
+            <ImageButton
+                android:id="@+id/calendar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:src="@drawable/calendar_icon"
+                android:layout_marginRight="10dp"/>
+
+            <!--<ImageButton-->
+                <!--android:id="@+id/news"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:background="@null"-->
+                <!--android:src="@drawable/news_icon" /> -->
+        </TableRow>
+
+        <TableRow android:layout_marginTop="10dp">
+
+            <ImageButton
+                android:id="@+id/toggles"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:src="@drawable/toggles_icon"
+                android:layout_marginRight="10dp"/>
+
+            <ImageButton
+                android:id="@+id/notification"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:src="@drawable/notifications_icon"
+                android:layout_marginRight="10dp"/>
+
+            <ImageButton
+                android:id="@+id/stopwatch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:src="@drawable/stopwatch_icon" />
+        </TableRow>
+    </TableLayout>
+</HorizontalScrollView>

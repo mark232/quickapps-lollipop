@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="today">Oggi</string>
+    <string name="tomorrow">Domani</string>
+    <string name="all_day">(Tutto Il giorno)</string>
+    <string name="now">Adesso</string>
+    <string name="in">In</string>
+    <string name="minute_s">minuto/minuti</string>
+    <string name="hour_s">ora/ore</string>
+    <string name="day_s">giorno/giorni</string>
+    <string name="week_s">settimana/settimane</string>
+    <string name="month_s">mese_mesi</string>
+    <string name="more_then_year">PIù di un anno rimanente</string>
+</resources>

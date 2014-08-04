@@ -6,7 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Resources;
-import android.net.wifi.WifiManager;
+import android.provider.Settings;
 
 import com.yoavst.quickapps.R;
 import com.yoavst.quickapps.toggles.ToggleFragment;
@@ -105,5 +105,10 @@ public class BluetoothFragment extends ToggleFragment {
 			mToggleIcon.setImageDrawable(mSystemUiResources.getDrawable(mBluetoothOnIcon));
 			mToggleText.setText(BLUETOOTH_TURN_ON);
 		}
+	}
+
+	@Override
+	public Intent getIntentForLaunch() {
+		return new Intent(Settings.ACTION_BLUETOOTH_SETTINGS);
 	}
 }

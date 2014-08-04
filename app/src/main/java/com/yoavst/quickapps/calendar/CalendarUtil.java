@@ -8,6 +8,7 @@ import android.provider.CalendarContract.Events;
 
 import com.google.ical.compat.javautil.DateIterable;
 import com.google.ical.compat.javautil.DateIteratorFactory;
+import com.yoavst.quickapps.R;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -206,18 +207,18 @@ public class CalendarUtil {
 			if (DateUtils.isSameDay(startPlusOneDay, endTime)) {
 				startPlusOneDay.add(Calendar.DAY_OF_YEAR, -1);
 				if (DateUtils.isToday(startPlusOneDay))
-					return "Today (all day)";
+					return CalendarResources.today + " " + CalendarResources.allDay;
 				else if (DateUtils.isTomorrow(startPlusOneDay))
-					return "Tomorrow (all day)";
+					return CalendarResources.tomorrow + " " + CalendarResources.allDay;
 				return dayFormatter.format(new Date(event.getStartDate()));
 			} else {
 				endTime.add(Calendar.DAY_OF_YEAR, -1);
 				startPlusOneDay.add(Calendar.DAY_OF_YEAR, -1);
 				if (DateUtils.isToday(startPlusOneDay)) {
-					if (DateUtils.isTomorrow(endTime)) return "Today - Tomorrow";
-					else return "Today (all day) - " + fullDateFormat.format(endTime.getTime());
+					if (DateUtils.isTomorrow(endTime)) return CalendarResources.today + " - " + CalendarResources.tomorrow;
+					else return CalendarResources.today + " " + CalendarResources.allDay + " - " + fullDateFormat.format(endTime.getTime());
 				} else if (DateUtils.isTomorrow(startPlusOneDay))
-					return "Tomorrow - " + fullDateFormat.format(endTime.getTime());
+					return CalendarResources.tomorrow + " - " + fullDateFormat.format(endTime.getTime());
 				return fullDateFormat.format(new Date(event.getStartDate())) + " - " + fullDateFormat.format(endTime.getTime());
 			}
 		} else {
@@ -226,13 +227,13 @@ public class CalendarUtil {
 			Date end = new Date(event.getEndDate());
 			if (DateUtils.isSameDay(first, end)) {
 				if (DateUtils.isToday(first))
-					text = "Today " + hourFormatter.format(first) + " - " + hourFormatter.format(end);
+					text = CalendarResources.today + " " + hourFormatter.format(first) + " - " + hourFormatter.format(end);
 				else if (DateUtils.isWithinDaysFuture(first, 1))
-					text = "Tomorrow " + hourFormatter.format(first) + " - " + hourFormatter.format(end);
+					text = CalendarResources.tomorrow + hourFormatter.format(first) + " - " + hourFormatter.format(end);
 				else
 					text = dateFormatter.format(first) + " - " + hourFormatter.format(end);
 			} else if (DateUtils.isToday(first)) {
-				text = "Today " + hourFormatter.format(first) + " - " + otherDayFormatter.format(end);
+				text = CalendarResources.today + hourFormatter.format(first) + " - " + otherDayFormatter.format(end);
 			} else {
 				text = otherDayFormatter.format(first) + " - " + otherDayFormatter.format(end);
 			}
@@ -254,20 +255,65 @@ public class CalendarUtil {
 		Calendar now = Calendar.getInstance();
 		now.set(Calendar.SECOND, 0);
 		now.set(Calendar.MILLISECOND, 0);
-		if (calendar.getTimeInMillis() <= now.getTimeInMillis()) return "Now";
+		if (calendar.getTimeInMillis() <= now.getTimeInMillis()) return CalendarResources.now;
 		else {
 			long secondsLeft = (calendar.getTimeInMillis() - now.getTimeInMillis()) / 1000;
-			if (secondsLeft < 60) return "In 1 minute";
+			if (secondsLeft < 60) return CalendarResources.in + " 1 " + CalendarResources.minute;
 			long minutesLeft = secondsLeft / 60;
 			if (minutesLeft < 60)
-				return "In " + minutesLeft + " " + (minutesLeft > 1 ? "minutes" : "minute");
+				return CalendarResources.in + " " + minutesLeft + " " + (minutesLeft > 1 ? CalendarResources.minutes : CalendarResources.minute);
 			long hoursLeft = minutesLeft / 50;
-			if (hoursLeft < 24) return "In " + hoursLeft + " " + (hoursLeft > 1 ? "hours" : "hour");
+			if (hoursLeft < 24) return CalendarResources.in + " " + hoursLeft + " " + (hoursLeft > 1 ? CalendarResources.hours : CalendarResources.hour);
 			int days = (int) (hoursLeft / 24);
-			if (days < 30) return "In " + days + " " + (days > 1 ? "days" : "day");
-			int months = (int) (days / 30);
-			if (months < 12) return "In " + months + " " + (months > 1 ? "months" : "month");
-			else return "More then a year left";
+			if (days < 30) return CalendarResources.in + " " + days + " " + (days > 1 ? CalendarResources.days : CalendarResources.day);
+			int months = days / 30;
+			if (months < 12) return CalendarResources.in + " " + months + " " + (months > 1 ? CalendarResources.months : CalendarResources.month);
+			else return CalendarResources.moreThenAYearLeft;
+		}
+	}
+
+	public static class CalendarResources {
+		public static String today;
+		public static String tomorrow;
+		public static String allDay;
+		public static String now;
+		public static String in;
+		public static String minute;
+		public static String minutes;
+		public static String hour;
+		public static String hours;
+		public static String day;
+		public static String days;
+		public static String week;
+		public static String weeks;
+		public static String month;
+		public static String months;
+		public static String moreThenAYearLeft;
+
+		public static void init(Context context) {
+			if (today == null || moreThenAYearLeft == null) {
+				today = context.getString(R.string.today);
+				tomorrow = context.getString(R.string.tomorrow);
+				allDay = context.getString(R.string.all_day);
+				now = context.getString(R.string.now);
+				in = context.getString(R.string.in);
+				String[] min = context.getString(R.string.minute_s).split("/");
+				minute = min[0];
+				minutes = min[1];
+				String[] hoursArray = context.getString(R.string.hour_s).split("/");
+				hour = hoursArray[0];
+				hours = hoursArray[1];
+				String[] dayArray = context.getString(R.string.day_s).split("/");
+				day = dayArray[0];
+				days = dayArray[1];
+				String[] weekArray = context.getString(R.string.week_s).split("/");
+				week = weekArray[0];
+				weeks = weekArray[1];
+				String[] monthArray = context.getString(R.string.month_s).split("/");
+				month = monthArray[0];
+				months = monthArray[1];
+				moreThenAYearLeft = context.getString(R.string.more_then_year);
+			}
 		}
 	}
 

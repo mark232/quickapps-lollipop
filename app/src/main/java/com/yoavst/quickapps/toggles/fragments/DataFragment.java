@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.net.ConnectivityManager;
+import android.provider.Settings;
 
 import com.yoavst.quickapps.R;
 import com.yoavst.quickapps.toggles.Connectivity;
@@ -96,6 +97,11 @@ public class DataFragment extends ToggleFragment {
 			mToggleText.setText(newState ? DATA_ON : DATA_OFF);
 			mToggleIcon.setImageDrawable(newState ? mSystemUiResources.getDrawable(dataOnIcon) : mSystemUiResources.getDrawable(dataOffIcon));
 		}
+	}
+
+	@Override
+	public Intent getIntentForLaunch() {
+		return new Intent(Settings.ACTION_DATA_ROAMING_SETTINGS);
 	}
 
 	private void setMobileDataEnabled(boolean enabled) {

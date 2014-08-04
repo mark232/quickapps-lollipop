@@ -4,4 +4,9 @@
     <color name="torch_color_on">#33B5E5</color>
     <color name="torch_background_color_off">#1D1D1D</color>
     <color name="torch_background_color_on">#E1E1E1</color>
+    <color name="back_background_normal">#E9EDF0</color>
+    <color name="back_background_pressed">#C6C9CC</color>
+    <color name="back_background_dark_normal">@android:color/black</color>
+    <color name="back_background_dark_pressed">#C6C9CC</color>
+
 </resources>

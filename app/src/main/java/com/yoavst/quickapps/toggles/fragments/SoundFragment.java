@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.media.AudioManager;
+import android.provider.Settings;
 
 import com.yoavst.quickapps.R;
 import com.yoavst.quickapps.toggles.ToggleFragment;
@@ -98,5 +99,10 @@ public class SoundFragment extends ToggleFragment {
 				mAudioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
 				break;
 		}
+	}
+
+	@Override
+	public Intent getIntentForLaunch() {
+		return new Intent(Settings.ACTION_SOUND_SETTINGS);
 	}
 }

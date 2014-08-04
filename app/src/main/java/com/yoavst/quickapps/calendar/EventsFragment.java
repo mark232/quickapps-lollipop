@@ -2,19 +2,15 @@ package com.yoavst.quickapps.calendar;
 
 import android.app.Fragment;
 import android.view.View;
-import android.widget.IconButton;
 import android.widget.TextView;
 
 import com.yoavst.quickapps.R;
 
 import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.res.StringRes;
-
-import java.util.ArrayList;
 
 /**
  * Created by Yoav.
@@ -36,6 +32,7 @@ public class EventsFragment extends Fragment {
 
 	@AfterViews
 	void init() {
+		CalendarUtil.CalendarResources.init(getActivity());
 		mTitle.setText(event.getTitle());
 		if (event.getLocation() == null || event.getLocation().length() == 0)
 			mLocation.setVisibility(View.GONE);

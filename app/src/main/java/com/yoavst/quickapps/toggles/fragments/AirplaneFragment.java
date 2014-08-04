@@ -20,8 +20,6 @@ import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.SystemService;
 import org.androidannotations.annotations.res.StringRes;
 
-import java.io.IOException;
-
 /**
  * Created by Yoav.
  */
@@ -87,6 +85,11 @@ public class AirplaneFragment extends ToggleFragment {
 		Toast toast = Toast.makeText(getActivity(), R.string.cant_change_airplane_mode, Toast.LENGTH_SHORT);
 		toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 0);
 		toast.show();
+	}
+
+	@Override
+	public Intent getIntentForLaunch() {
+		return new Intent(Settings.ACTION_AIRPLANE_MODE_SETTINGS);
 	}
 
 }

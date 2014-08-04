@@ -5,17 +5,24 @@ The application provide modules for the G3 Quick Circle Case.
 
 [![Get it on Google Play](http://www.android.com/images/brand/get_it_on_play_logo_small.png)](https://play.google.com/store/apps/details?id=com.yoavst.quickapps)
 
-
 ## How it works?
-The app uses LG Quick Circle SDK and QSlide SDK. 
+The app uses LG Quick Circle SDK and QSlide SDK.  
+* Torch - Enable/Disable camera flash.  
+* Music - Register `NotificationListenerService` that implements `RemoteController.OnClientUpdateListener`.  
+* Notifications - Register another `NotificationListenerService`.  
+* Calendar - Reading events data from `CalendarContract.Events`.  
+* Toggles - Each toggles use its permissions to change the state.  
+* Stopwatch - Uses `TimerTask` that run every 10 milliseconds to update the clock.
+* news - Use Feedly Cloud Api to receive the newest 20 articles from the user feed.  
 
 ## Acknowledgements
-* LG for their Quick Circle and QSlide SDKs.
-* Excilys team for [Android annotations](https://github.com/excilys/androidannotations/wiki) that made my life a lot easier.
-* Joan Zapata for [android-iconify](https://github.com/JoanZapata/android-iconify).
-* Google for Android, Support V4, V13 packages.
-* Jake Wharton for [viewpagerindicator](http://viewpagerindicator.com/).
-* [Jeppe Foldager](http://www.blackbearblanc.dk/) for its wonderful icons.
+* LG for their Quick Circle and QSlide SDKs.  
+* Excilys team for [Android annotations](https://github.com/excilys/androidannotations/wiki) that made my life a lot easier.  
+* Joan Zapata for [android-iconify](https://github.com/JoanZapata/android-iconify).  
+* Google for Android, Support V4, V13 packages and GSON.  
+* Jake Wharton for [viewpagerindicator](http://viewpagerindicator.com/).  
+* Pablo Fernandez For [Scribe-java](https://github.com/fernandezpablo85/scribe-java).  
+* [Jeppe Foldager](http://www.blackbearblanc.dk/) for its wonderful icons.  
 
 License
 -------

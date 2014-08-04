@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToPadding="false"
+    android:scrollbars="none"
+    android:paddingTop="30dp">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TableLayout
+            android:id="@+id/table_layout"
+            android:layout_gravity="center_horizontal|top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TableRow android:layout_marginTop="10dp">
+
+                <ImageButton
+                    android:id="@+id/torch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:src="@drawable/torch_icon"/>
+
+                <ImageButton
+                    android:id="@+id/music"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:background="@null"
+                    android:src="@drawable/music_icon"/>
+            </TableRow>
+
+            <TableRow android:layout_marginTop="10dp">
+
+                <ImageButton
+                    android:id="@+id/calendar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:src="@drawable/calendar_icon"/>
+
+                <ImageButton
+                    android:id="@+id/notification"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:background="@null"
+                    android:src="@drawable/notifications_icon"/>
+            </TableRow>
+
+            <TableRow android:layout_marginTop="10dp">
+
+                <ImageButton
+                    android:id="@+id/toggles"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:src="@drawable/toggles_icon"/>
+
+                <ImageButton
+                    android:id="@+id/stopwatch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:src="@drawable/stopwatch_icon"/>
+            </TableRow>
+
+            <!--<TableRow android:layout_marginTop="10dp">-->
+                <!--<ImageButton-->
+                    <!--android:id="@+id/news"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:background="@null"-->
+                    <!--android:src="@drawable/news_icon"/>-->
+            <!--</TableRow>-->
+        </TableLayout>
+    </FrameLayout>
+</ScrollView>
