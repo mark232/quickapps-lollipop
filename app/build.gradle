@@ -1,5 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'android-apt'
+apply plugin: 'playpublisher'
+
 android {
     compileSdkVersion 20
     buildToolsVersion "20.0.0"
@@ -8,8 +10,8 @@ android {
         applicationId "com.yoavst.quickapps"
         minSdkVersion 19
         targetSdkVersion 20
-        versionCode 12
-        versionName "1.9"
+        versionCode 13
+        versionName "1.9.1"
         applicationVariants.all { variant ->
             if (variant.name == "release") {
                 def file = variant.outputFile
@@ -59,12 +61,23 @@ android {
         targetCompatibility JavaVersion.VERSION_1_7
     }
 }
+
 apt {
     arguments {
         androidManifestFile variant.processResources.manifestFile
         resourcePackageName "com.yoavst.quickapps"
     }
 }
+
+publisher {
+    applicationName "Quick Circle Apps"
+    packageName "com.yoavst.quickapps"
+    apkFile =  file("app-release-" + android.defaultConfig.versionName + ".apk")
+    authStore = new File(".store")
+    secretFile = file(PLAY_STORE_KEY)
+    productType 'production' // production, alpha, beta
+}
+
 dependencies {
     apt "org.androidannotations:androidannotations:3.0+"
     compile "org.androidannotations:androidannotations-api:3.0+"

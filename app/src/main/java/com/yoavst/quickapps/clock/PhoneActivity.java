@@ -1,4 +1,4 @@
-package com.yoavst.quickapps.stopwatch;
+package com.yoavst.quickapps.clock;
 
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
@@ -57,7 +57,7 @@ public class PhoneActivity extends FloatableActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.stopwatch_phone_activity);
+		setContentView(R.layout.clock_phone_activity);
 		if (isStartedAsFloating()) {
 			IntentFilter filter = new IntentFilter();
 			filter.addAction(ACTION_FLOATING_CLOSE);
@@ -190,6 +190,7 @@ public class PhoneActivity extends FloatableActivity {
 	void setLookRunning() {
 		mStart.setVisibility(View.GONE);
 		mRunning.setVisibility(View.VISIBLE);
+		mPause.setText(PAUSE);
 	}
 
 	void setLookForPauseOrResume() {

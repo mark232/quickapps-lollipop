@@ -166,7 +166,11 @@ public class RemoteControlActivity extends BaseQuickCircleActivity {
 	public void onStart() {
 		super.onStart();
 		Intent intent = new Intent("com.yoavst.quickmusic.BIND_RC_CONTROL_SERVICE");
-		bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+		try {
+			bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+		} catch (RuntimeException e) {
+			showUnregistered();
+		}
 	}
 
 	@Override
@@ -186,9 +190,7 @@ public class RemoteControlActivity extends BaseQuickCircleActivity {
 			mRCService = binder.getService();
 			if (!mRCService.setRemoteControllerEnabled()) {
 				// Not registered on the settings
-				mArtistText.setText(R.string.register_us_please);
-				mTitleText.setText(R.string.open_the_case);
-				mRegistered = false;
+				showUnregistered();
 			}
 			mRCService.setClientUpdateListener(mClientUpdateListener);
 			mBound = true;
@@ -199,4 +201,10 @@ public class RemoteControlActivity extends BaseQuickCircleActivity {
 			mBound = false;
 		}
 	};
+
+	void showUnregistered() {
+		mArtistText.setText(R.string.register_us_please);
+		mTitleText.setText(R.string.open_the_case);
+		mRegistered = false;
+	}
 }

@@ -46,7 +46,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textColor="@android:color/white"
             android:background="@drawable/stopwatch_btn_stop"
             android:text="@string/stop"/>
@@ -60,7 +60,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textColor="@android:color/white"
             android:background="@drawable/stopwatch_btn_pause"
             android:text="@string/pause"/>

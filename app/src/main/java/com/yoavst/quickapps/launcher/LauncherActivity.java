@@ -89,7 +89,7 @@ public class LauncherActivity extends BaseQuickCircleActivity implements View.On
 				com.yoavst.quickapps.calendar.QuickActivity_.intent(this).start();
 				break;
 			case R.id.stopwatch:
-				com.yoavst.quickapps.stopwatch.QuickActivity_.intent(this).start();
+				com.yoavst.quickapps.clock.QuickActivity_.intent(this).start();
 				break;
 			/*case R.id.news:
 				com.yoavst.quickapps.news.QuickActivity_.intent(this).start();

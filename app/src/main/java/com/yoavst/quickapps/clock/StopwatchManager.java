@@ -1,4 +1,4 @@
-package com.yoavst.quickapps.stopwatch;
+package com.yoavst.quickapps.clock;
 
 import java.util.Timer;
 import java.util.TimerTask;

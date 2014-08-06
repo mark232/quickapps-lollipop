@@ -39,7 +39,27 @@ public class NotificationsManager {
 
 	public static void removeNotification(StatusBarNotification statusBarNotification) {
 		if (notifications != null) {
-			notifications.remove(statusBarNotification);
+			int index = -1;
+			for (int i = 0; i < notifications.size(); i++) {
+				if (notificationsEquals(notifications.get(i), statusBarNotification)) {
+					index = i;
+					break;
+				}
+			}
+			if (index != -1) notifications.remove(index);
+		}
+	}
+
+	public static boolean notificationsEquals(StatusBarNotification first, StatusBarNotification second) {
+		if (first == null) return second == null;
+		else if (second == null) return false;
+		try {
+			return first.getPostTime() == second.getPostTime() &&
+					first.getId() == second.getId() &&
+					first.getPackageName().equals(second.getPackageName()) &&
+					first.getTag().equals(second.getTag());
+		} catch (Exception e) {
+			return false;
 		}
 	}
 

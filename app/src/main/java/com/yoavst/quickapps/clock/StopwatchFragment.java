@@ -1,6 +1,6 @@
-package com.yoavst.quickapps.stopwatch;
+package com.yoavst.quickapps.clock;
 
-import android.content.Intent;
+import android.app.Fragment;
 import android.os.Handler;
 import android.text.Html;
 import android.view.View;
@@ -8,12 +8,11 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.yoavst.quickapps.BaseQuickCircleActivity;
 import com.yoavst.quickapps.R;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
-import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.res.StringRes;
 
@@ -23,8 +22,8 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by Yoav.
  */
-@EActivity
-public class QuickActivity extends BaseQuickCircleActivity {
+@EFragment(R.layout.clock_stopwatch_fragment)
+public class StopwatchFragment extends Fragment {
 	@ViewById(R.id.time)
 	TextView mTime;
 	@ViewById(R.id.start)
@@ -44,7 +43,6 @@ public class QuickActivity extends BaseQuickCircleActivity {
 
 	@AfterViews
 	void init() {
-		sendBroadcast(new Intent(PhoneActivity.ACTION_FLOATING_CLOSE));
 		mTime.setText(Html.fromHtml(DEFAULT_STOPWATCH));
 		mHandler = new Handler();
 		initCallback();
@@ -93,8 +91,8 @@ public class QuickActivity extends BaseQuickCircleActivity {
 	}
 
 	@Override
-	protected void onPause() {
-		super.onPause();
+	public void onDestroy() {
+		super.onDestroy();
 		StopwatchManager.runOnBackground();
 	}
 
@@ -107,6 +105,7 @@ public class QuickActivity extends BaseQuickCircleActivity {
 	void setLookRunning() {
 		mStart.setVisibility(View.GONE);
 		mRunning.setVisibility(View.VISIBLE);
+		mPause.setText(PAUSE);
 	}
 
 	void setLookForPauseOrResume() {
@@ -134,25 +133,4 @@ public class QuickActivity extends BaseQuickCircleActivity {
 		else StopwatchManager.ResumeTimer();
 		setLookForPauseOrResume();
 	}
-
-	@Click(R.id.quick_circle_back_btn)
-	public void onBackClicked() {
-		finish();
-	}
-
-	@Override
-	protected Intent getIntentForOpenCase() {
-		return PhoneActivity_.intent(this).get().putExtra("com.lge.app.floating.launchAsFloating", true);
-	}
-
-	@Override
-	protected int getLayoutId() {
-		return R.layout.stopwatch_activity;
-	}
-
-	@Override
-	protected int getMainCircleLayoutId() {
-		return R.id.cover_main_view;
-	}
-
 }

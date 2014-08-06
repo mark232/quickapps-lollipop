@@ -75,8 +75,9 @@ public class CalendarUtil {
 				if (!isAllDay) {
 					// If the event not repeat itself - regular event
 					if (rRule == null) {
-						long endDate = Long.parseLong(endDateString);
-						events.add(new Event(id, title, startDate, endDate, location).setColor(color));
+						long endDate = endDateString == null || endDateString.equals("null") ? 0 : Long.parseLong(endDateString);
+						if (endDate == 0) events.add(new Event(id, title, dayFormatter.format(new Date(startDate - timezone.getOffset(startDate))), location).setColor(color));
+						else events.add(new Event(id, title, startDate, endDate, location).setColor(color));
 					} else {
 						// Event that repeat itself
 						events = addEvents(events, getEventFromRepeating(rRule, startDate, duration, location, color, title, id, false), isInfinity);

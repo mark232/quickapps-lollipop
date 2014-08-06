@@ -4,13 +4,16 @@ import android.app.Fragment;
 import android.app.Notification;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.service.notification.StatusBarNotification;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.yoavst.quickapps.Airy;
 import com.yoavst.quickapps.R;
 import com.yoavst.quickapps.calendar.DateUtils;
 
@@ -52,7 +55,7 @@ public class NotificationsFragment extends Fragment {
 			mNotificationTitle.setText(extras.getString(Notification.EXTRA_TITLE));
 			try {
 				mNotificationIcon.setImageDrawable(getActivity().createPackageContext(mNotification.getPackageName(), 0).getResources().getDrawable(mNotification.getNotification().icon));
-			} catch (PackageManager.NameNotFoundException e) {
+			} catch (PackageManager.NameNotFoundException | Resources.NotFoundException e) {
 				e.printStackTrace();
 			}
 			CharSequence preText = extras.getCharSequence(Notification.EXTRA_TEXT);
@@ -79,6 +82,37 @@ public class NotificationsFragment extends Fragment {
 				mNotificationTime.setText("Yesterday " + hourFormatter.format(date));
 			else
 				mNotificationTime.setText(dayFormatter.format(date));
+			if (getView() != null) getView().setOnTouchListener(new Airy(getActivity()) {
+				@Override
+				public void onGesture(View pView, int pGestureId) {
+					switch (pGestureId) {
+						case Airy.TAP:
+							break;
+						case Airy.SWIPE_UP:
+						case Airy.SWIPE_DOWN:
+							((CircleActivity)getActivity()).cancelNotification(mNotification);
+							break;
+						case Airy.SWIPE_LEFT:
+							break;
+						case Airy.SWIPE_RIGHT:
+							break;
+						case Airy.TWO_FINGER_TAP:
+							break;
+						case Airy.TWO_FINGER_SWIPE_UP:
+							break;
+						case Airy.TWO_FINGER_SWIPE_DOWN:
+							break;
+						case Airy.TWO_FINGER_SWIPE_LEFT:
+							break;
+						case Airy.TWO_FINGER_SWIPE_RIGHT:
+							break;
+						case Airy.TWO_FINGER_PINCH_IN:
+							break;
+						case Airy.TWO_FINGER_PINCH_OUT:
+							break;
+					}
+				}
+			});
 		}
 	}
 }

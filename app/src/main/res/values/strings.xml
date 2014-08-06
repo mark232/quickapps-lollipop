@@ -30,6 +30,7 @@
     <!-- Notification Part [START] -->
     <string name="notification_module_name">Quick Notifications</string>
     <string name="notification_empty">No notifications now</string>
+    <string name="notification_removed">Notification removed</string>
     <!-- Notification Part {END]   -->
     <!-- Launcher Part [START] -->
     <string name="launcher_module_name">Quick Launcher</string>
@@ -83,8 +84,8 @@
     <string name="no_connection">No connection</string>
     <string name="start_downloading">Start Downloading</string>
     <!-- RSS Part [END]   -->
-    <!-- Stopwatch Part {START] -->
-    <string name="stopwatch_module_name">Quick Stopwatch</string>
+    <!-- Stopwatch & Timer Part {START] -->
+    <string name="clock_module_name">Quick Time</string>
     <string name="start">Start</string>
     <string name="pause">Pause</string>
     <string name="stop">Stop</string>
@@ -94,6 +95,6 @@
     <string name="stopwatch_run_on_back_message">Do you want the stopwatch to run on background?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
-    <!-- Stopwatch Part {END]   -->
+    <!-- Stopwatch & Timer Part {END]  -->
 
 </resources>

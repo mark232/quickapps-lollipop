@@ -8,10 +8,12 @@ import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.service.notification.StatusBarNotification;
 import android.support.v4.view.ViewPager;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.viewpagerindicator.CirclePageIndicator;
 import com.yoavst.quickapps.BaseQuickCircleActivity;
@@ -61,6 +63,15 @@ public class CircleActivity extends BaseQuickCircleActivity implements ServiceCo
 				mIndicator.setViewPager(mPager);
 			}
 
+		}
+	}
+
+	public void cancelNotification(StatusBarNotification notification) {
+		if (notification != null && mBound && mService != null) {
+			mService.cancelNotification(notification.getPackageName(), notification.getTag(), notification.getId());
+			Toast toast = Toast.makeText(this, R.string.notification_removed, Toast.LENGTH_SHORT);
+			toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 0);
+			toast.show();
 		}
 	}
 

@@ -19,7 +19,6 @@
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
     <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
     <!--<uses-permission android:name="android.permission.INTERNET"/>-->
-
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -209,53 +208,53 @@
         <!-- Toggles part [END]   -->
         <!-- News part [START] -->
         <!--<activity-->
-            <!--android:name=".news.LoginActivity_"-->
-            <!--android:label="@string/news_module_name"-->
-            <!--android:icon="@drawable/news_launcher"-->
-            <!--android:screenOrientation="portrait"-->
-            <!--android:theme="@style/lightTheme"-->
-            <!--android:excludeFromRecents="true"-->
-            <!--android:exported="true"-->
-            <!--android:taskAffinity="com.yoavst.quickapps.news"/>-->
+        <!--android:name=".news.LoginActivity_"-->
+        <!--android:label="@string/news_module_name"-->
+        <!--android:icon="@drawable/news_launcher"-->
+        <!--android:screenOrientation="portrait"-->
+        <!--android:theme="@style/lightTheme"-->
+        <!--android:excludeFromRecents="true"-->
+        <!--android:exported="true"-->
+        <!--android:taskAffinity="com.yoavst.quickapps.news"/>-->
         <!--<activity-->
-            <!--android:name=".news.QuickActivity_"-->
-            <!--android:label="@string/news_module_name"-->
-            <!--android:configChanges="orientation|keyboardHidden|screenSize"-->
-            <!--android:icon="@drawable/news_icon"-->
-            <!--android:theme="@style/lightTheme"-->
-            <!--android:excludeFromRecents="true"-->
-            <!--android:launchMode="singleInstance"-->
-            <!--android:taskAffinity="com.yoavst.quickapps.news"-->
-            <!--android:screenOrientation="portrait">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="com.lge.quickcover"/>-->
-            <!--</intent-filter>-->
+        <!--android:name=".news.QuickActivity_"-->
+        <!--android:label="@string/news_module_name"-->
+        <!--android:configChanges="orientation|keyboardHidden|screenSize"-->
+        <!--android:icon="@drawable/news_icon"-->
+        <!--android:theme="@style/lightTheme"-->
+        <!--android:excludeFromRecents="true"-->
+        <!--android:launchMode="singleInstance"-->
+        <!--android:taskAffinity="com.yoavst.quickapps.news"-->
+        <!--android:screenOrientation="portrait">-->
+        <!--<intent-filter>-->
+        <!--<action android:name="com.lge.quickcover"/>-->
+        <!--</intent-filter>-->
         <!--</activity>-->
         <!-- News part [END]   -->
-        <!-- Stopwatch Part {START] -->
+        <!--  Clock Part {START] -->
         <activity
-            android:name=".stopwatch.QuickActivity_"
-            android:label="@string/stopwatch_module_name"
+            android:name=".clock.QuickActivity_"
+            android:label="@string/clock_module_name"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:icon="@drawable/stopwatch_icon"
+            android:icon="@drawable/clock_icon"
             android:theme="@style/lightTheme"
             android:excludeFromRecents="true"
             android:launchMode="singleInstance"
-            android:taskAffinity="com.yoavst.quickapps.stopwatch"
+            android:taskAffinity="com.yoavst.quickapps.clock"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="com.lge.quickcover"/>
             </intent-filter>
         </activity>
         <activity
-            android:name=".stopwatch.PhoneActivity_"
-            android:label="@string/stopwatch_module_name"
+            android:name=".clock.PhoneActivity_"
+            android:label="@string/clock_module_name"
             android:screenOrientation="portrait"
-            android:icon="@drawable/stopwatch_launcher"
+            android:icon="@drawable/clock_icon"
             android:theme="@style/lightTheme"
-            android:taskAffinity="com.yoavst.quickapps.stopwatch"
+            android:taskAffinity="com.yoavst.quickapps.clock"
             android:launchMode="singleInstance"/>
-        <!-- Stopwatch Part {END]   -->
+        <!-- clock Part {END]   -->
         <!--<activity-->
         <!--android:name=".MainActivity_"-->
         <!--android:label="@string/app_name">-->

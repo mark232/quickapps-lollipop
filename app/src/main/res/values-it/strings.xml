@@ -9,6 +9,6 @@
     <string name="hour_s">ora/ore</string>
     <string name="day_s">giorno/giorni</string>
     <string name="week_s">settimana/settimane</string>
-    <string name="month_s">mese_mesi</string>
+    <string name="month_s">mese/mesi</string>
     <string name="more_then_year">PIù di un anno rimanente</string>
 </resources>

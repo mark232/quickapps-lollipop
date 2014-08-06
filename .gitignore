@@ -33,3 +33,7 @@ build/
 
 # Keystores
 *.jks
+
+# Play Store publish plugin
+.store
+playstore_key.json
