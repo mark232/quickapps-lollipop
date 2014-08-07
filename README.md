@@ -13,7 +13,8 @@ The app uses LG Quick Circle SDK and QSlide SDK.
 * Calendar - Reading events data from `CalendarContract.Events`.  
 * Toggles - Each toggles use its permissions to change the state.  
 * Stopwatch - Uses `TimerTask` that run every 10 milliseconds to update the clock.
-* news - Use Feedly Cloud Api to receive the newest 20 articles from the user feed.  
+* Calculator - Evaluate the math string using EvalEx library.
+* News - Use Feedly Cloud Api to receive the newest 20 articles from the user feed.
 
 ## Acknowledgements
 * LG for their Quick Circle and QSlide SDKs.  
@@ -22,7 +23,9 @@ The app uses LG Quick Circle SDK and QSlide SDK.
 * Google for Android, Support V4, V13 packages and GSON.  
 * Jake Wharton for [viewpagerindicator](http://viewpagerindicator.com/).  
 * Pablo Fernandez For [Scribe-java](https://github.com/fernandezpablo85/scribe-java).  
-* [Jeppe Foldager](http://www.blackbearblanc.dk/) for its wonderful icons.  
+* [Jeppe Foldager](http://www.blackbearblanc.dk/) for its wonderful icons. 
+* Miras Absar for [Airy](https://github.com/mirasmithy/airy)
+* Udo Klimaschewski For [EvalEx](https://github.com/uklimaschewski/EvalEx).
 
 License
 -------

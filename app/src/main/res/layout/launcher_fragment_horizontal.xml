@@ -42,12 +42,12 @@
                 android:src="@drawable/calendar_icon"
                 android:layout_marginRight="10dp"/>
 
-            <!--<ImageButton-->
-                <!--android:id="@+id/news"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:background="@null"-->
-                <!--android:src="@drawable/news_icon" /> -->
+            <ImageButton
+                android:id="@+id/calculator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:src="@drawable/calculator_icon"/>
         </TableRow>
 
         <TableRow android:layout_marginTop="10dp">
@@ -74,6 +74,13 @@
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:src="@drawable/clock_icon" />
+
+            <!--<ImageButton-->
+            <!--android:id="@+id/news"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:background="@null"-->
+            <!--android:src="@drawable/news_icon" /> -->
         </TableRow>
     </TableLayout>
 </HorizontalScrollView>

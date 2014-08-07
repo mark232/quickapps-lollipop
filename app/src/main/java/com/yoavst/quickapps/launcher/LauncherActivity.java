@@ -23,7 +23,7 @@ import org.androidannotations.annotations.sharedpreferences.Pref;
  */
 @EActivity
 public class LauncherActivity extends BaseQuickCircleActivity implements View.OnClickListener {
-	final static int[] ICON_IDS = {R.id.torch, R.id.calendar, R.id.notification, R.id.music, R.id.toggles, R.id.stopwatch/*, R.id.news*/};
+	final static int[] ICON_IDS = {R.id.torch, R.id.calendar, R.id.notification, R.id.music, R.id.toggles, R.id.stopwatch, R.id.calculator/*, R.id.news*/};
 	@Pref
 	LauncherPrefs_ mPrefs;
 	@ViewById(R.id.change_orientation)
@@ -91,6 +91,8 @@ public class LauncherActivity extends BaseQuickCircleActivity implements View.On
 			case R.id.stopwatch:
 				com.yoavst.quickapps.clock.QuickActivity_.intent(this).start();
 				break;
+			case R.id.calculator:
+				com.yoavst.quickapps.calculator.QuickActivity_.intent(this).start();
 			/*case R.id.news:
 				com.yoavst.quickapps.news.QuickActivity_.intent(this).start();
 				break;*/

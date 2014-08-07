@@ -255,6 +255,22 @@
             android:taskAffinity="com.yoavst.quickapps.clock"
             android:launchMode="singleInstance"/>
         <!-- clock Part {END]   -->
+        <!-- Calculator Part {START] -->
+        <activity
+            android:name=".calculator.QuickActivity_"
+            android:label="@string/calculator_module_name"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:icon="@drawable/calculator_icon"
+            android:theme="@style/lightTheme"
+            android:excludeFromRecents="true"
+            android:launchMode="singleInstance"
+            android:taskAffinity="com.yoavst.quickapps.calculator"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="com.lge.quickcover"/>
+            </intent-filter>
+        </activity>
+        <!-- Calculator part [END]   -->
         <!--<activity-->
         <!--android:name=".MainActivity_"-->
         <!--android:label="@string/app_name">-->

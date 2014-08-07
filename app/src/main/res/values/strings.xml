@@ -96,5 +96,9 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <!-- Stopwatch & Timer Part {END]  -->
+    <!-- Calculator Part {START] -->
+    <string name="calculator_module_name">Quick Calculator</string>
+    <string name="error">Error</string>
+    <!-- Calculator Part [END]   -->
 
 </resources>

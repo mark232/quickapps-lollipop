@@ -73,7 +73,7 @@
     <string name="news_network_error">Netwerkfout</string>
     <string name="news_network_error_subtext">controleer je netwerkverbinding en probeer opnieuw</string>
     <string name="loading">Laden…</string>
-    <string name="news_should_login_subtextv">open de case om in te loggen</string>
+    <string name="news_should_login_subtext">open de case om in te loggen</string>
     <string name="login_to_feedly">Inloggen op Feedly</string>
     <string name="news_no_content">Geen content beschikbaar</string>
     <string name="news_no_content_subtext">Ververs de pagina om nieuwe content te laden</string>
