@@ -16,7 +16,8 @@ import org.androidannotations.annotations.res.StringArrayRes;
 import org.androidannotations.annotations.res.StringRes;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
+import java.math.BigInteger;
+import java.text.DecimalFormat;
 
 /**
  * Created by Yoav.
@@ -103,7 +104,7 @@ public class CalculatorFragment extends Fragment {
 
 	@Click(R.id.del)
 	void deleteLastChar() {
-		cleanAnswer(true);
+		mAnswer.setText(null);
 		if (mText.length() != 0) {
 			mText.setText(mText.getText().toString().substring(0, mText.getText().toString().length() - 1));
 		}
@@ -145,19 +146,50 @@ public class CalculatorFragment extends Fragment {
 			try {
 				Expression expression = new Expression(math).setPrecision(100);
 				BigDecimal decimal = expression.eval().stripTrailingZeros();
-				if (decimal.doubleValue() >= 10_000_000 || decimal.doubleValue() <= 0.0_000_001)
-					mAnswer.setText(decimal.toString().replace("1E+", "10" + POW)
-							.replace("1E-", "10" + POW + MINUS)
-							.replace("E+", MULTIPLE + "10" + POW)
-							.replace("E-", MULTIPLE + "10" + POW + MINUS));
-				else mAnswer.setText(decimal.setScale(14, RoundingMode.HALF_UP).stripTrailingZeros().toPlainString());
-			} catch (ArithmeticException e) {
+				int numberOfDigits = numberOfDigits(decimal);
+				String text;
+				if (numberOfDigits >= 14) {
+					// Force scientific notation but check if the regular toString has different value
+					text = new DecimalFormat("0.00E00").format(decimal);
+					String[] parts = text.split("E");
+					if (parts[0].equals("1.00")) text = "10" + POW + parts[1];
+					else {
+						text = formatNumber(decimal);
+					}
+				} else if (numberOfDigits >= 7) {
+					// Allow scientific notation, but do not force.
+					text = decimal.toString()
+							// 1E+7 to 10^7
+							.replace("1E+", "10" + POW)
+									// 2E+7 to 2x10^7
+							.replace("E+", MULTIPLE + "10" + POW);
+				} else if (decimal.compareTo(BigDecimal.ONE) >= 0 || decimal.compareTo(new BigDecimal("-1")) <= 0)
+					// Force regular decimal formatting
+					text = decimal.toPlainString();
+				else {
+					int numberOfUnscaledDigits = decimal.scale();
+					if (numberOfUnscaledDigits < 7)
+						// Force regular decimal formatting
+						text = decimal.toPlainString();
+					else if (numberOfUnscaledDigits < 14) {
+						// Allow scientific notation, but do not force.
+						text = decimal.toString()
+								// 1E-7 to 10^-7
+								.replace("1E-", "10" + POW + MINUS)
+										// 2E-7 to 2x10^-7
+								.replace("E+", MULTIPLE + "10" + POW + MINUS);
+					} else if (numberOfUnscaledDigits == 100) {
+						text = decimal.toPlainString();
+					} else
+						text = formatNumber(decimal);
+
+				}
+				mAnswer.setText(text);
+			} catch (RuntimeException e) {
 				if (e.getMessage().toLowerCase().contains("division by zero")) {
 					mAnswer.setText(INFINITY);
 				} else mAnswer.setText(ERROR);
 				e.printStackTrace();
-			} catch (RuntimeException e) {
-				mAnswer.setText(ERROR);
 			}
 			showingAnswer = true;
 		}
@@ -168,7 +200,7 @@ public class CalculatorFragment extends Fragment {
 			String answer = mAnswer.getText().toString();
 			mAnswer.setText(null);
 			if (copyAnswer && !(answer.contains(ERROR) || answer.contains(INFINITY))) {
-				mText.setText(answer);
+				mText.setText(answer.length() == 14 ? formatNumber(new BigDecimal(answer)) : answer);
 			} else mText.setText(null);
 			showingAnswer = false;
 		}
@@ -201,7 +233,12 @@ public class CalculatorFragment extends Fragment {
 
 	private String fixFormat(String original) {
 		if (original == null || original.length() == 0) return original;
-		else return original.replace(MULTIPLE, "*").replace(DIVIDE, "/");
+		else {
+			if (original.startsWith(MINUS + OPEN_BRACKET))
+				original = original.replaceFirst(MINUS + "\\" + OPEN_BRACKET, MINUS + "1" + MULTIPLE + OPEN_BRACKET);
+			original = original.replace(MULTIPLE, "*").replace(DIVIDE, "/");
+			return original;
+		}
 	}
 
 	private String removeLastOperator(String original) {
@@ -221,5 +258,44 @@ public class CalculatorFragment extends Fragment {
 			}
 		}
 		return false;
+	}
+
+	private String formatNumber(BigDecimal decimal) {
+		String text = new DecimalFormat("0.00E00").format(decimal);
+		String[] parts = text.split("E");
+		if (parts[0].equals("1.00")) text = "10" + POW + parts[1];
+		else {
+			// Deal with part 1
+			double value = Double.parseDouble(parts[0]);
+			if (value == (int) value)
+				text = String.valueOf((int) value) + MULTIPLE + "10" + POW;
+			else if (value * 10 == (int) value * 10)
+				text = String.valueOf(((int) value * 10) / 10) + DOT +
+						String.valueOf(((int) value * 10) % 10) + MULTIPLE + "10" + POW;
+			else text = String.valueOf(value) + MULTIPLE + "10" + POW;
+			// Deal with part 2
+			double val = Double.parseDouble(parts[1]);
+			if (val == (int) val)
+				text += String.valueOf((int) val);
+			else if (val * 10 == (int) val * 10)
+				text += String.valueOf(((int) val * 10) / 10) + DOT +
+						String.valueOf(((int) val * 10) % 10);
+			else text += String.valueOf(val);
+		}
+		return text;
+	}
+
+	private static int numberOfDigits(BigDecimal bigDecimal) {
+		return numberOfDigits(bigDecimal.toBigInteger());
+	}
+
+	private static int numberOfDigits(BigInteger digits) {
+		BigInteger ten = BigInteger.valueOf(10);
+		int count = 0;
+		do {
+			digits = digits.divide(ten);
+			count++;
+		} while (!digits.equals(BigInteger.ZERO));
+		return count;
 	}
 }
