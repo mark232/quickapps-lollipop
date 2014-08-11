@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="modules">
+        <item>Torch</item>
+        <item>Music</item>
+        <item>Calendar</item>
+        <item>Notifications</item>
+        <item>Toggles</item>
+        <item>Launcher</item>
+        <item>Stopwatch</item>
+        <item>Calculator</item>
+    </string-array>
+    <string-array name="modules_launcher">
+        <item>Torch</item>
+        <item>Music</item>
+        <item>Calendar</item>
+        <item>Notifications</item>
+        <item>Toggles</item>
+        <item>Stopwatch</item>
+        <item>Calculator</item>
+    </string-array>
+    <integer-array name="modules_ids">
+        <item>@id/torch</item>
+        <item>@id/music</item>
+        <item>@id/calendar</item>
+        <item>@id/notifications</item>
+        <item>@id/toggles</item>
+        <item>@id/stopwatch</item>
+        <item>@id/calculator</item>
+    </integer-array>
+    <integer-array name="modules_icons">
+        <item>@drawable/torch_icon</item>
+        <item>@drawable/music_icon</item>
+        <item>@drawable/calendar_icon</item>
+        <item>@drawable/notifications_icon</item>
+        <item>@drawable/toggles_icon</item>
+        <item>@drawable/clock_icon</item>
+        <item>@drawable/calculator_icon</item>
+    </integer-array>
+    <item name="torch" type="id"/>
+    <item name="music" type="id"/>
+    <item name="calendar" type="id"/>
+    <item name="notifications" type="id"/>
+    <item name="toggles" type="id"/>
+    <item name="stopwatch" type="id"/>
+    <item name="calculator" type="id"/>
+</resources>

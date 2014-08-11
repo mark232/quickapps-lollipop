@@ -56,9 +56,9 @@
     <string name="bluetooth_on">Bluetooth is turned on</string>
     <string name="bluetooth_turning_off">Turning Bluetooth off</string>
     <string name="bluetooth_turning_on">Turning Bluetooth on</string>
-    <string name="airplane_mode">Airplane mode</string>
-    <string name="airplane_off">Airplane mode is disabled</string>
-    <string name="airplane_on">Airplane mode is enabled</string>
+    <string name="hotSpot">Hotspot</string>
+    <string name="hotSpot_off">Hotspot is disabled</string>
+    <string name="hotSpot_on">Hotspot mode is enabled</string>
     <string name="cant_change_airplane_mode">Can\'t change airplane mode</string>
     <string name="brightness">Brightness</string>
     <string name="brightness_auto">Auto brightness</string>
@@ -66,6 +66,14 @@
     <string name="brightness_max">High brightness</string>
     <string name="battery">Battery</string>
     <string name="charging">charging</string>
+    <string-array name="toggles">
+        <item>@string/wifi</item>
+        <item>@string/data_data</item>
+        <item>@string/brightness</item>
+        <item>@string/sound_sound</item>
+        <item>@string/bluetooth</item>
+        <item>@string/hotSpot</item>
+    </string-array>
     <!-- Toggles Part {END] -->
     <!-- RSS Part {START] -->
     <string name="news_module_name">Quick News</string>
@@ -100,5 +108,75 @@
     <string name="calculator_module_name">Quick Calculator</string>
     <string name="error">Error</string>
     <!-- Calculator Part [END]   -->
-
+    <!-- Desktop Part {START] -->
+    <string name="how_to_add">How to add</string>
+    <string name="how_to_add_step_1">1. Click the button to open the settings</string>
+    <string name="how_to_add_step_2">2. Choose "Select apps"</string>
+    <string name="how_to_add_step_3">3. Add the modules you want</string>
+    <string name="how_to_add_tip">Tip: The Quick Launcher is a regular module that let you access all the other modules!</string>
+    <string name="go_to_settings">Go to settings</string>
+    <string name="about">Quick Circle Apps is a group of modules for LG G3 Quick Circle case. The app also contains some QSlide modules.</string>
+    <string name="about_2">The app uses LG Quick Circle SDK.</string>
+    <string name="about_3">Author: Yoav Sternberg</string>
+    <string name="about_4">Contact: yoav.goop@gmail.com</string>
+    <string name="about_mail_chooser">Choose mail client</string>
+    <string name="about_intent_failed">No mail clients installed</string>
+    <string name="source_description">The source for Quick Circle Apps is stored on Github. The app uses Gradle to manage all the dependencies.</string>
+    <string name="about_libraries">Credits:</string>
+    <string-array name="drawer_primary_items">
+        <item>Modules</item>
+        <item>Source</item>
+    </string-array>
+    <string-array name="drawer_secondary_items">
+        <item>How to add</item>
+        <item>About</item>
+    </string-array>
+    <array name="drawer_secondary_icons">
+        <item>@drawable/ic_action_help</item>
+        <item>@drawable/ic_action_about</item>
+    </array>
+    <string name="quick">Quick</string>
+    <string name="settings">Settings</string>
+            <string name="credits">
+        <![CDATA[
+&#8226;LG for their Quick Circle and QSlide SDKs.<br>
+&#8226;Excilys team for <a href="https://github.com/excilys/androidannotations/wiki">Android annotations</a> that made my life a lot easier.<br>
+&#8226;Joan Zapata for <a href="https://github.com/JoanZapata/android-iconify">android-iconify</a>.<br>
+&#8226;Google for Android, Support V4, V13 packages and GSON.<br>
+&#8226;Jake Wharton for <a href="http://viewpagerindicator.com/">viewpagerindicator</a>.<br>
+&#8226;Pablo Fernandez For <a href="https://github.com/fernandezpablo85/scribe-java">Scribe-java</a>.<br>
+&#8226;<a href="http://www.blackbearblanc.dk/">Jeppe Foldager</a> for its wonderful icons.<br>
+&#8226;Miras Absar for <a href="https://github.com/mirasmithy/airy">Airy</a>.<br>
+&#8226;Udo Klimaschewski For <a href="https://github.com/uklimaschewski/EvalEx">EvalEx</a>.<br>
+&#8226;Evgeny Shishkin for <a href="https://github.com/johnkil/Android-RobotoTextView">RobotoTextView</a>.<br>
+&#8226;Jeff Gilfelt for <a href="https://github.com/jgilfelt/SystemBarTint">SystemBarTint</a>.<br>
+&#8226;Faiz Malkani for <a href="https://github.com/FaizMalkani/FloatingActionButton">FloatingActionButton</a>.<br>
+        ]]>
+    </string>
+    <string name="torch_launcher_shortcut">Launcher shortcut</string>
+    <string name="torch_launcher_shortcut_subtext">Show torch module icon in your app drawer</string>
+    <string name="torch_qslide_shortcut">QSlide shortcut</string>
+    <string name="torch_qslide_shortcut_subtext">Show torch module icon in the QSlide bar</string>
+    <string name="reboot_for_update">Reboot or restart SystemUI for applying the change</string>
+    <string name="restart_launcher_for_update">Reboot or restart your launcher for applying the change</string>
+    <string name="torch_force_floating">Force floating mode</string>
+    <string name="torch_force_floating_subtext">Force QSlide floating mode for the torch module</string>
+    <string name="changed_successfully">Changed successfully</string>
+    <string name="music_listener_title">Open Notification Listener Settings</string>
+    <string name="music_listener_subtitle">The module need access to notifications to work</string>
+    <string name="repeating_title">Show repeating events</string>
+    <string name="location_title">Show event location</string>
+    <string name="location_subtitle">Everyone that access your phone will be able to see the event\'s location</string>
+    <string name="privacy_title">Show notifications content</string>
+    <string name="privacy_subtitle">The content of your notification may be secret</string>
+    <string name="launcher_control_items">Order modules</string>
+    <string name="launcher_control_items_subtitle">Order the modules in the launcher</string>
+    <string name="toggles_order_items">Order toggles</string>
+    <string name="toggles_order_items_subtitle">Order the toggles in the module</string>
+    <string name="battery_title">Show battery percents</string>
+    <string name="battery_subtitle">Show battery percents as the first toggle</string>
+    <string name="force_floating_subtext">On open the case, it will launch the calculator on floating mode</string>
+    <string name="show_millis_title">Show milliseconds</string>
+    <string name="show_millis_subtitle">Show milliseconds in the timer</string>
+    <!-- Desktop Part {END]  -->
 </resources>

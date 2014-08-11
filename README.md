@@ -24,8 +24,11 @@ The app uses LG Quick Circle SDK and QSlide SDK.
 * Jake Wharton for [viewpagerindicator](http://viewpagerindicator.com/).  
 * Pablo Fernandez For [Scribe-java](https://github.com/fernandezpablo85/scribe-java).  
 * [Jeppe Foldager](http://www.blackbearblanc.dk/) for its wonderful icons. 
-* Miras Absar for [Airy](https://github.com/mirasmithy/airy)
+* Miras Absar for [Airy](https://github.com/mirasmithy/airy).
 * Udo Klimaschewski For [EvalEx](https://github.com/uklimaschewski/EvalEx).
+* Evgeny Shishkin for [RobotoTextView](https://github.com/johnkil/Android-RobotoTextView).
+* Jeff Gilfelt for [SystemBarTint](https://github.com/jgilfelt/SystemBarTint).
+* Faiz Malkani for [FloatingActionButton](https://github.com/FaizMalkani/FloatingActionButton).
 
 License
 -------

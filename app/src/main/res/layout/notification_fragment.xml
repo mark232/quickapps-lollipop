@@ -32,7 +32,8 @@
         tools:text="USB debugging connected"
         android:textAllCaps="true"
         android:layout_below="@+id/notification_time"
-        android:textColor="@android:color/white"/>
+        android:textColor="@android:color/white"
+        tools:ignore="RtlSymmetry"/>
 
     <ScrollView
         android:layout_width="match_parent"

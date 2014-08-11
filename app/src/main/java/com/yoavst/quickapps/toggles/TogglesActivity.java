@@ -26,7 +26,7 @@ public class TogglesActivity extends BaseQuickCircleActivity {
 
 	@AfterViews
 	void init() {
-		mAdapter = new TogglesAdapter(getFragmentManager());
+		mAdapter = new TogglesAdapter(getFragmentManager(),this);
 		mPager.setAdapter(mAdapter);
 		final PackageManager pm = getPackageManager();
 		final ApplicationInfo applicationInfo;

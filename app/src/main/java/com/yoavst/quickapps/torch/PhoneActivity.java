@@ -13,12 +13,14 @@ import android.widget.IconTextView;
 
 import com.lge.app.floating.FloatableActivity;
 import com.lge.app.floating.FloatingWindow;
+import com.yoavst.quickapps.Preferences_;
 import com.yoavst.quickapps.R;
 
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.res.ColorRes;
+import org.androidannotations.annotations.sharedpreferences.Pref;
 
 @EActivity(R.layout.torch_activity_phone)
 public class PhoneActivity extends FloatableActivity {
@@ -35,12 +37,17 @@ public class PhoneActivity extends FloatableActivity {
 	@ColorRes(R.color.torch_color_off)
 	static int mColorTorchOff;
 	NotificationManager mNotificationManager;
+	@Pref
+	Preferences_ prefs;
 	public static Notification mNotification;
 
 	public void onCreate(Bundle savedInstance) {
 		super.onCreate(savedInstance);
 		mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 		createNotification(this);
+		if (prefs.torchForceFloating().get())
+			switchToFloatingMode();
+
 	}
 
 	@Override

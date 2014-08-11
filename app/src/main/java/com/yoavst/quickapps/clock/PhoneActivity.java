@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.lge.app.floating.FloatableActivity;
 import com.lge.app.floating.FloatingWindow;
+import com.yoavst.quickapps.Preferences_;
 import com.yoavst.quickapps.R;
 
 import org.androidannotations.annotations.EActivity;
@@ -41,9 +42,12 @@ public class PhoneActivity extends FloatableActivity {
 	public static final String ACTION_FLOATING_CLOSE = "floating_close";
 
 	String DEFAULT_STOPWATCH = "<big>00:00:00</big><small>.00</small>";
+	String DEFAULT_STOPWATCH_NO_MILLIS = "<big>00:00:00</big>";
 	Handler mHandler;
 	private static final String TIME_FORMATTING = "<big>{0}:{1}:{2}</big><small>.{3}</small>";
+	private static final String TIME_FORMATTING_NO_MILLIS = "<big>{0}:{1}:{2}</big>";
 	Runnable mCallback;
+	boolean showMillis = true;
 
 	BroadcastReceiver mReceiver = new BroadcastReceiver() {
 		@Override
@@ -81,7 +85,7 @@ public class PhoneActivity extends FloatableActivity {
 			ImageButton fullscreenButton = (ImageButton) w.findViewWithTag
 					(FloatingWindow.Tag.FULLSCREEN_BUTTON);
 			if (fullscreenButton != null) {
-				((ViewGroup)fullscreenButton.getParent()).removeView(fullscreenButton);
+				((ViewGroup) fullscreenButton.getParent()).removeView(fullscreenButton);
 			}
 			init();
 		}
@@ -113,6 +117,7 @@ public class PhoneActivity extends FloatableActivity {
 	}
 
 	void init() {
+		showMillis = new Preferences_(this).stopwatchShowMillis().get();
 		mTime = (TextView) findViewById(R.id.time);
 		mStart = (Button) findViewById(R.id.start);
 		mPause = (Button) findViewById(R.id.pause);
@@ -135,7 +140,7 @@ public class PhoneActivity extends FloatableActivity {
 				stopStopwatch();
 			}
 		});
-		mTime.setText(Html.fromHtml(DEFAULT_STOPWATCH));
+		mTime.setText(Html.fromHtml(showMillis ? DEFAULT_STOPWATCH : DEFAULT_STOPWATCH_NO_MILLIS));
 		mHandler = new Handler();
 		initCallback();
 		if (StopwatchManager.hasOldData()) {
@@ -155,8 +160,12 @@ public class PhoneActivity extends FloatableActivity {
 						long millis = StopwatchManager.getMillis();
 						// Updating the UI
 						int num = (int) (millis % 1000 / 10);
-						mTime.setText(Html.fromHtml(MessageFormat.format(TIME_FORMATTING, format(getFromMilli(millis, TimeUnit.HOURS)),
-								format(getFromMilli(millis, TimeUnit.MINUTES)), format(getFromMilli(millis, TimeUnit.SECONDS)), format(num))));
+						if (showMillis)
+							mTime.setText(Html.fromHtml(MessageFormat.format(TIME_FORMATTING, format(getFromMilli(millis, TimeUnit.HOURS)),
+									format(getFromMilli(millis, TimeUnit.MINUTES)), format(getFromMilli(millis, TimeUnit.SECONDS)), format(num))));
+						else
+							mTime.setText(Html.fromHtml(MessageFormat.format(TIME_FORMATTING_NO_MILLIS, format(getFromMilli(millis, TimeUnit.HOURS)),
+									format(getFromMilli(millis, TimeUnit.MINUTES)), format(getFromMilli(millis, TimeUnit.SECONDS)))));
 					}
 				});
 			}
@@ -183,6 +192,7 @@ public class PhoneActivity extends FloatableActivity {
 	}
 
 	void startStopwatch() {
+		showMillis = new Preferences_(this).stopwatchShowMillis().get();
 		setLookRunning();
 		StopwatchManager.startTimer(10, mCallback);
 	}

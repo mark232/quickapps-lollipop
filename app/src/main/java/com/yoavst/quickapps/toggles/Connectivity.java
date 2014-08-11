@@ -3,8 +3,13 @@ package com.yoavst.quickapps.toggles;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.wifi.WifiConfiguration;
+import android.net.wifi.WifiManager;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 /**
  * Check device's network connectivity and speed
@@ -126,6 +131,35 @@ public class Connectivity {
 
 	public static boolean isAirplaneMode(Context context) {
 		return Integer.parseInt(Settings.Global.getString(context.getContentResolver(), Settings.Global.AIRPLANE_MODE_ON)) != 0;
+	}
+
+	public static boolean isApOn(Context context) {
+		WifiManager wifimanager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+		try {
+			Method method = wifimanager.getClass().getDeclaredMethod("isWifiApEnabled");
+			method.setAccessible(true);
+			return (Boolean) method.invoke(wifimanager);
+		} catch (Throwable ignored) {
+		}
+		return false;
+	}
+
+	//turn on/off wifi hotspot as toggle
+	public static boolean configApState(Context context) {
+		WifiManager wifimanager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+		WifiConfiguration wificonfiguration = null;
+		try {
+			if (isApOn(context)) {
+				//turn off whether wifi is on
+				wifimanager.setWifiEnabled(false);
+			}
+			Method method = wifimanager.getClass().getMethod("setWifiApEnabled", WifiConfiguration.class, boolean.class);
+			method.invoke(wifimanager, wificonfiguration, !isApOn(context));
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 }

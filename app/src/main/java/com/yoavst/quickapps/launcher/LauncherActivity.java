@@ -2,14 +2,22 @@ package com.yoavst.quickapps.launcher;
 
 import android.annotation.SuppressLint;
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.TypedArray;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.yoavst.quickapps.BaseQuickCircleActivity;
+import com.yoavst.quickapps.Preferences_;
 import com.yoavst.quickapps.R;
 
 import org.androidannotations.annotations.AfterViews;
@@ -18,28 +26,49 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Collections;
+
 /**
  * Created by Yoav.
  */
 @EActivity
 public class LauncherActivity extends BaseQuickCircleActivity implements View.OnClickListener {
-	final static int[] ICON_IDS = {R.id.torch, R.id.calendar, R.id.notification, R.id.music, R.id.toggles, R.id.stopwatch, R.id.calculator/*, R.id.news*/};
+	public static Type listType = new TypeToken<ArrayList<ListItem>>() {
+	}.getType();
 	@Pref
-	LauncherPrefs_ mPrefs;
+	Preferences_ mPrefs;
 	@ViewById(R.id.change_orientation)
 	ImageButton mChange;
+	ArrayList<ListItem> items;
+	int marginSize;
+	int iconSize;
 
 	@AfterViews
 	void init() {
-		boolean isVertical = mPrefs.isVertical().get();
+		if (mPrefs.launcherItems().exists())
+			items = new Gson().fromJson(mPrefs.launcherItems().get(), listType);
+		else items = initDefaultIcons(this);
+		iconSize = (int) TypedValue.applyDimension(
+				TypedValue.COMPLEX_UNIT_DIP,
+				64,
+				getResources().getDisplayMetrics()
+		);
+		marginSize = (int) TypedValue.applyDimension(
+				TypedValue.COMPLEX_UNIT_DIP,
+				10,
+				getResources().getDisplayMetrics()
+		);
+		boolean isVertical = mPrefs.launcherIsVertical().get();
 		setChangeDrawable(isVertical);
 		getFragmentManager().beginTransaction().replace(R.id.quick_circle_fragment, isVertical ? new VerticalFragment() : new HorizontalFragment()).commit();
 	}
 
 	@Click(R.id.change_orientation)
 	public void ChangeOrientation() {
-		boolean newState = !mPrefs.isVertical().get();
-		mPrefs.isVertical().put(newState);
+		boolean newState = !mPrefs.launcherIsVertical().get();
+		mPrefs.launcherIsVertical().put(newState);
 		setChangeDrawable(newState);
 		getFragmentManager().beginTransaction().replace(R.id.quick_circle_fragment, newState ? new VerticalFragment() : new HorizontalFragment()).commit();
 
@@ -82,7 +111,7 @@ public class LauncherActivity extends BaseQuickCircleActivity implements View.On
 			case R.id.music:
 				com.yoavst.quickapps.music.RemoteControlActivity_.intent(this).start();
 				break;
-			case R.id.notification:
+			case R.id.notifications:
 				com.yoavst.quickapps.notifications.CircleActivity_.intent(this).start();
 				break;
 			case R.id.calendar:
@@ -93,9 +122,6 @@ public class LauncherActivity extends BaseQuickCircleActivity implements View.On
 				break;
 			case R.id.calculator:
 				com.yoavst.quickapps.calculator.QuickActivity_.intent(this).start();
-			/*case R.id.news:
-				com.yoavst.quickapps.news.QuickActivity_.intent(this).start();
-				break;*/
 		}
 		finish();
 	}
@@ -105,8 +131,20 @@ public class LauncherActivity extends BaseQuickCircleActivity implements View.On
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 			View view = inflater.inflate(R.layout.launcher_fragment_vertical, container, false);
-			for (int id : ICON_IDS) {
-				view.findViewById(id).setOnClickListener(LauncherActivity.this);
+			TableLayout layout = (TableLayout) view.findViewById(R.id.table_layout);
+			TableLayout.LayoutParams tableParams = new TableLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT);
+			TableRow.LayoutParams rowParams = new TableRow.LayoutParams(iconSize, iconSize);
+			tableParams.setMargins(0, marginSize, 0, 0);
+			rowParams.setMargins(0, 0, marginSize, 0);
+			TableRow lastRow = null;
+			for (int i = 0; i < items.size(); i++) {
+				if (i % 2 == 0) {
+					lastRow = new TableRow(getActivity());
+					lastRow.setLayoutParams(tableParams);
+					layout.addView(lastRow);
+				}
+				if (lastRow != null)
+					lastRow.addView(setOnClick(createLauncherIcon(items.get(i), rowParams)));
 			}
 			return view;
 		}
@@ -117,10 +155,76 @@ public class LauncherActivity extends BaseQuickCircleActivity implements View.On
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 			View view = inflater.inflate(R.layout.launcher_fragment_horizontal, container, false);
-			for (int id : ICON_IDS) {
-				view.findViewById(id).setOnClickListener(LauncherActivity.this);
+			TableLayout layout = (TableLayout) view.findViewById(R.id.table_layout);
+			final int maxItemsPerLine = (items.size() / 2 + 1);
+			TableLayout.LayoutParams tableParams = new TableLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT);
+			TableRow.LayoutParams rowParams = new TableRow.LayoutParams(iconSize, iconSize);
+			tableParams.setMargins(0, marginSize, 0, 0);
+			rowParams.setMargins(0, 0, marginSize, 0);
+			TableRow lastRow = null;
+			for (int i = 0; i < items.size(); i++) {
+				if (i % maxItemsPerLine == 0) {
+					lastRow = new TableRow(getActivity());
+					lastRow.setLayoutParams(tableParams);
+					layout.addView(lastRow);
+				}
+				int index = i < maxItemsPerLine ? i * 2 : (i - maxItemsPerLine) * 2 + 1;
+				if (lastRow != null)
+					lastRow.addView(setOnClick(createLauncherIcon(items.get(index), rowParams)));
+
 			}
 			return view;
 		}
+	}
+
+	private View setOnClick(View view) {
+		view.setOnClickListener(this);
+		return view;
+	}
+
+	private ImageButton createLauncherIcon(ListItem item, ViewGroup.LayoutParams params) {
+		ImageButton imageButton = new ImageButton(this);
+		imageButton.setLayoutParams(params);
+		imageButton.setBackground(null);
+		imageButton.setImageResource(item.drawable);
+		imageButton.setId(item.id);
+		return imageButton;
+	}
+
+	public static ArrayList<ListItem> initDefaultIcons(Context context) {
+		final String[] modules = context.getResources().getStringArray(R.array.modules_launcher);
+		final TypedArray ids = context.getResources().obtainTypedArray(R.array.modules_ids);
+		final TypedArray icon = context.getResources().obtainTypedArray(R.array.modules_icons);
+		ArrayList<ListItem> ITEMS = new ArrayList<>(modules.length);
+		for (int i = 0; i < modules.length; i++) {
+			ITEMS.add(new ListItem(modules[i], icon.getResourceId(i, 0), ids.getResourceId(i, 0)));
+		}
+		new Preferences_(context).launcherItems().put(new Gson().toJson(ITEMS, listType));
+		return ITEMS;
+	}
+
+	public static ArrayList<ListItem> addNewIcons(Context context, ListItem... items) {
+		Preferences_ prefs = new Preferences_(context);
+		ArrayList<ListItem> listItems;
+		if (!prefs.launcherItems().exists()) listItems = initDefaultIcons(context);
+		else listItems = new Gson().fromJson(prefs.launcherItems().get(), listType);
+		if (items.length != 0) {
+			Collections.addAll(listItems, items);
+			prefs.launcherItems().put(new Gson().toJson(items, listType));
+		}
+		return listItems;
+	}
+
+	public static class ListItem {
+		public String name;
+		public int drawable;
+		public int id;
+
+		public ListItem(String name, int drawable, int id) {
+			this.name = name;
+			this.drawable = drawable;
+			this.id = id;
+		}
+
 	}
 }

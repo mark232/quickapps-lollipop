@@ -3,6 +3,7 @@ package com.yoavst.quickapps.calculator;
 import android.content.Intent;
 
 import com.yoavst.quickapps.BaseQuickCircleActivity;
+import com.yoavst.quickapps.Preferences_;
 import com.yoavst.quickapps.R;
 
 import org.androidannotations.annotations.AfterViews;
@@ -14,16 +15,17 @@ import org.androidannotations.annotations.EActivity;
  */
 @EActivity
 public class QuickActivity extends BaseQuickCircleActivity {
-
+	boolean forceFloating = false;
 	@AfterViews
 	void init() {
 		getFragmentManager().beginTransaction().replace(R.id.quick_circle_fragment, CalculatorFragment_.builder().build()).commit();
+		forceFloating = new Preferences_(this).calculatorForceFloating().get();
 	}
 
 	@Override
 	protected Intent getIntentForOpenCase() {
 		return new Intent().setClassName("com.android.calculator2",
-				"com.android.calculator2.Calculator");
+				"com.android.calculator2.Calculator").putExtra("com.lge.app.floating.launchAsFloating", forceFloating);
 	}
 
 	@Override

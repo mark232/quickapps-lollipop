@@ -80,8 +80,10 @@
     </content>
     <orderEntry type="jdk" jdkName="Android API 20 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" exported="" name="robototextview-2.1.0" level="project" />
     <orderEntry type="library" exported="" name="rfc2445-4Mar2011" level="project" />
     <orderEntry type="library" exported="" name="android-iconify-1.0.6" level="project" />
+    <orderEntry type="library" exported="" name="systembartint-1.0.3" level="project" />
     <orderEntry type="library" exported="" name="LGQSlideAPIs" level="project" />
     <orderEntry type="library" exported="" name="gson-2.2.4" level="project" />
     <orderEntry type="library" exported="" name="viewpagerindicator-2.4.1" level="project" />

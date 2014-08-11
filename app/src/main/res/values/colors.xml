@@ -8,5 +8,19 @@
     <color name="back_background_pressed">#C6C9CC</color>
     <color name="back_background_dark_normal">@android:color/black</color>
     <color name="back_background_dark_pressed">#C6C9CC</color>
-
+    <color name="primary">#3A0C53</color>
+    <color name="primary_dark">#2B093E</color>
+    <color name="grey_background">#eeeeee</color>
+    <color name="material_blue">#5677fc</color>
+    <color name="material_light_blue">#03a9f4</color>
+    <array name="icons_colors">
+        <item>#FF57BFB9</item>
+        <item>#FF754DAA</item>
+        <item>#FF62B08E</item>
+        <item>#FFF0B539</item>
+        <item>#FF7A8AA9</item>
+        <item>#FF496578</item>
+        <item>#FF996C68</item>
+        <item>#FF93A59B</item>
+    </array>
 </resources>

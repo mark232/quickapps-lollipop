@@ -23,7 +23,7 @@ public class StopwatchManager {
 	}
 
 	private static void startTimer() {
-		new Timer().schedule(sStopwatch, 0, sPeriod);
+		new Timer().schedule(sStopwatch, 10, sPeriod);
 	}
 
 	private static void initStopwatch() {
@@ -52,8 +52,8 @@ public class StopwatchManager {
 		sRunnable = callback;
 		if (hasOldData() && sStopwatch == null) {
 			initStopwatch();
-			sStopwatch.isRunning(false);
 			startTimer();
+			sStopwatch.isRunning(false);
 			if (sRunnable != null) sRunnable.run();
 		}
 	}
