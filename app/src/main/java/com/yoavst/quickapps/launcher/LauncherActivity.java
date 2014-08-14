@@ -47,9 +47,13 @@ public class LauncherActivity extends BaseQuickCircleActivity implements View.On
 
 	@AfterViews
 	void init() {
-		if (mPrefs.launcherItems().exists())
-			items = new Gson().fromJson(mPrefs.launcherItems().get(), listType);
-		else items = initDefaultIcons(this);
+		if (mPrefs.launcherItems().exists()) {
+            ArrayList<ListItem> allItems = new Gson().fromJson(mPrefs.launcherItems().get(), listType);
+            items = new ArrayList<>(allItems.size());
+            for(ListItem item : allItems)
+                if(item.enabled)
+                    items.add(item);
+        } else items = initDefaultIcons(this);
 		iconSize = (int) TypedValue.applyDimension(
 				TypedValue.COMPLEX_UNIT_DIP,
 				64,
@@ -61,6 +65,12 @@ public class LauncherActivity extends BaseQuickCircleActivity implements View.On
 				getResources().getDisplayMetrics()
 		);
 		boolean isVertical = mPrefs.launcherIsVertical().get();
+        if(items.size() < 5) {
+            isVertical = true;
+            mChange.setVisibility(View.GONE);
+            View backBtn = findViewById(R.id.quick_circle_back_btn);
+            backBtn.setPadding(0, 0, 0, backBtn.getPaddingBottom());
+        }
 		setChangeDrawable(isVertical);
 		getFragmentManager().beginTransaction().replace(R.id.quick_circle_fragment, isVertical ? new VerticalFragment() : new HorizontalFragment()).commit();
 	}
@@ -156,7 +166,7 @@ public class LauncherActivity extends BaseQuickCircleActivity implements View.On
 		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 			View view = inflater.inflate(R.layout.launcher_fragment_horizontal, container, false);
 			TableLayout layout = (TableLayout) view.findViewById(R.id.table_layout);
-			final int maxItemsPerLine = (items.size() / 2 + 1);
+			final int maxItemsPerLine = items.size()%2==0?items.size()/2:(items.size() / 2 + 1);
 			TableLayout.LayoutParams tableParams = new TableLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT);
 			TableRow.LayoutParams rowParams = new TableRow.LayoutParams(iconSize, iconSize);
 			tableParams.setMargins(0, marginSize, 0, 0);
@@ -197,7 +207,7 @@ public class LauncherActivity extends BaseQuickCircleActivity implements View.On
 		final TypedArray icon = context.getResources().obtainTypedArray(R.array.modules_icons);
 		ArrayList<ListItem> ITEMS = new ArrayList<>(modules.length);
 		for (int i = 0; i < modules.length; i++) {
-			ITEMS.add(new ListItem(modules[i], icon.getResourceId(i, 0), ids.getResourceId(i, 0)));
+			ITEMS.add(new ListItem(modules[i], icon.getResourceId(i, 0), ids.getResourceId(i, 0), true));
 		}
 		new Preferences_(context).launcherItems().put(new Gson().toJson(ITEMS, listType));
 		return ITEMS;
@@ -218,12 +228,14 @@ public class LauncherActivity extends BaseQuickCircleActivity implements View.On
 	public static class ListItem {
 		public String name;
 		public int drawable;
+        public boolean enabled;
 		public int id;
 
-		public ListItem(String name, int drawable, int id) {
+		public ListItem(String name, int drawable, int id, boolean enabled) {
 			this.name = name;
 			this.drawable = drawable;
 			this.id = id;
+            this.enabled = enabled;
 		}
 
 	}

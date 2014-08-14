@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -84,20 +85,31 @@ public class LauncherFragment extends Fragment {
 			if (convertView == null) {
 				convertView = LayoutInflater.from(getActivity()).inflate(R.layout.desktop_module_launcher_item, parent, false);
 				holder = new ViewHolder(convertView);
+                holder.enabled.setTag(position);
+                holder.enabled.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        CheckBox check = (CheckBox) view;
+                        getItem((Integer) check.getTag()).enabled = check.isChecked();
+                    }
+                });
 				convertView.setTag(holder);
 			} else holder = (ViewHolder) convertView.getTag();
 			holder.name.setText(getItem(position).name);
 			holder.icon.setImageResource(getItem(position).drawable);
+            holder.enabled.setChecked(getItem(position).enabled);
 			return convertView;
 		}
 
 		private class ViewHolder {
 			TextView name;
 			ImageView icon;
+            CheckBox enabled;
 
 			public ViewHolder(View view) {
 				name = (TextView) view.findViewById(R.id.name);
 				icon = (ImageView) view.findViewById(R.id.icon);
+                enabled = (CheckBox) view.findViewById(R.id.enabled);
 			}
 		}
 	}
