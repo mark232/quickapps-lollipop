@@ -11,7 +11,6 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
 import com.mobeta.android.dslv.DragSortListView;
 import com.yoavst.quickapps.Preferences_;
 import com.yoavst.quickapps.R;
@@ -36,7 +35,7 @@ public class LauncherFragment extends Fragment {
 	@AfterViews
 	void init() {
 		if (mPrefs.launcherItems().exists())
-			mItems = new Gson().fromJson(mPrefs.launcherItems().get(), LauncherActivity.listType);
+			mItems = LauncherActivity.gson.fromJson(mPrefs.launcherItems().get(), LauncherActivity.listType);
 		else
 			mItems = LauncherActivity.initDefaultIcons(getActivity());
 	}
@@ -63,7 +62,7 @@ public class LauncherFragment extends Fragment {
 		new AlertDialog.Builder(getActivity()).setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				mPrefs.launcherItems().put(new Gson().toJson(mItems, LauncherActivity.listType));
+				mPrefs.launcherItems().put(LauncherActivity.gson.toJson(mItems, LauncherActivity.listType));
 			}
 		}).setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
 			@Override

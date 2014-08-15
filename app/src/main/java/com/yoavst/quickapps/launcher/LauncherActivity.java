@@ -15,6 +15,8 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.annotations.Since;
 import com.google.gson.reflect.TypeToken;
 import com.yoavst.quickapps.BaseQuickCircleActivity;
 import com.yoavst.quickapps.Preferences_;
@@ -37,6 +39,12 @@ import java.util.Collections;
 public class LauncherActivity extends BaseQuickCircleActivity implements View.OnClickListener {
 	public static Type listType = new TypeToken<ArrayList<ListItem>>() {
 	}.getType();
+	public static final Gson gson;
+	static {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.registerTypeAdapter(ListItem.class, new LauncherDeserializer());
+		gson = gsonBuilder.create();
+	}
 	@Pref
 	Preferences_ mPrefs;
 	@ViewById(R.id.change_orientation)
@@ -48,7 +56,7 @@ public class LauncherActivity extends BaseQuickCircleActivity implements View.On
 	@AfterViews
 	void init() {
 		if (mPrefs.launcherItems().exists()) {
-            ArrayList<ListItem> allItems = new Gson().fromJson(mPrefs.launcherItems().get(), listType);
+            ArrayList<ListItem> allItems = gson.fromJson(mPrefs.launcherItems().get(), listType);
             items = new ArrayList<>(allItems.size());
             for(ListItem item : allItems)
                 if(item.enabled)
@@ -209,7 +217,7 @@ public class LauncherActivity extends BaseQuickCircleActivity implements View.On
 		for (int i = 0; i < modules.length; i++) {
 			ITEMS.add(new ListItem(modules[i], icon.getResourceId(i, 0), ids.getResourceId(i, 0), true));
 		}
-		new Preferences_(context).launcherItems().put(new Gson().toJson(ITEMS, listType));
+		new Preferences_(context).launcherItems().put(gson.toJson(ITEMS, listType));
 		return ITEMS;
 	}
 
@@ -217,10 +225,10 @@ public class LauncherActivity extends BaseQuickCircleActivity implements View.On
 		Preferences_ prefs = new Preferences_(context);
 		ArrayList<ListItem> listItems;
 		if (!prefs.launcherItems().exists()) listItems = initDefaultIcons(context);
-		else listItems = new Gson().fromJson(prefs.launcherItems().get(), listType);
+		else listItems = gson.fromJson(prefs.launcherItems().get(), listType);
 		if (items.length != 0) {
 			Collections.addAll(listItems, items);
-			prefs.launcherItems().put(new Gson().toJson(items, listType));
+			prefs.launcherItems().put(gson.toJson(items, listType));
 		}
 		return listItems;
 	}
@@ -228,6 +236,7 @@ public class LauncherActivity extends BaseQuickCircleActivity implements View.On
 	public static class ListItem {
 		public String name;
 		public int drawable;
+		@Since(2.05)
         public boolean enabled;
 		public int id;
 
