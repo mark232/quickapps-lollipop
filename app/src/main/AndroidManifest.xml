@@ -111,6 +111,22 @@
                 android:name="min version"/>
         </activity-alias>
         <!-- Torch part [END]   -->
+        <!-- Compass part [START] -->
+        <activity
+            android:name=".compass.QuickActivity_"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:excludeFromRecents="true"
+            android:theme="@style/darkTheme"
+            android:icon="@drawable/compass_icon"
+            android:label="@string/compass_module_name"
+            android:taskAffinity="com.yoavst.quickapps.compass"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="com.lge.quickcover"/>
+            </intent-filter>
+        </activity>
+        <!-- Compass part [END]   -->
         <!-- Music part [START] -->
         <activity
             android:name=".music.RemoteControlActivity_"

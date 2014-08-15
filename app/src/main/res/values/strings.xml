@@ -8,6 +8,9 @@
     <string name="torch_is_on">Torch is On</string>
     <string name="touch_to_turn_off">Touch to turn off</string>
     <!-- Torch Part {END]   -->
+    <!-- Compass Part [START] -->
+    <string name="compass_module_name">Quick Compass</string>
+    <!-- Compass Part {END]   -->
     <!-- Music Part [START] -->
     <string name="music_module_name">Quick Music</string>
     <string name="unknown">unknown</string>
