@@ -140,6 +140,8 @@ public class LauncherActivity extends BaseQuickCircleActivity implements View.On
 				break;
 			case R.id.calculator:
 				com.yoavst.quickapps.calculator.QuickActivity_.intent(this).start();
+            case R.id.compass:
+                com.yoavst.quickapps.compass.QuickActivity_.intent(this).start();
 		}
 		finish();
 	}

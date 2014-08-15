@@ -46,6 +46,9 @@ public class ModulesAdapter extends FragmentPagerAdapter {
 			case 7:
 				fragment = CalculatorFragment_.builder().build();
 				break;
+            case 8:
+                fragment = CompassFragment_.builder().build();
+                break;
 		}
 		return fragment;
 	}
