@@ -10,6 +10,7 @@ import android.service.notification.StatusBarNotification;
 import android.support.v4.view.ViewPager;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.IconButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -49,6 +50,8 @@ public class CircleActivity extends BaseQuickCircleActivity implements ServiceCo
 	RelativeLayout mErrorLayout;
 	@ViewById(R.id.notification_indicator)
 	CirclePageIndicator mIndicator;
+    @ViewById(R.id.notification_cancel)
+    IconButton mCancelButton;
 
 	void initNotifications() {
 		if (mBound && !shouldRegister) {
@@ -59,8 +62,21 @@ public class CircleActivity extends BaseQuickCircleActivity implements ServiceCo
 			} else if (mPager.getAdapter() == null) {
 				mErrorLayout.setVisibility(View.GONE);
 				mAdapter = new NotificationAdapter(getFragmentManager());
-				mPager.setAdapter(mAdapter);
-				mIndicator.setViewPager(mPager);
+                mPager.setAdapter(mAdapter);
+                mIndicator.setViewPager(mPager);
+
+                ViewPager.OnPageChangeListener onPageChangeListener = new ViewPager.SimpleOnPageChangeListener() {
+                    @Override
+                    public void onPageSelected(int i) {
+                        if (((NotificationsFragment) mAdapter.getActiveFragment(i)).getNotification().isClearable()) {
+                            mCancelButton.setEnabled(true);
+                        } else {
+                            mCancelButton.setEnabled(false);
+                        }
+                    }
+                };
+                mIndicator.setOnPageChangeListener(onPageChangeListener);
+                onPageChangeListener.onPageSelected(0);
 			}
 
 		}
@@ -86,12 +102,14 @@ public class CircleActivity extends BaseQuickCircleActivity implements ServiceCo
 	public void onNotificationPosted(StatusBarNotification statusBarNotification) {
 		NotificationsManager.addNotification(statusBarNotification);
 		mPager.getAdapter().notifyDataSetChanged();
+        mIndicator.notifyDataSetChanged();
 	}
 
 	@Override
 	public void onNotificationRemoved(StatusBarNotification statusBarNotification) {
 		NotificationsManager.removeNotification(statusBarNotification);
 		mPager.getAdapter().notifyDataSetChanged();
+        mIndicator.notifyDataSetChanged();
 	}
 
 	@Click(R.id.quick_circle_back_btn)
@@ -99,14 +117,22 @@ public class CircleActivity extends BaseQuickCircleActivity implements ServiceCo
 		finish();
 	}
 
+    @Click(R.id.notification_cancel)
+    public void onCancelClicked() {
+        cancelNotification(getActiveFragment().getNotification());
+    }
+
+    private NotificationsFragment getActiveFragment() {
+        return (NotificationsFragment) mAdapter.getActiveFragment(mPager.getCurrentItem());
+    }
+
 	@Override
 	protected Intent getIntentForOpenCase() {
 		if (shouldRegister)
 			return new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
 		else {
 			try {
-				StatusBarNotification statusBarNotification = ((NotificationsFragment_) getFragmentManager().findFragmentByTag("android:switcher:" + R.id.notification_pager + ":" + mPager.getCurrentItem()))
-						.getNotification();
+				StatusBarNotification statusBarNotification = getActiveFragment().getNotification();
 				statusBarNotification.getNotification().contentIntent.send();
 			} catch (Exception e) {
 				// Do nothing
@@ -158,6 +184,7 @@ public class CircleActivity extends BaseQuickCircleActivity implements ServiceCo
 		mTitleError.setText(R.string.open_the_case);
 		mExtraError.setText(R.string.register_us_please);
 		mImageError.setImageResource(R.drawable.ic_error);
+        mCancelButton.setEnabled(false);
 	}
 
 	@Override
