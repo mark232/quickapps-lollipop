@@ -35,7 +35,7 @@ public class LauncherFragment extends Fragment {
 	@AfterViews
 	void init() {
 		if (mPrefs.launcherItems().exists())
-			mItems = LauncherActivity.gson.fromJson(mPrefs.launcherItems().get(), LauncherActivity.listType);
+			mItems = LauncherActivity.getIconsFromPrefs(getActivity());
 		else
 			mItems = LauncherActivity.initDefaultIcons(getActivity());
 	}
