@@ -78,15 +78,41 @@
                 android:textSize="17dp"/>
         </RelativeLayout>
 
+        <LinearLayout
+        android:id="@+id/back_layout"
+        android:layout_width="285.5dp"
+        android:layout_height="64.75dp"
+        android:layout_below="@id/notification_indicator"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal">
+
         <ImageButton
             android:id="@+id/quick_circle_back_btn"
-            android:background="@drawable/bg_quickcircle_sys_dark"
-            android:layout_width="285.5dp"
-            android:layout_height="64.75dp"
-            android:src="@drawable/quick_circle_back_dark"
-            android:scaleType="fitCenter"
-            android:layout_below="@id/notification_indicator"
-            android:layout_centerHorizontal="true"/>
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:paddingLeft="70dp"
+            android:paddingBottom="10dp"
+            android:scaleType="centerInside"
+            android:background="@drawable/back_as_half_background_dark"
+            android:src="@drawable/ic_action_back_dark"/>
+
+        <Space
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/black"/>
+
+        <IconButton
+            android:id="@+id/notification_cancel"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:paddingRight="70dp"
+            android:paddingBottom="10dp"
+            android:scaleType="centerInside"
+            android:background="@drawable/back_as_half_background_dark"
+            android:text="{fa-trash-o}"/>
+    </LinearLayout>
 
         <ImageView
             android:id="@+id/quick_circle_mask"
