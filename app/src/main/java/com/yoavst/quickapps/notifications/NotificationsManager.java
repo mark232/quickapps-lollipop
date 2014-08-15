@@ -58,9 +58,11 @@ public class NotificationsManager {
 					first.getId() == second.getId() &&
 					first.getPackageName().equals(second.getPackageName()) &&
 					first.getTag().equals(second.getTag());
-		} catch (Exception e) {
-			return false;
-		}
+		} catch (NullPointerException e) {
+            return first.getTag() == second.getTag();
+        } catch (Exception e) {
+            return false;
+        }
 	}
 
 	private static void sort() {
