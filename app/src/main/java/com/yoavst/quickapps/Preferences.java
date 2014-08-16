@@ -16,8 +16,12 @@ public interface Preferences {
 	boolean showLocation();
 	@DefaultBoolean(true)
 	boolean notificationShowContent();
-	@DefaultBoolean(true)
-	boolean launcherIsVertical();
+    @DefaultBoolean(true)
+    boolean launcherIsVertical();
+    @DefaultBoolean(false)
+    boolean launcherLoadExternalModules();
+    @DefaultBoolean(true)
+    boolean launcherAutoAddModules();
 	@DefaultBoolean(true)
 	boolean showBatteryToggle();
 	@DefaultBoolean(false)

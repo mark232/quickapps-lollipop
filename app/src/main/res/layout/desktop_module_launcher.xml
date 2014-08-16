@@ -47,6 +47,79 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"/>
             </LinearLayout>
+            <LinearLayout
+                android:id="@+id/modules_load_external_row"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="22dp"
+                android:clickable="true"
+                android:background="@drawable/linear_selector"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/load_externalg_checkbox"
+                    android:layout_width="wrap_content"
+                    android:checked="true"
+                    android:layout_height="match_parent"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:text="@string/launcher_load_external"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+                    <TextView
+                        android:text="@string/launcher_load_external_subtitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"/>
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/modules_auto_load_row"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="22dp"
+                android:clickable="true"
+                android:background="@drawable/linear_selector"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/auto_load_checkbox"
+                    android:layout_width="wrap_content"
+                    android:checked="true"
+                    android:layout_height="match_parent"/>
+
+                <LinearLayout
+                    android:text="@string/launcher_auto_add"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:text="@string/launcher_auto_add"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+                    <TextView
+                        android:text="@string/launcher_auto_add_subtitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"/>
+                </LinearLayout>
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>
