@@ -60,27 +60,31 @@ public class CircleActivity extends BaseQuickCircleActivity implements ServiceCo
 			} else if (mPager.getAdapter() == null) {
 				mErrorLayout.setVisibility(View.GONE);
 				mAdapter = new NotificationAdapter(getFragmentManager());
-                mPager.setAdapter(mAdapter);
-                mIndicator.setViewPager(mPager);
-
-                ViewPager.OnPageChangeListener onPageChangeListener = new ViewPager.SimpleOnPageChangeListener() {
-                    @Override
-                    public void onPageSelected(int i) {
-	                    try {
-		                    if (((NotificationsFragment) mAdapter.getActiveFragment(i)).getNotification().isClearable()) {
-			                    mCancelButton.setEnabled(true);
-		                    } else {
-			                    mCancelButton.setEnabled(false);
-		                    }
-	                    } catch (NullPointerException exception) {
-		                    mCancelButton.setEnabled(false);
-	                    }
-                    }
-                };
-                mIndicator.setOnPageChangeListener(onPageChangeListener);
-                onPageChangeListener.onPageSelected(0);
+				mPager.setAdapter(mAdapter);
+				mIndicator.setViewPager(mPager);
+				final ViewPager.OnPageChangeListener onPageChangeListener = new ViewPager.SimpleOnPageChangeListener() {
+					@Override
+					public void onPageSelected(int i) {
+						try {
+							if (((NotificationsFragment) mAdapter.getActiveFragment(i)).getNotification().isClearable()) {
+								mCancelButton.setEnabled(true);
+							} else {
+								mCancelButton.setEnabled(false);
+							}
+						} catch (NullPointerException exception) {
+							exception.printStackTrace();
+							mCancelButton.setEnabled(false);
+						}
+					}
+				};
+				mIndicator.setOnPageChangeListener(onPageChangeListener);
+				mPager.post(new Runnable() {
+					@Override
+					public void run() {
+						onPageChangeListener.onPageSelected(0);
+					}
+				});
 			}
-
 		}
 	}
 
