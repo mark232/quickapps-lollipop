@@ -3,7 +3,9 @@
 **Quick Circle Apps** is an Android application made by Yoav Sternberg.
 The application provide modules for the G3 Quick Circle Case.
 
-[![Get it on Google Play](http://www.android.com/images/brand/get_it_on_play_logo_small.png)](https://play.google.com/store/apps/details?id=com.yoavst.quickapps)
+[![Get it on Google Play](http://www.android.com/images/brand/get_it_on_play_logo_small.png)](https://play.google.com/store/apps/details?id=com.yoavst.quickapps)  
+  
+[![Crowdin](https://d322cqt584bo4o.cloudfront.net/quick-apps/localized.png)](https://crowdin.com/project/quick-apps)
 
 ## How it works?
 The app uses LG Quick Circle SDK and QSlide SDK.  
@@ -18,6 +20,7 @@ The app uses LG Quick Circle SDK and QSlide SDK.
 
 ## Acknowledgements
 * LG for their Quick Circle and QSlide SDKs.  
+* Marco Kirchner (@BigBoot) for the compass module and more!
 * Excilys team for [Android annotations](https://github.com/excilys/androidannotations/wiki) that made my life a lot easier.  
 * Joan Zapata for [android-iconify](https://github.com/JoanZapata/android-iconify).  
 * Google for Android, Support V4, V13 packages and GSON.  

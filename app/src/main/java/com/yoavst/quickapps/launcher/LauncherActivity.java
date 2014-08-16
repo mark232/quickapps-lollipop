@@ -31,6 +31,7 @@ import org.androidannotations.annotations.sharedpreferences.Pref;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by Yoav.
@@ -235,7 +236,7 @@ public class LauncherActivity extends BaseQuickCircleActivity implements View.On
 			if (items.size() == defaultItems.size()) return items;
 			else {
 				for (int i = items.size() - 1; i < defaultItems.size(); i++) {
-					items.set(i, defaultItems.get(i));
+					items.add(i, defaultItems.get(i));
 				}
 				new Preferences_(context).launcherItems().put(gson.toJson(items, listType));
 				return items;

@@ -1,23 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Quick Apps</string>
     <string name="register_us_please">We need access to notifications</string>
     <string name="open_the_case">Open the case now</string>
     <!-- Torch Part [START] -->
-    <string name="torch_module_name">Quick Torch</string>
     <string name="torch_is_on">Torch is On</string>
     <string name="touch_to_turn_off">Touch to turn off</string>
     <!-- Torch Part {END]   -->
-    <!-- Compass Part [START] -->
-    <string name="compass_module_name">Quick Compass</string>
-    <!-- Compass Part {END]   -->
     <!-- Music Part [START] -->
-    <string name="music_module_name">Quick Music</string>
     <string name="unknown">unknown</string>
     <!-- Music Part {END]   -->
     <!-- Calendar Part [START] -->
-    <string name="calendar_module_name">Quick calendar</string>
-    <string name="calendar_events">Quick Agenda</string>
     <string name="today">Today</string>
     <string name="tomorrow">Tomorrow</string>
     <string name="all_day">(all day)</string>
@@ -31,15 +23,12 @@
     <string name="more_then_year">More then a year left</string>
     <!-- Calendar Part {END]   -->
     <!-- Notification Part [START] -->
-    <string name="notification_module_name">Quick Notifications</string>
     <string name="notification_empty">No notifications now</string>
     <string name="notification_removed">Notification removed</string>
     <!-- Notification Part {END]   -->
     <!-- Launcher Part [START] -->
-    <string name="launcher_module_name">Quick Launcher</string>
     <!-- Launcher Part {END]   -->
     <!-- Toggles Part [START] -->
-    <string name="toggles_module_name">Quick Toggles</string>
     <string name="wifi">Wi-Fi</string>
     <string name="wifi_off">Wi-Fi is turned off</string>
     <string name="wifi_on">Wi-Fi is turned on</string>
@@ -69,17 +58,9 @@
     <string name="brightness_max">High brightness</string>
     <string name="battery">Battery</string>
     <string name="charging">charging</string>
-    <string-array name="toggles">
-        <item>@string/wifi</item>
-        <item>@string/data_data</item>
-        <item>@string/brightness</item>
-        <item>@string/sound_sound</item>
-        <item>@string/bluetooth</item>
-        <item>@string/hotSpot</item>
-    </string-array>
+
     <!-- Toggles Part {END] -->
     <!-- RSS Part {START] -->
-    <string name="news_module_name">Quick News</string>
     <string name="news_cant_init">Cannot load the module.</string>
     <string name="news_cant_init_subtext">please exit the app and try again.</string>
     <string name="news_network_error">Network error</string>
@@ -87,8 +68,6 @@
     <string name="loading">Loading…</string>
     <string name="news_should_login">@string/login_to_feedly</string>
     <string name="news_should_login_subtext">please open the case to login</string>
-    <string name="client_id">sandbox</string>
-    <string name="client_secret">YDRYI5E8OP2JKXYSDW79</string>
     <string name="login_to_feedly">Login To Feedly</string>
     <string name="news_no_content">No available content</string>
     <string name="news_no_content_subtext">Refresh to see new content</string>
@@ -96,7 +75,6 @@
     <string name="start_downloading">Start Downloading</string>
     <!-- RSS Part [END]   -->
     <!-- Stopwatch & Timer Part {START] -->
-    <string name="clock_module_name">Quick Time</string>
     <string name="start">Start</string>
     <string name="pause">Pause</string>
     <string name="stop">Stop</string>
@@ -108,7 +86,6 @@
     <string name="no">No</string>
     <!-- Stopwatch & Timer Part {END]  -->
     <!-- Calculator Part {START] -->
-    <string name="calculator_module_name">Quick Calculator</string>
     <string name="error">Error</string>
     <!-- Calculator Part [END]   -->
     <!-- Desktop Part {START] -->
@@ -134,28 +111,8 @@
         <item>How to add</item>
         <item>About</item>
     </string-array>
-    <array name="drawer_secondary_icons">
-        <item>@drawable/ic_action_help</item>
-        <item>@drawable/ic_action_about</item>
-    </array>
     <string name="quick">Quick</string>
     <string name="settings">Settings</string>
-            <string name="credits">
-        <![CDATA[
-&#8226;LG for their Quick Circle and QSlide SDKs.<br>
-&#8226;Excilys team for <a href="https://github.com/excilys/androidannotations/wiki">Android annotations</a> that made my life a lot easier.<br>
-&#8226;Joan Zapata for <a href="https://github.com/JoanZapata/android-iconify">android-iconify</a>.<br>
-&#8226;Google for Android, Support V4, V13 packages and GSON.<br>
-&#8226;Jake Wharton for <a href="http://viewpagerindicator.com/">viewpagerindicator</a>.<br>
-&#8226;Pablo Fernandez For <a href="https://github.com/fernandezpablo85/scribe-java">Scribe-java</a>.<br>
-&#8226;<a href="http://www.blackbearblanc.dk/">Jeppe Foldager</a> for its wonderful icons.<br>
-&#8226;Miras Absar for <a href="https://github.com/mirasmithy/airy">Airy</a>.<br>
-&#8226;Udo Klimaschewski For <a href="https://github.com/uklimaschewski/EvalEx">EvalEx</a>.<br>
-&#8226;Evgeny Shishkin for <a href="https://github.com/johnkil/Android-RobotoTextView">RobotoTextView</a>.<br>
-&#8226;Jeff Gilfelt for <a href="https://github.com/jgilfelt/SystemBarTint">SystemBarTint</a>.<br>
-&#8226;Faiz Malkani for <a href="https://github.com/FaizMalkani/FloatingActionButton">FloatingActionButton</a>.<br>
-        ]]>
-    </string>
     <string name="torch_launcher_shortcut">Launcher shortcut</string>
     <string name="torch_launcher_shortcut_subtext">Show torch module icon in your app drawer</string>
     <string name="torch_qslide_shortcut">QSlide shortcut</string>

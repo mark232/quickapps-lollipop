@@ -24,6 +24,8 @@ public interface Preferences {
 	boolean calculatorForceFloating();
 	@DefaultBoolean(true)
 	boolean stopwatchShowMillis();
+	@DefaultBoolean(true)
+	boolean isCircle();
 	String launcherItems();
 	String togglesItems();
 }

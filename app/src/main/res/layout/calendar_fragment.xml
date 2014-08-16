@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="#83A16F"
-        android:textSize="19dp"
+        android:textSize="@dimen/calendar_title"
         android:textStyle="bold"
         android:paddingLeft="45dp"
         android:layout_alignParentTop="true"
@@ -22,7 +22,7 @@
 
     <TextView
         android:id="@+id/title"
-        android:textSize="19dp"
+        android:textSize="@dimen/calendar_title"
         android:textStyle="bold"
         android:gravity="left"
         android:maxLines="2"
@@ -46,14 +46,14 @@
         android:layout_marginRight="30dp"
         android:textColor="@android:color/black"
         tools:text="Today, 14:30 - 17:00"
-        android:textSize="16dp"/>
+        android:textSize="@dimen/calendar_date"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/location"
         android:paddingTop="4dp"
-        android:textSize="15sp"
+        android:textSize="@dimen/calendar_location"
         android:layout_below="@+id/date"
         android:maxLines="2"
         android:ellipsize="end"

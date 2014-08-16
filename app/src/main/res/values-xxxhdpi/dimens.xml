@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="small_item">15dp</dimen>
+    <dimen name="title">19dp</dimen>
+    <dimen name="music_button_size">70dp</dimen>
+    <dimen name="stopwatch_start_padding">40dp</dimen>
+    <dimen name="calendar_title">@dimen/title</dimen>
+    <dimen name="calendar_date">16dp</dimen>
+    <dimen name="calendar_location">@dimen/small_item</dimen>
+    <dimen name="stopwatch_time">25dp</dimen>
+    <dimen name="stopwatch_button">40dp</dimen>
+    <dimen name="stopwatch_small_button">20dp</dimen>
+    <dimen name="news_time">@dimen/small_item</dimen>
+    <dimen name="news_title">@dimen/title</dimen>
+    <dimen name="news_publisher">@dimen/small_item</dimen>
+    <dimen name="notification_time">@dimen/small_item</dimen>
+    <dimen name="notification_title">@dimen/title</dimen>
+    <dimen name="notification_text">16dp</dimen>
+    <dimen name="toggle">@dimen/small_item</dimen>
+</resources>

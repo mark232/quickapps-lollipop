@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:textStyle="bold"
+        android:textSize="@dimen/toggle"
         android:layout_marginTop="10dp"
         tools:text="@string/wifi"/>
     <ImageButton
@@ -33,6 +34,7 @@
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
         android:gravity="center"
+        android:textSize="@dimen/toggle"
         android:layout_below="@+id/toggle_icon"
         android:layout_marginTop="10dp"
         tools:text="@string/wifi_on"/>

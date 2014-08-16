@@ -8,6 +8,7 @@
         android:protectionLevel="normal"/>
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-feature android:name="android.hardware.camera"/>
+    <uses-feature android:name="android.hardware.sensor.compass"/>
 
     <uses-permission android:name="android.permission.READ_CALENDAR"/>
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
@@ -302,7 +303,7 @@
             </intent-filter>
         </activity>
         <!-- Calculator part [END]   -->
-        <!-- Desktop Part {END]   -->
+        <!-- Desktop Part {START]   -->
         <activity
             android:name=".desktop.MainActivity_"
             android:label="@string/app_name"
@@ -317,7 +318,7 @@
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
-        <!-- Desktop Part {START] -->
+        <!-- Desktop Part {END] -->
         <!--<activity-->
         <!--android:name=".MainActivity_"-->
         <!--android:label="@string/app_name">-->

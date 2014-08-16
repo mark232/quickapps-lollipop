@@ -148,13 +148,14 @@ public class Connectivity {
 	public static boolean configApState(Context context) {
 		WifiManager wifimanager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
 		WifiConfiguration wificonfiguration = null;
+		boolean isApOn = isApOn(context);
 		try {
-			if (isApOn(context)) {
+			if (!isApOn) {
 				//turn off whether wifi is on
 				wifimanager.setWifiEnabled(false);
 			}
 			Method method = wifimanager.getClass().getMethod("setWifiApEnabled", WifiConfiguration.class, boolean.class);
-			method.invoke(wifimanager, wificonfiguration, !isApOn(context));
+			method.invoke(wifimanager, wificonfiguration, !isApOn);
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();

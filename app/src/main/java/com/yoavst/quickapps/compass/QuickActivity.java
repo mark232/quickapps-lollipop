@@ -48,7 +48,7 @@ public class QuickActivity extends BaseQuickCircleActivity {
 
 	@Override
 	protected Intent getIntentForOpenCase() {
-		return PhoneActivity_.intent(this).get();
+		return PhoneActivity_.intent(this).get().putExtra("com.lge.app.floating.launchAsFloating", true);
 	}
 
 	@Override

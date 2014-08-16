@@ -134,24 +134,24 @@
     
     <dimen name="calculator_dimen_top">50dp</dimen>
     
-    <string name="digit0">0</string>
-    <string name="digit1">1</string>
-    <string name="digit2">2</string>
-    <string name="digit3">3</string>
-    <string name="digit4">4</string>
-    <string name="digit5">5</string>
-    <string name="digit6">6</string>
-    <string name="digit7">7</string>
-    <string name="digit8">8</string>
-    <string name="digit9">9</string>
-    <string name="div">÷</string>
-    <string name="mul">×</string>
-    <string name="plus">+</string>
-    <string name="minus">-</string>
-    <string name="dot">.</string>
-    <string name="equal">=</string>
-    <string name="exponentiation">^</string>
-    <string-array name="operators">
+    <string name="digit0" translatable="false">0</string>
+    <string name="digit1" translatable="false">1</string>
+    <string name="digit2" translatable="false">2</string>
+    <string name="digit3" translatable="false">3</string>
+    <string name="digit4" translatable="false">4</string>
+    <string name="digit5" translatable="false">5</string>
+    <string name="digit6" translatable="false">6</string>
+    <string name="digit7" translatable="false">7</string>
+    <string name="digit8" translatable="false">8</string>
+    <string name="digit9" translatable="false">9</string>
+    <string name="div" translatable="false">÷</string>
+    <string name="mul" translatable="false">×</string>
+    <string name="plus" translatable="false">+</string>
+    <string name="minus" translatable="false">-</string>
+    <string name="dot" translatable="false">.</string>
+    <string name="equal" translatable="false">=</string>
+    <string name="exponentiation" translatable="false">^</string>
+    <string-array name="operators" translatable="false">
         <item>@string/plus</item>
         <item>@string/minus</item>
         <item>@string/div</item>

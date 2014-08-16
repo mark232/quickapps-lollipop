@@ -21,62 +21,56 @@ import org.androidannotations.annotations.sharedpreferences.Pref;
 
 @EActivity(R.layout.compass_activity_phone)
 public class PhoneActivity extends FloatableActivity {
-    @ViewById(R.id.cover_main_view)
-    RelativeLayout mCoverLayout;
-    @ViewById(R.id.compass_background)
-    RelativeLayout mCompassBackground;
-    @ViewById(R.id.needle)
-    ImageView mNeedle;
-    Compass mCompass;
+	@ViewById(R.id.cover_main_view)
+	RelativeLayout mCoverLayout;
+	@ViewById(R.id.compass_background)
+	RelativeLayout mCompassBackground;
+	@ViewById(R.id.needle)
+	ImageView mNeedle;
+	Compass mCompass;
 	@Pref
 	Preferences_ prefs;
 
 	public void onCreate(Bundle savedInstance) {
 		super.onCreate(savedInstance);
-	    switchToFloatingMode(true, false, false, null);
 	}
 
-    @AfterViews
-    public void init() {
-        mCompass = new Compass(this, mNeedle);
-    }
+	@AfterViews
+	public void init() {
+		mCompass = new Compass(this, mNeedle);
+	}
 
-    @Override
-    public void onAttachedToFloatingWindow(FloatingWindow w) {
-        super.onAttachedToFloatingWindow(w);
-        FloatingWindow window = getFloatingWindow();
-        if (null != window) {
-            Resources res = getResources();
+	@Override
+	public void onAttachedToFloatingWindow(FloatingWindow w) {
+		super.onAttachedToFloatingWindow(w);
+		FloatingWindow window = getFloatingWindow();
+		FloatingWindow.LayoutParams layoutParams = window.getLayoutParams();
+		layoutParams.width = 720;
+		layoutParams.height = 720;
+		layoutParams.resizeOption = FloatingWindow.ResizeOption.PROPORTIONAL;
+		window.updateLayoutParams(layoutParams);
+		TextView titleText = (TextView) w.findViewWithTag
+				(FloatingWindow.Tag.TITLE_TEXT);
+		if (titleText != null) {
+			titleText.setText(getString(R.string.compass_module_name));
+		}
+		ImageButton fullscreenButton = (ImageButton) w.findViewWithTag
+				(FloatingWindow.Tag.FULLSCREEN_BUTTON);
+		if (fullscreenButton != null) {
+			((ViewGroup) fullscreenButton.getParent()).removeView(fullscreenButton);
+		}
+	}
 
-            View titleBackground = (View) window.findViewWithTag
-                    (FloatingWindow.Tag.TITLE_BACKGROUND);
-            if (titleBackground != null) {
-               mCompassBackground.setBackground(titleBackground.getBackground());
-            }
-            TextView titleText = (TextView) w.findViewWithTag
-                    (FloatingWindow.Tag.TITLE_TEXT);
-            if (titleText != null) {
-                titleText.setText(getString(R.string.compass_module_name));
-            }
-            ImageButton fullscreenButton = (ImageButton) w.findViewWithTag
-                    (FloatingWindow.Tag.FULLSCREEN_BUTTON);
-            if (fullscreenButton != null) {
-                ((ViewGroup) fullscreenButton.getParent()).removeView(fullscreenButton);
-            }
-        }
-
-    }
-
-    @Override
+	@Override
 	protected void onPause() {
 		super.onPause();
-        if(!isSwitchingToFloatingMode())
-		    mCompass.unregisterService();
+		if (!isSwitchingToFloatingMode())
+			mCompass.unregisterService();
 	}
 
-    @Override
+	@Override
 	public void onResume() {
-        super.onResume();
-        mCompass.registerService();
-    }
+		super.onResume();
+		mCompass.registerService();
+	}
 }
