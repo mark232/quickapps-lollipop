@@ -23,7 +23,12 @@ public class NotificationAdapter extends FragmentStatePagerAdapter {
 
     @Override
 	public Fragment getItem(int i) {
-        Fragment fragment = NotificationsFragment_.builder().mNotification(NotificationsManager.getNotifications().get(i)).build();
+	    Fragment fragment;
+        try {
+	        fragment = NotificationsFragment_.builder().mNotification(NotificationsManager.getNotifications().get(i)).build();
+        } catch (Exception e) {
+	        fragment = NotificationsFragment_.builder().build();
+        }
         activeFragments.put(i, fragment);
 		return fragment;
 	}

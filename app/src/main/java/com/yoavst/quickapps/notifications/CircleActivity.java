@@ -1,5 +1,6 @@
 package com.yoavst.quickapps.notifications;
 
+import android.app.Fragment;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -125,7 +126,17 @@ public class CircleActivity extends BaseQuickCircleActivity implements ServiceCo
 
     @Click(R.id.notification_cancel)
     public void onCancelClicked() {
-        cancelNotification(getActiveFragment().getNotification());
+	    try {
+		    Fragment fragment = getActiveFragment();
+		    if (fragment != null)
+			    cancelNotification(((NotificationsFragment) fragment).getNotification());
+		    if (NotificationsManager.getNotifications() == null || NotificationsManager.getNotifications().size() == 0)
+			    showEmpty();
+	    } catch (Exception exception) {
+		    Toast toast = Toast.makeText(this, R.string.error, Toast.LENGTH_SHORT);
+		    toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 0);
+		    toast.show();
+	    }
     }
 
     private NotificationsFragment getActiveFragment() {

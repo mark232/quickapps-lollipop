@@ -250,22 +250,20 @@ public class LauncherActivity extends BaseQuickCircleActivity implements View.On
                     items.remove(i);
                 } else {
                     try {
-                        Drawable icon = context.getPackageManager().getActivityIcon(ComponentName.unflattenFromString(items.get(i).activity));
-                        items.get(i).icon = icon;
+	                    items.get(i).icon = context.getPackageManager().getActivityIcon(ComponentName.unflattenFromString(items.get(i).activity));
                     } catch (PackageManager.NameNotFoundException e) {
                         items.remove(i);
                     }
                 }
             }
-            for (int i = 0; i < defaultItems.size(); i++) {
-                ListItem item = defaultItems.get(i);
-                if (!items.contains(item)) {
-                    if(!autoAdd) {
-                        item.enabled = false;
-                    }
-                    items.add(item);
-                }
-            }
+			for (ListItem item : defaultItems) {
+				if (!items.contains(item)) {
+					if (!autoAdd) {
+						item.enabled = false;
+					}
+					items.add(item);
+				}
+			}
 			new Preferences_(context).launcherItems().put(gson.toJson(items, listType));
 			return items;
 		}

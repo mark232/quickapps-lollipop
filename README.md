@@ -17,6 +17,7 @@ The app uses LG Quick Circle SDK and QSlide SDK.
 * Stopwatch - Uses `TimerTask` that run every 10 milliseconds to update the clock.
 * Calculator - Evaluate the math string using EvalEx library.
 * News - Use Feedly Cloud Api to receive the newest 20 articles from the user feed.
+* Compass - Use Compass sensor.
 
 ## Acknowledgements
 * LG for their Quick Circle and QSlide SDKs.  

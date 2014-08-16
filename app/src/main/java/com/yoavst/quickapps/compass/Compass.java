@@ -13,15 +13,13 @@ import android.widget.ImageView;
  * Created by Marco Kirchner on 15.08.14.
  */
 public class Compass implements SensorEventListener{
-    private Context mContext;
-    ImageView mNeedle;
+	ImageView mNeedle;
     private float currentDegree = 0f;
     private SensorManager mSensorManager;
 
     public Compass (Context context, ImageView needle) {
-        mContext = context;
         mNeedle = needle;
-        mSensorManager = (SensorManager) mContext.getSystemService(Context.SENSOR_SERVICE);
+        mSensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
     }
 
     @Override

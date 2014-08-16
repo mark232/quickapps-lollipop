@@ -86,9 +86,4 @@ public class NotificationsFragment extends Fragment {
 				mNotificationTime.setText(dayFormatter.format(date));
 		}
 	}
-
-//	@Click
-//	void close() {
-//		((CircleActivity)getActivity()).cancelNotification(mNotification);
-//	}
 }
