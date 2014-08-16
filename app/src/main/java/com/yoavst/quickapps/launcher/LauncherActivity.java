@@ -235,7 +235,7 @@ public class LauncherActivity extends BaseQuickCircleActivity implements View.On
 			if (defaultItems == null) initDefaultIcons(context);
 			if (items.size() == defaultItems.size()) return items;
 			else {
-				for (int i = items.size() - 1; i < defaultItems.size(); i++) {
+				for (int i = items.size(); i < defaultItems.size(); i++) {
 					items.add(i, defaultItems.get(i));
 				}
 				new Preferences_(context).launcherItems().put(gson.toJson(items, listType));
