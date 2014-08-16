@@ -66,11 +66,15 @@ public class CircleActivity extends BaseQuickCircleActivity implements ServiceCo
                 ViewPager.OnPageChangeListener onPageChangeListener = new ViewPager.SimpleOnPageChangeListener() {
                     @Override
                     public void onPageSelected(int i) {
-                        if (((NotificationsFragment) mAdapter.getActiveFragment(i)).getNotification().isClearable()) {
-                            mCancelButton.setEnabled(true);
-                        } else {
-                            mCancelButton.setEnabled(false);
-                        }
+	                    try {
+		                    if (((NotificationsFragment) mAdapter.getActiveFragment(i)).getNotification().isClearable()) {
+			                    mCancelButton.setEnabled(true);
+		                    } else {
+			                    mCancelButton.setEnabled(false);
+		                    }
+	                    } catch (NullPointerException exception) {
+		                    mCancelButton.setEnabled(false);
+	                    }
                     }
                 };
                 mIndicator.setOnPageChangeListener(onPageChangeListener);

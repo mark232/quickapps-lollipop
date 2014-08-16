@@ -319,14 +319,5 @@
             </intent-filter>
         </activity>
         <!-- Desktop Part {END] -->
-        <!--<activity-->
-        <!--android:name=".MainActivity_"-->
-        <!--android:label="@string/app_name">-->
-        <!--<intent-filter>-->
-        <!--<category android:name="android.intent.category.LAUNCHER"/>-->
-        <!--<action android:name="android.intent.action.MAIN"/>-->
-        <!--<category android:name="android.intent.category.DEFAULT"/>-->
-        <!--</intent-filter>-->
-        <!--</activity>-->
     </application>
 </manifest>
