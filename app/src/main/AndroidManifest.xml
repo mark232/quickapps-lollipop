@@ -126,6 +126,15 @@
                 <action android:name="com.lge.quickcover"/>
             </intent-filter>
         </activity>
+        <activity
+            android:name=".compass.PhoneActivity_"
+            android:label="@string/compass_module_name"
+            android:screenOrientation="portrait"
+            android:icon="@drawable/compass_launcher"
+            android:theme="@style/lightTheme"
+            android:taskAffinity="com.yoavst.quickapps.compass"
+            android:launchMode="singleInstance">
+        </activity>
         <!-- Compass part [END]   -->
         <!-- Music part [START] -->
         <activity
