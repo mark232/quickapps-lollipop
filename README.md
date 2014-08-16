@@ -32,6 +32,7 @@ The app uses LG Quick Circle SDK and QSlide SDK.
 * Evgeny Shishkin for [RobotoTextView](https://github.com/johnkil/Android-RobotoTextView).
 * Jeff Gilfelt for [SystemBarTint](https://github.com/jgilfelt/SystemBarTint).
 * Faiz Malkani for [FloatingActionButton](https://github.com/FaizMalkani/FloatingActionButton).
+* Vince Mi for [RoundedImageView](https://github.com/vinc3m1/RoundedImageView).
 
 License
 -------

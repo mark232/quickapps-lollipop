@@ -2,14 +2,20 @@ package com.yoavst.quickapps.desktop.modules;
 
 import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mobeta.android.dslv.DragSortListView;
 import com.yoavst.quickapps.Preferences_;
@@ -19,6 +25,7 @@ import com.yoavst.quickapps.launcher.LauncherActivity;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import java.util.ArrayList;
@@ -27,17 +34,48 @@ import java.util.ArrayList;
  * Created by Yoav.
  */
 @EFragment(R.layout.desktop_module_launcher)
-public class LauncherFragment extends Fragment {
+public class LauncherFragment extends Fragment implements CompoundButton.OnCheckedChangeListener {
+    @ViewById(R.id.load_externalg_checkbox)
+    CheckBox mLoadExternal;
+    @ViewById(R.id.auto_load_checkbox)
+    CheckBox mAutoLoad;
 	@Pref
 	Preferences_ mPrefs;
 	ArrayList<LauncherActivity.ListItem> mItems;
+    BroadcastReceiver installReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            LauncherActivity.defaultItems = null;
+            mItems = LauncherActivity.getIconsFromPrefs(getActivity());
+        }
+    };
 
-	@AfterViews
+    @Override
+    public void onResume() {
+        super.onResume();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Intent.ACTION_PACKAGE_REMOVED);
+        filter.addAction(Intent.ACTION_PACKAGE_ADDED);
+        filter.addDataScheme("package");
+        getActivity().registerReceiver(installReceiver, filter);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        getActivity().unregisterReceiver(installReceiver);
+    }
+
+    @AfterViews
 	void init() {
 		if (mPrefs.launcherItems().exists())
 			mItems = LauncherActivity.getIconsFromPrefs(getActivity());
 		else
 			mItems = LauncherActivity.initDefaultIcons(getActivity());
+        mLoadExternal.setChecked(mPrefs.launcherLoadExternalModules().get());
+        mAutoLoad.setChecked(mPrefs.launcherAutoAddModules().get());
+        mLoadExternal.setOnCheckedChangeListener(this);
+        mAutoLoad.setOnCheckedChangeListener(this);
 	}
 
 	@Click(R.id.modules_order_row)
@@ -95,8 +133,9 @@ public class LauncherFragment extends Fragment {
 				convertView.setTag(holder);
 			} else holder = (ViewHolder) convertView.getTag();
 			holder.name.setText(getItem(position).name);
-			holder.icon.setImageResource(getItem(position).drawable);
+			holder.icon.setImageDrawable(getItem(position).icon);
             holder.enabled.setChecked(getItem(position).enabled);
+            holder.enabled.setTag(position);
 			return convertView;
 		}
 
@@ -112,5 +151,33 @@ public class LauncherFragment extends Fragment {
 			}
 		}
 	}
+
+    @Click({R.id.modules_auto_load_row, R.id.modules_load_external_row})
+    void clickRow(View view) {
+        switch (view.getId()) {
+            case R.id.modules_load_external_row:
+                mLoadExternal.toggle();
+                break;
+            case R.id.modules_auto_load_row:
+                mAutoLoad.toggle();
+                break;
+        }
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        switch (buttonView.getId()) {
+            case R.id.load_externalg_checkbox:
+                mPrefs.launcherLoadExternalModules().put(isChecked);
+                LauncherActivity.defaultItems = null;
+                mItems = LauncherActivity.getIconsFromPrefs(getActivity());
+                Toast.makeText(getActivity(), R.string.changed_successfully, Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.auto_load_checkbox:
+                mPrefs.launcherAutoAddModules().put(isChecked);
+                Toast.makeText(getActivity(), R.string.changed_successfully, Toast.LENGTH_SHORT).show();
+                break;
+        }
+    }
 
 }

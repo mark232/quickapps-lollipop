@@ -131,6 +131,10 @@
     <string name="privacy_subtitle">The content of your notification may be secret</string>
     <string name="launcher_control_items">Order modules</string>
     <string name="launcher_control_items_subtitle">Order the modules in the launcher</string>
+    <string name="launcher_load_external">Load external modules</string>
+    <string name="launcher_load_external_subtitle">Show external modules in launcher</string>
+    <string name="launcher_auto_add">Auto add modules</string>
+    <string name="launcher_auto_add_subtitle">Automatically add new modules</string>
     <string name="toggles_order_items">Order toggles</string>
     <string name="toggles_order_items_subtitle">Order the toggles in the module</string>
     <string name="battery_title">Show battery percents</string>
