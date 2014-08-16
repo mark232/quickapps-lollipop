@@ -3,7 +3,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="top|center_horizontal"
-                android:background="#000000">
+                android:background="#000000"
+                android:translationY="-25px" >
 
     <RelativeLayout
         android:id="@+id/cover_main_view"

@@ -49,12 +49,18 @@ public class PhoneActivity extends FloatableActivity {
 		layoutParams.height = 720;
 		layoutParams.resizeOption = FloatingWindow.ResizeOption.PROPORTIONAL;
 		window.updateLayoutParams(layoutParams);
-		TextView titleText = (TextView) w.findViewWithTag
-				(FloatingWindow.Tag.TITLE_TEXT);
-		if (titleText != null) {
-			titleText.setText(getString(R.string.compass_module_name));
-		}
-		ImageButton fullscreenButton = (ImageButton) w.findViewWithTag
+        TextView titleText = (TextView) w.findViewWithTag
+                (FloatingWindow.Tag.TITLE_TEXT);
+        if (titleText != null) {
+            titleText.setText(getString(R.string.compass_module_name));
+        }
+        View titleBackground = window.findViewWithTag
+                (FloatingWindow.Tag.TITLE_BACKGROUND);
+        if (titleBackground != null) {
+            mCompassBackground.setBackground(titleBackground.getBackground().getConstantState().newDrawable());
+        }
+
+        ImageButton fullscreenButton = (ImageButton) w.findViewWithTag
 				(FloatingWindow.Tag.FULLSCREEN_BUTTON);
 		if (fullscreenButton != null) {
 			((ViewGroup) fullscreenButton.getParent()).removeView(fullscreenButton);
