@@ -108,7 +108,7 @@ public class CalendarUtil {
 		}
 		cursor.close();
 		if (showRepeating) {
-			String repeatingSections = "((" + DURATION + " IS NOT NULL) AND ((" + DTSTART + " < ?) OR (" + DTEND + " < ?)))";
+			String repeatingSections = "((" + DURATION + " IS NOT NULL) AND (" + RRULE + " IS NOT NULL) AND ((" + DTSTART + " < ?) OR (" + DTEND + " < ?)))";
 			Cursor repeatingCursor = context.getContentResolver()
 					.query(
 							Events.CONTENT_URI,

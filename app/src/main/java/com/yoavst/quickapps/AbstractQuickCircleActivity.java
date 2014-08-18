@@ -6,8 +6,10 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -40,6 +42,7 @@ public abstract class AbstractQuickCircleActivity extends Activity {
 	int circleDiameter = 0;
 	// [END] QuickCircle info.
 
+	Boolean isG3 = false;
 	protected int mQuickCoverState = 0;
 	ContentResolver mContentResolver;
 
@@ -47,6 +50,7 @@ public abstract class AbstractQuickCircleActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(getLayoutId());
+		isG3 = Build.DEVICE.equals("g3") || Build.DEVICE.equals("tiger6");
 		//Retrieve a view for the QuickCircle window.
 		final View circleMainView = findViewById(getMainCircleLayoutId());
 		//Get content resolver
@@ -102,7 +106,11 @@ public abstract class AbstractQuickCircleActivity extends Activity {
 			layoutParam.leftMargin = circleXpos;
 		}
 		//Set top margin to the offset
-		layoutParam.topMargin = circleYpos + (circleHeight - circleDiameter) / 2;
+		if (isG3) {
+			layoutParam.topMargin = circleYpos;
+		} else {
+			layoutParam.topMargin = circleYpos + (circleHeight - circleDiameter) / 2;
+		}
 		layout.setLayoutParams(layoutParam);
 	}
 

@@ -35,8 +35,10 @@ public class NotificationAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        super.destroyItem(container, position, object);
-        activeFragments.remove(position);
+	    try {
+		    super.destroyItem(container, position, object);
+		    activeFragments.remove(position);
+	    } catch (Exception ignored) {}
     }
 
     @Override
