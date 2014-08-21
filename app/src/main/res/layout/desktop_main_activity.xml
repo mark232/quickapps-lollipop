@@ -55,8 +55,7 @@
                 android:layout_width="match_parent"
                 android:id="@+id/extended_header"
                 android:textColor="@android:color/white"
-                android:layout_height="60dp"
-                tools:ignore="RtlHardcoded,RtlSymmetry"/>
+                android:layout_height="60dp"/>
 
             <LinearLayout
                 android:id="@+id/circleLayout"
@@ -73,14 +72,14 @@
                 <com.devspark.robototextview.widget.RobotoTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="80sp"
+                    android:textSize="80dp"
                     android:layout_gravity="center"
                     app:typeface="roboto_light"
                     android:paddingTop="30dp"
                     android:textColor="@android:color/white"
                     tools:textColor="@android:color/black"
                     android:text="@string/quick"
-                    tools:ignore="HardcodedText"/>
+                    tools:ignore="SpUsage"/>
                 <com.devspark.robototextview.widget.RobotoTextView
                     android:id="@+id/title"
                     android:layout_width="wrap_content"
@@ -88,9 +87,10 @@
                     android:layout_gravity="center"
                     android:textColor="@android:color/white"
                     app:typeface="roboto_thin_italic"
-                    android:textSize="35sp"
+                    android:textSize="35dp"
                     tools:text="Calculator"
-                    tools:textColor="@android:color/black"/>
+                    tools:textColor="@android:color/black"
+                    tools:ignore="SpUsage"/>
             </LinearLayout>
 
 

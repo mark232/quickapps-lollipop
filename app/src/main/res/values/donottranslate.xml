@@ -9,6 +9,9 @@
     <string name="launcher_module_name">Quick Launcher</string>
     <string name="toggles_module_name">Quick Toggles</string>
     <string name="compass_module_name">Quick Compass</string>
+    <string name="news_module_name">Quick News</string>
+    <string name="clock_module_name">Quick Time</string>
+    <string name="calculator_module_name">Quick Calculator</string>
     <string-array name="toggles">
         <item>@string/wifi</item>
         <item>@string/data_data</item>
@@ -17,11 +20,8 @@
         <item>@string/bluetooth</item>
         <item>@string/hotSpot</item>
     </string-array>
-    <string name="news_module_name">Quick News</string>
-    <string name="client_id">sandbox</string>
-    <string name="client_secret">YDRYI5E8OP2JKXYSDW79</string>
-    <string name="clock_module_name">Quick Time</string>
-    <string name="calculator_module_name">Quick Calculator</string>
+    <string name="client_id">quickcircle</string>
+    <string name="client_secret">FE01Q2TWD53ZCAQ5MQNVX8NOU1XI</string>
     <array name="drawer_secondary_icons">
         <item>@drawable/ic_action_help</item>
         <item>@drawable/ic_action_about</item>
@@ -47,4 +47,20 @@
     <string name="g2_compatibility_mode">G2 compatibility mode</string>
     <string name="g2_compatibility_mode_off">G3 Mode</string>
     <string name="g2_compatibility_mode_on">G2 Mode</string>
+    <string name="quick">Quick</string>
+    <string-array name="modules">
+        <item>Torch</item>
+        <item>Music</item>
+        <item>Calendar</item>
+        <item>Notifications</item>
+        <item>Toggles</item>
+        <item>Launcher</item>
+        <item>Stopwatch</item>
+        <item>Calculator</item>
+        <item>Compass</item>
+        <item>News</item>
+    </string-array>
+    <string-array name="launcher_blacklist">
+        <item>com.yoavst.quickapps.launcher.LauncherActivity_</item>
+    </string-array>
 </resources>

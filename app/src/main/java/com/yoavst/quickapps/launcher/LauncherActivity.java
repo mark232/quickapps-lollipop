@@ -264,7 +264,7 @@ public class LauncherActivity extends BaseQuickCircleActivity implements View.On
 					items.add(item);
 				}
 			}
-			new Preferences_(context).launcherItems().put(gson.toJson(items, listType));
+			prefs.launcherItems().put(gson.toJson(items, listType));
 			return items;
 		}
 	}

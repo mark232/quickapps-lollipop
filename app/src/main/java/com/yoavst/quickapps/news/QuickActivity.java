@@ -131,6 +131,7 @@ public class QuickActivity extends BaseQuickCircleActivity implements DownloadMa
 				mTitleError.setText(R.string.news_should_login);
 				mExtraError.setText(R.string.news_should_login_subtext);
 				findViewById(R.id.refresh).setVisibility(View.GONE);
+				findViewById(R.id.quick_circle_back_btn).setPadding(0,0,0,0);
 				shouldOpenLogin = true;
 				break;
 			case Internet:

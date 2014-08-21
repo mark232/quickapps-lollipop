@@ -66,7 +66,7 @@ public class DownloadManager {
 	public synchronized OAuthService getService() {
 		if (mService == null) {
 			mService = new ServiceBuilder()
-					.provider(FeedlyApi.Sandbox.class)
+					.provider(FeedlyApi.class)
 					.apiKey(mContext.getResources().getString(R.string.client_id))
 					.apiSecret(mContext.getResources().getString(R.string.client_secret))
 					.callback("http://localhost:8080")
@@ -88,7 +88,7 @@ public class DownloadManager {
 				isDownloadingNow = true;
 				// Init the service
 				getService();
-				OAuthRequest request = new OAuthRequest(Verb.GET, "https://sandbox.feedly.com/v3/streams/contents?streamId=user/" + mPrefs.userId().get() + "/category/global.all");
+				OAuthRequest request = new OAuthRequest(Verb.GET, "https://cloud.feedly.com/v3/streams/contents?streamId=user/" + mPrefs.userId().get() + "/category/global.all");
 				request.addHeader("Authorization", accessToken.getToken());
 				request.setConnectTimeout(10, TimeUnit.SECONDS);
 				mService.signRequest(accessToken, request);

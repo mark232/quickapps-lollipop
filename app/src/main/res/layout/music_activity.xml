@@ -63,7 +63,7 @@
                         android:layout_height="@dimen/music_button_size"
                         android:scaleType="centerCrop"
                         android:src="@drawable/music_player_cover_btn_rew"
-                        android:layout_alignParentStart="true"/>
+                        android:layout_toLeftOf="@+id/play_pause_button"/>
 
                     <ImageButton
                         android:id="@+id/play_pause_button"
@@ -81,7 +81,7 @@
                         android:layout_height="@dimen/music_button_size"
                         android:scaleType="centerCrop"
                         android:src="@drawable/music_player_cover_btn_ff"
-                        android:layout_alignParentEnd="true"/>
+                        android:layout_toRightOf="@+id/play_pause_button"/>
                 </RelativeLayout>
                 <!-- Song info -->
                 <FrameLayout

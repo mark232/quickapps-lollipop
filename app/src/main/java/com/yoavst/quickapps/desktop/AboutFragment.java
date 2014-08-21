@@ -10,6 +10,7 @@ import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
+import android.webkit.WebView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +22,8 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.res.ColorRes;
+
+import java.util.Locale;
 
 /**
  * Created by Yoav.
@@ -37,20 +40,30 @@ public class AboutFragment extends Fragment {
 	int blueLightColor;
 	@ViewById(R.id.contact_button)
 	FloatingActionButton mContactButton;
+	@ViewById(R.id.donation_button)
+	WebView mDonation;
 
 	@AfterViews
 	void init() {
-		final SpannableString text1 = new SpannableString(getString(R.string.about));
-		final SpannableString text2 = new SpannableString(getString(R.string.about_2));
-		colorize(setBigger(text1, 1.5f, 0, 17), blueColor, 0, 17);
-		bold(colorize(setBigger(text1, 2f, 44, 49), blueColor, 44, 49), 44, 49);
-		colorize(setBigger(text1, 1.5f, 50, 67), blueColor, 50, 67);
-		colorize(setBigger(text1, 1.5f, 96, 102), blueColor, 96, 102);
-		mAbout.setText(text1);
-		colorize(setBigger(text2, 1.5f, text2.length() - 17, text2.length() - 1), blueColor, text2.length() - 17, text2.length() - 1);
-		mAboutExtra.setText(text2);
+		if (Locale.getDefault().getLanguage().startsWith("en")) {
+			final SpannableString text1 = new SpannableString(getString(R.string.about));
+			final SpannableString text2 = new SpannableString(getString(R.string.about_2));
+			colorize(setBigger(text1, 1.5f, 0, 17), blueColor, 0, 17);
+			bold(colorize(setBigger(text1, 2f, 44, 49), blueColor, 44, 49), 44, 49);
+			colorize(setBigger(text1, 1.5f, 50, 67), blueColor, 50, 67);
+			colorize(setBigger(text1, 1.5f, 96, 102), blueColor, 96, 102);
+			mAbout.setText(text1);
+			colorize(setBigger(text2, 1.5f, text2.length() - 17, text2.length() - 1), blueColor, text2.length() - 17, text2.length() - 1);
+			mAboutExtra.setText(text2);
+		}
 		mContactButton.setColor(blueLightColor);
 		mContactButton.setDrawable(getResources().getDrawable(R.drawable.ic_action_email_fab));
+		mDonation.loadData("<form action=\"https://www.paypal.com/cgi-bin/webscr\" method=\"post\" target=\"_top\">\n" +
+				"<input type=\"hidden\" name=\"cmd\" value=\"_s-xclick\">\n" +
+				"<input type=\"hidden\" name=\"hosted_button_id\" value=\"Y6U6ZYP8F7VJQ\">\n" +
+				"<input type=\"image\" src=\"https://www.paypalobjects.com/en_US/IL/i/btn/btn_donateCC_LG.gif\" border=\"0\" name=\"submit\" alt=\"PayPal - The safer, easier way to pay online!\">\n" +
+				"<img alt=\"\" border=\"0\" src=\"https://www.paypalobjects.com/en_US/i/scr/pixel.gif\" width=\"1\" height=\"1\">\n" +
+				"</form>\n","text/html", "UTF-8");
 	}
 
 	@Click(R.id.contact_button)

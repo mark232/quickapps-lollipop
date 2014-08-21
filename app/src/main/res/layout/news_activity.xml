@@ -95,9 +95,11 @@
                 android:layout_weight="1"
                 android:paddingBottom="10dp"
                 android:paddingLeft="70dp"
+                android:layout_gravity="center"
                 android:scaleType="centerInside"
                 android:background="@drawable/back_as_half_background"
-                android:src="@drawable/back_src"/>
+                android:src="@drawable/back_src"
+                tools:ignore="RtlSymmetry"/>
 
             <Space
                 android:layout_width="1dp"
@@ -113,7 +115,8 @@
                 android:paddingBottom="10dp"
                 android:scaleType="centerInside"
                 android:background="@drawable/back_as_half_background"
-                android:src="@drawable/refresh_src"/>
+                android:src="@drawable/refresh_src"
+                tools:ignore="RtlSymmetry"/>
         </LinearLayout>
 
         <ImageView

@@ -23,7 +23,7 @@
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="12dp"
+        android:layout_marginStart="12dp"
         android:textColor="#666666"
         android:textSize="22sp"
         android:textStyle="normal"

@@ -29,53 +29,77 @@ import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * Created by Yoav.
  */
 @EFragment(R.layout.desktop_module_launcher)
 public class LauncherFragment extends Fragment implements CompoundButton.OnCheckedChangeListener {
-    @ViewById(R.id.load_externalg_checkbox)
-    CheckBox mLoadExternal;
-    @ViewById(R.id.auto_load_checkbox)
-    CheckBox mAutoLoad;
+	@ViewById(R.id.load_externalg_checkbox)
+	CheckBox mLoadExternal;
+	@ViewById(R.id.auto_load_checkbox)
+	CheckBox mAutoLoad;
 	@Pref
 	Preferences_ mPrefs;
 	ArrayList<LauncherActivity.ListItem> mItems;
-    BroadcastReceiver installReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            LauncherActivity.defaultItems = null;
-            mItems = LauncherActivity.getIconsFromPrefs(getActivity());
-        }
-    };
+	BroadcastReceiver installReceiver = new BroadcastReceiver() {
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			LauncherActivity.defaultItems = null;
+			mItems = LauncherActivity.getIconsFromPrefs(getActivity());
+			sortItems();
+		}
+	};
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(Intent.ACTION_PACKAGE_REMOVED);
-        filter.addAction(Intent.ACTION_PACKAGE_ADDED);
-        filter.addDataScheme("package");
-        getActivity().registerReceiver(installReceiver, filter);
-    }
+	@Override
+	public void onResume() {
+		super.onResume();
+		IntentFilter filter = new IntentFilter();
+		filter.addAction(Intent.ACTION_PACKAGE_REMOVED);
+		filter.addAction(Intent.ACTION_PACKAGE_ADDED);
+		filter.addDataScheme("package");
+		getActivity().registerReceiver(installReceiver, filter);
+	}
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        getActivity().unregisterReceiver(installReceiver);
-    }
+	@Override
+	public void onPause() {
+		super.onPause();
+		getActivity().unregisterReceiver(installReceiver);
+	}
 
-    @AfterViews
+	@AfterViews
 	void init() {
 		if (mPrefs.launcherItems().exists())
 			mItems = LauncherActivity.getIconsFromPrefs(getActivity());
 		else
 			mItems = LauncherActivity.initDefaultIcons(getActivity());
-        mLoadExternal.setChecked(mPrefs.launcherLoadExternalModules().get());
-        mAutoLoad.setChecked(mPrefs.launcherAutoAddModules().get());
-        mLoadExternal.setOnCheckedChangeListener(this);
-        mAutoLoad.setOnCheckedChangeListener(this);
+		sortItems();
+		mLoadExternal.setChecked(mPrefs.launcherLoadExternalModules().get());
+		mAutoLoad.setChecked(mPrefs.launcherAutoAddModules().get());
+		mLoadExternal.setOnCheckedChangeListener(this);
+		mAutoLoad.setOnCheckedChangeListener(this);
+	}
+
+	void sortItems() {
+		if (mItems != null && mItems.size() != 0) {
+			// We got to keep the same sort for checked, and put the unchecked at the end
+			ArrayList<LauncherActivity.ListItem> checked = new ArrayList<>();
+			ArrayList<LauncherActivity.ListItem> unchecked = new ArrayList<>();
+			for (LauncherActivity.ListItem mItem : mItems) {
+				if (!mItem.enabled) unchecked.add(mItem);
+				else checked.add(mItem);
+			}
+			Collections.sort(unchecked, new Comparator<LauncherActivity.ListItem>() {
+				@Override
+				public int compare(LauncherActivity.ListItem lhs, LauncherActivity.ListItem rhs) {
+					return lhs.name.compareTo(rhs.name);
+				}
+			});
+			Collections.addAll(checked, unchecked.toArray(new LauncherActivity.ListItem[unchecked.size()]));
+			mItems = checked;
+		}
 	}
 
 	@Click(R.id.modules_order_row)
@@ -122,62 +146,62 @@ public class LauncherFragment extends Fragment implements CompoundButton.OnCheck
 			if (convertView == null) {
 				convertView = LayoutInflater.from(getActivity()).inflate(R.layout.desktop_module_launcher_item, parent, false);
 				holder = new ViewHolder(convertView);
-                holder.enabled.setTag(position);
-                holder.enabled.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        CheckBox check = (CheckBox) view;
-                        getItem((Integer) check.getTag()).enabled = check.isChecked();
-                    }
-                });
+				holder.enabled.setTag(position);
+				holder.enabled.setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View view) {
+						CheckBox check = (CheckBox) view;
+						getItem((Integer) check.getTag()).enabled = check.isChecked();
+					}
+				});
 				convertView.setTag(holder);
 			} else holder = (ViewHolder) convertView.getTag();
 			holder.name.setText(getItem(position).name);
 			holder.icon.setImageDrawable(getItem(position).icon);
-            holder.enabled.setChecked(getItem(position).enabled);
-            holder.enabled.setTag(position);
+			holder.enabled.setChecked(getItem(position).enabled);
+			holder.enabled.setTag(position);
 			return convertView;
 		}
 
 		private class ViewHolder {
 			TextView name;
 			ImageView icon;
-            CheckBox enabled;
+			CheckBox enabled;
 
 			public ViewHolder(View view) {
 				name = (TextView) view.findViewById(R.id.name);
 				icon = (ImageView) view.findViewById(R.id.icon);
-                enabled = (CheckBox) view.findViewById(R.id.enabled);
+				enabled = (CheckBox) view.findViewById(R.id.enabled);
 			}
 		}
 	}
 
-    @Click({R.id.modules_auto_load_row, R.id.modules_load_external_row})
-    void clickRow(View view) {
-        switch (view.getId()) {
-            case R.id.modules_load_external_row:
-                mLoadExternal.toggle();
-                break;
-            case R.id.modules_auto_load_row:
-                mAutoLoad.toggle();
-                break;
-        }
-    }
+	@Click({R.id.modules_auto_load_row, R.id.modules_load_external_row})
+	void clickRow(View view) {
+		switch (view.getId()) {
+			case R.id.modules_load_external_row:
+				mLoadExternal.toggle();
+				break;
+			case R.id.modules_auto_load_row:
+				mAutoLoad.toggle();
+				break;
+		}
+	}
 
-    @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        switch (buttonView.getId()) {
-            case R.id.load_externalg_checkbox:
-                mPrefs.launcherLoadExternalModules().put(isChecked);
-                LauncherActivity.defaultItems = null;
-                mItems = LauncherActivity.getIconsFromPrefs(getActivity());
-                Toast.makeText(getActivity(), R.string.changed_successfully, Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.auto_load_checkbox:
-                mPrefs.launcherAutoAddModules().put(isChecked);
-                Toast.makeText(getActivity(), R.string.changed_successfully, Toast.LENGTH_SHORT).show();
-                break;
-        }
-    }
+	@Override
+	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+		switch (buttonView.getId()) {
+			case R.id.load_externalg_checkbox:
+				mPrefs.launcherLoadExternalModules().put(isChecked);
+				LauncherActivity.defaultItems = null;
+				mItems = LauncherActivity.getIconsFromPrefs(getActivity());
+				Toast.makeText(getActivity(), R.string.changed_successfully, Toast.LENGTH_SHORT).show();
+				break;
+			case R.id.auto_load_checkbox:
+				mPrefs.launcherAutoAddModules().put(isChecked);
+				Toast.makeText(getActivity(), R.string.changed_successfully, Toast.LENGTH_SHORT).show();
+				break;
+		}
+	}
 
 }

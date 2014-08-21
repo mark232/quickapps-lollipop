@@ -55,6 +55,15 @@
         android:layout_height="72dp"
         android:layout_marginBottom="16dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
+        android:layout_alignParentRight="true"
+        tools:ignore="RtlHardcoded"/>
+
+    <WebView
+        android:id="@+id/donation_button"
+        android:layout_width="150dp"
+        android:layout_height="72dp"
+        android:layout_marginBottom="16dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
         tools:ignore="RtlHardcoded"/>
 </RelativeLayout>

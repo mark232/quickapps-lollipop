@@ -33,6 +33,8 @@ import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.res.ColorRes;
 
+import java.util.Locale;
+
 /**
  * Created by Yoav.
  */
@@ -53,11 +55,13 @@ public class SourceFragment extends Fragment {
 	void init() {
 		mCredits.setText(Html.fromHtml(getString(R.string.credits)));
 		mCredits.setMovementMethod(new LinkMovementMethod());
-		final SpannableString text1 = new SpannableString(getString(R.string.source_description));
-		colorize(setBigger(text1, 1.5f, 15, 32), blueColor, 15, 32);
-		colorize(setBigger(text1, 1.5f, 46, 52), blueColor, 46, 52);
-		colorize(setBigger(text1, 1.5f, 67, 73), blueColor, 67, 73);
-		mText.setText(text1);
+		if (Locale.getDefault().getLanguage().startsWith("en")) {
+			final SpannableString text1 = new SpannableString(getString(R.string.source_description));
+			colorize(setBigger(text1, 1.5f, 15, 32), blueColor, 15, 32);
+			colorize(setBigger(text1, 1.5f, 46, 52), blueColor, 46, 52);
+			colorize(setBigger(text1, 1.5f, 67, 73), blueColor, 67, 73);
+			mText.setText(text1);
+		}
 		mGithubButton.setColor(blueLightColor);
 		mGithubButton.setDrawable(getResources().getDrawable(R.drawable.ic_action_github_fab));
 	}
