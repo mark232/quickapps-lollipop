@@ -142,5 +142,6 @@
     <string name="show_millis_title">Show milliseconds</string>
     <string name="show_millis_subtitle">Show milliseconds in the timer</string>
     <string name="news_logout_feedly">Logout from feedly</string>
+    <string name="yesterday">Yesterday</string>
     <!-- Desktop Part {END]  -->
 </resources>

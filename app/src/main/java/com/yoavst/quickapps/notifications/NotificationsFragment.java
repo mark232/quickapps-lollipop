@@ -19,6 +19,7 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.res.StringRes;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import java.text.SimpleDateFormat;
@@ -40,6 +41,8 @@ public class NotificationsFragment extends Fragment {
 	TextView mNotificationText;
 	@FragmentArg
 	StatusBarNotification mNotification;
+	static String today;
+	static String yesterday;
 	@Pref
 	Preferences_ mPrefs;
 	private static final SimpleDateFormat dayFormatter = new SimpleDateFormat("MMM d, HH:mm");
@@ -51,14 +54,16 @@ public class NotificationsFragment extends Fragment {
 
 	@AfterViews
 	void init() {
+		if (today == null || yesterday == null) {
+			today = getString(R.string.today);
+			yesterday = getString(R.string.yesterday);
+		}
 		if (mNotification != null) {
 			Bundle extras = mNotification.getNotification().extras;
 			mNotificationTitle.setText(extras.getString(Notification.EXTRA_TITLE));
 			try {
 				mNotificationIcon.setImageDrawable(getActivity().createPackageContext(mNotification.getPackageName(), 0).getResources().getDrawable(mNotification.getNotification().icon));
-			} catch (PackageManager.NameNotFoundException | Resources.NotFoundException e) {
-				e.printStackTrace();
-			}
+			} catch (PackageManager.NameNotFoundException | Resources.NotFoundException ignored) {}
 			if (mPrefs.notificationShowContent().get()) {
 				CharSequence preText = extras.getCharSequence(Notification.EXTRA_TEXT);
 				String text = preText == null ? null : preText.toString();
@@ -79,9 +84,9 @@ public class NotificationsFragment extends Fragment {
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTimeInMillis(time);
 			if (DateUtils.isToday(date))
-				mNotificationTime.setText("Today " + hourFormatter.format(date));
+				mNotificationTime.setText(today + " " + hourFormatter.format(date));
 			else if (DateUtils.isYesterday(calendar))
-				mNotificationTime.setText("Yesterday " + hourFormatter.format(date));
+				mNotificationTime.setText(yesterday + " " + hourFormatter.format(date));
 			else
 				mNotificationTime.setText(dayFormatter.format(date));
 		}

@@ -46,6 +46,8 @@ public class NotificationAdapter extends FragmentStatePagerAdapter {
 		return NotificationsManager.getNotifications() == null ? 0 : NotificationsManager.getNotifications().size();
 	}
     public Fragment getActiveFragment(int index) {
-        return activeFragments.get(index);
+        return getCount() != 0 ? activeFragments.get(index) : null;
     }
+
+
 }

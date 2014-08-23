@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Quick Apps</string>
-    <string name="torch_module_name">Quick Torch</string>
-    <string name="music_module_name">Quick Music</string>
-    <string name="calendar_module_name">Quick calendar</string>
-    <string name="calendar_events">Quick Agenda</string>
-    <string name="notification_module_name">Quick Notifications</string>
-    <string name="launcher_module_name">Quick Launcher</string>
-    <string name="toggles_module_name">Quick Toggles</string>
-    <string name="compass_module_name">Quick Compass</string>
-    <string name="news_module_name">Quick News</string>
-    <string name="clock_module_name">Quick Time</string>
-    <string name="calculator_module_name">Quick Calculator</string>
+    <string name="app_name" translatable="false">Quick Apps</string>
+    <string name="torch_module_name" translatable="false">Quick Torch</string>
+    <string name="music_module_name" translatable="false">Quick Music</string>
+    <string name="calendar_module_name" translatable="false">Quick calendar</string>
+    <string name="calendar_events" translatable="false">Quick Agenda</string>
+    <string name="notification_module_name" translatable="false">Quick Notifications</string>
+    <string name="launcher_module_name" translatable="false">Quick Launcher</string>
+    <string name="toggles_module_name" translatable="false">Quick Toggles</string>
+    <string name="compass_module_name" translatable="false">Quick Compass</string>
+    <string name="news_module_name" translatable="false">Quick News</string>
+    <string name="clock_module_name" translatable="false">Quick Time</string>
+    <string name="calculator_module_name" translatable="false">Quick Calculator</string>
     <string-array name="toggles">
         <item>@string/wifi</item>
         <item>@string/data_data</item>
@@ -20,14 +20,14 @@
         <item>@string/bluetooth</item>
         <item>@string/hotSpot</item>
     </string-array>
-    <string name="client_id">quickcircle</string>
-    <string name="client_secret">FE01Q2TWD53ZCAQ5MQNVX8NOU1XI</string>
+    <string name="client_id" translatable="false">quickcircle</string>
+    <string name="client_secret" translatable="false">FE01Q2TWD53ZCAQ5MQNVX8NOU1XI</string>
     <array name="drawer_secondary_icons">
         <item>@drawable/ic_action_help</item>
         <item>@drawable/ic_action_about</item>
     </array>
 
-      <string name="credits">
+      <string name="credits" translatable="false">
         <![CDATA[
 &#8226;LG for their Quick Circle and QSlide SDKs.<br>
 &#8226;Excilys team for <a href="https://github.com/excilys/androidannotations/wiki">Android annotations</a> that made my life a lot easier.<br>
@@ -44,10 +44,10 @@
 &#8226;Vince Mi for <a href="https://github.com/vinc3m1/RoundedImageView">RoundedImageView</a>.<br>
         ]]>
     </string>
-    <string name="g2_compatibility_mode">G2 compatibility mode</string>
-    <string name="g2_compatibility_mode_off">G3 Mode</string>
-    <string name="g2_compatibility_mode_on">G2 Mode</string>
-    <string name="quick">Quick</string>
+    <string name="g2_compatibility_mode" translatable="false">G2 compatibility mode</string>
+    <string name="g2_compatibility_mode_off" translatable="false">G3 Mode</string>
+    <string name="g2_compatibility_mode_on" translatable="false">G2 Mode</string>
+    <string name="quick" translatable="false">Quick</string>
     <string-array name="modules">
         <item>Torch</item>
         <item>Music</item>

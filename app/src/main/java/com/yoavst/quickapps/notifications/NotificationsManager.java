@@ -13,40 +13,52 @@ import java.util.Comparator;
  */
 public class NotificationsManager {
 	private static ArrayList<StatusBarNotification> notifications;
-
+	private static final Object LOCK = new Object();
 	public static ArrayList<StatusBarNotification> getNotifications() {
 		return notifications;
 	}
 
+	public static int getCount() { return notifications == null ? 0 : notifications.size(); }
+
 	public static void setNotifications(ArrayList<StatusBarNotification> newNotifications) {
-		for (int i = newNotifications.size() - 1; i >= 0; i--) {
-			Bundle extras = newNotifications.get(i).getNotification().extras;
-			String title = extras.getString(Notification.EXTRA_TITLE);
-			if (title == null || title.length() == 0)
-				newNotifications.remove(i);
+		synchronized (LOCK) {
+			if (newNotifications == null || newNotifications.size() == 0)
+				notifications = new ArrayList<>(0);
+			else {
+				notifications = new ArrayList<>(newNotifications.size());
+				for (int i = newNotifications.size() - 1; i >= 0; i--) {
+					Bundle extras = newNotifications.get(i).getNotification().extras;
+					String title = extras.getString(Notification.EXTRA_TITLE);
+					if (!(title == null || title.length() == 0))
+						notifications.add(newNotifications.get(i));
+				}
+				sort();
+			}
 		}
-		notifications = newNotifications;
-		sort();
 	}
 
 	public static void addNotification(StatusBarNotification statusBarNotification) {
-		if (notifications == null) {
-			notifications = new ArrayList<>();
+		synchronized (LOCK) {
+			if (notifications == null) {
+				notifications = new ArrayList<>();
+			}
+			notifications.add(statusBarNotification);
+			sort();
 		}
-		notifications.add(statusBarNotification);
-		sort();
 	}
 
 	public static void removeNotification(StatusBarNotification statusBarNotification) {
-		if (notifications != null) {
-			int index = -1;
-			for (int i = 0; i < notifications.size(); i++) {
-				if (notificationsEquals(notifications.get(i), statusBarNotification)) {
-					index = i;
-					break;
+		synchronized (LOCK) {
+			if (notifications != null) {
+				int index = -1;
+				for (int i = 0; i < notifications.size(); i++) {
+					if (notificationsEquals(notifications.get(i), statusBarNotification)) {
+						index = i;
+						break;
+					}
 				}
+				if (index != -1) notifications.remove(index);
 			}
-			if (index != -1) notifications.remove(index);
 		}
 	}
 
@@ -56,23 +68,26 @@ public class NotificationsManager {
 		try {
 			return first.getPostTime() == second.getPostTime() &&
 					first.getId() == second.getId() &&
-					first.getPackageName().equals(second.getPackageName()) &&
-					first.getTag().equals(second.getTag());
-		} catch (NullPointerException e) {
-            return first.getTag() == second.getTag();
-        } catch (Exception e) {
-            return false;
-        }
+					equals(first.getPackageName(),second.getPackageName())
+					&& equals(first.getTag(), second.getTag());
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 	private static void sort() {
-		Collections.sort(notifications, new Comparator<StatusBarNotification>() {
-			@Override
-			// return an integer < 0 if lhs is less than rhs, 0 if they are equal, and > 0 if lhs is greater than rhs
-			public int compare(StatusBarNotification lhs, StatusBarNotification rhs) {
-				return lhs.isClearable() ? (rhs.isClearable() ? 0 : -1) : (rhs.isClearable() ? 0 : -1);
-			}
-		});
+		if (notifications.size() >= 2)
+			Collections.sort(notifications, new Comparator<StatusBarNotification>() {
+				@Override
+				// return an integer < 0 if lhs is less than rhs, 0 if they are equal, and > 0 if lhs is greater than rhs
+				public int compare(StatusBarNotification lhs, StatusBarNotification rhs) {
+					return lhs.isClearable() ? (rhs.isClearable() ? 0 : -1) : (rhs.isClearable() ? 0 : -1);
+				}
+			});
+	}
+
+	private static boolean equals(String a, String b) {
+		return a == null ? b == null : b != null && a.equals(b);
 	}
 
 	private NotificationsManager() {
