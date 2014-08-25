@@ -46,6 +46,7 @@ public class CalendarUtil {
 	private static final SimpleDateFormat otherDayFormatter = new SimpleDateFormat("MMM d, HH:mm");
 
 	public static ArrayList<Event> getCalendarEvents(Context context) {
+		CalendarResources.init(context);
 		boolean showRepeating = new Preferences_(context).showRepeatingEvents().get();
 		ArrayList<Event> events = new ArrayList<>();
 		TimeZone timezone = Calendar.getInstance().getTimeZone();

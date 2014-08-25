@@ -19,17 +19,7 @@ import org.androidannotations.annotations.sharedpreferences.Pref;
  * Created by Yoav.
  */
 @EFragment(R.layout.desktop_howto_fragment)
-public class HowToFragment extends Fragment implements CompoundButton.OnCheckedChangeListener {
-	@ViewById(R.id.mode)
-	Switch mMode;
-	@Pref
-	Preferences_ mPrefs;
-
-	@AfterViews
-	void init() {
-		mMode.setChecked(!mPrefs.isCircle().get());
-		mMode.setOnCheckedChangeListener(this);
-	}
+public class HowToFragment extends Fragment {
 
 	@Click(R.id.open_quick_settings)
 	void openQuickSettings() {
@@ -37,10 +27,5 @@ public class HowToFragment extends Fragment implements CompoundButton.OnCheckedC
 		Intent settingIntent = new Intent("android.intent.action.MAIN");
 		settingIntent.setComponent(settingComp);
 		startActivity(settingIntent);
-	}
-
-	@Override
-	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-		mPrefs.isCircle().put(!isChecked);
 	}
 }

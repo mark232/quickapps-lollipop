@@ -64,9 +64,6 @@ public abstract class AbstractQuickCircleActivity extends Activity {
 		//Crops a layout for the QuickCircle window
 		setCircleLayoutParam(circleMainView);
 		// Remove the mask if needed
-		if (!isCircle() && findViewById(R.id.quick_circle_mask) != null)
-			findViewById(R.id.quick_circle_mask).setVisibility(View.GONE);
-
 	}
 
 	@Override

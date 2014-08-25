@@ -53,16 +53,4 @@
         android:textStyle="bold"
         android:layout_below="@+id/how_to_3"
         android:layout_alignParentStart="true"/>
-
-    <Switch
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="left"
-        android:gravity="left"
-        android:text="@string/g2_compatibility_mode"
-        android:id="@+id/mode"
-        android:textOff="@string/g2_compatibility_mode_off"
-        android:textOn="@string/g2_compatibility_mode_on"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"/>
 </RelativeLayout>

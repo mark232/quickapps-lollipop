@@ -116,8 +116,10 @@
 
         <ImageView
             android:id="@+id/quick_circle_mask"
-            android:layout_width="285.5dp"
-            android:layout_height="275.0dip"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout_width="285.5dp"
+            tools:layout_height="277dip"
             android:src="@drawable/quickcover_mask"
             android:scaleType="fitCenter"
             android:layout_alignTop="@id/quick_circle_title"

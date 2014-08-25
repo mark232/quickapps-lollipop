@@ -45,7 +45,7 @@
 
         <ImageView
             android:id="@+id/quick_circle_mask"
-            android:layout_width="285.5dp"
+            android:layout_width="match_parent"
             tools:layout_height="277dip"
             android:layout_height="match_parent"
             android:src="@drawable/quickcover_mask"

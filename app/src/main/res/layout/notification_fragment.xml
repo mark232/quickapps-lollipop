@@ -26,7 +26,7 @@
         android:gravity="left"
         android:maxLines="2"
         android:layout_toRightOf="@+id/notification_icon"
-        android:paddingRight="30dp"
+        android:paddingEnd="@dimen/padding_end"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:text="USB debugging connected"
@@ -41,7 +41,7 @@
         android:layout_below="@+id/notification_title"
         android:layout_marginTop="5dp"
         android:layout_toRightOf="@+id/notification_icon"
-        android:layout_marginRight="30dp"
+        android:layout_marginEnd="@dimen/padding_end"
         android:paddingTop="4dp">
 
         <TextView
@@ -59,7 +59,7 @@
         android:layout_height="wrap_content"
         android:scaleType="fitXY"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="30dp"
+        android:layout_marginLeft="@dimen/padding_end"
         android:layout_marginRight="10dp"
         android:layout_marginTop="20dp"
         />

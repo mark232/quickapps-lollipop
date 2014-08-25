@@ -17,4 +17,6 @@
     <dimen name="notification_title">@dimen/title</dimen>
     <dimen name="notification_text">16dp</dimen>
     <dimen name="toggle">@dimen/small_item</dimen>
+    <dimen name="padding_end">30dp</dimen>
+    <dimen name="padding_start">45dp</dimen>
 </resources>

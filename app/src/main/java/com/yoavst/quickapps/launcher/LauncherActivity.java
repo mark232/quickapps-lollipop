@@ -66,6 +66,7 @@ public class LauncherActivity extends BaseQuickCircleActivity implements View.On
 	@ViewById(R.id.change_orientation)
 	ImageButton mChange;
 	ArrayList<ListItem> items;
+	ArrayList<View> views;
 	int marginSize;
 	int iconSize;
 
@@ -76,6 +77,7 @@ public class LauncherActivity extends BaseQuickCircleActivity implements View.On
 		for (ListItem item : allItems)
 			if (item.enabled)
 				items.add(item);
+		views = new ArrayList<>(items.size());
 		iconSize = (int) TypedValue.applyDimension(
 				TypedValue.COMPLEX_UNIT_DIP,
 				64,
@@ -140,6 +142,9 @@ public class LauncherActivity extends BaseQuickCircleActivity implements View.On
         }
         intent.setComponent(ComponentName.unflattenFromString(componentName));
         startActivity(intent);
+		for (View view : views) {
+			view.setEnabled(false);
+		}
 		finish();
 	}
 
@@ -160,8 +165,11 @@ public class LauncherActivity extends BaseQuickCircleActivity implements View.On
 					lastRow.setLayoutParams(tableParams);
 					layout.addView(lastRow);
 				}
-				if (lastRow != null)
-					lastRow.addView(setOnClick(createLauncherIcon(items.get(i), rowParams)));
+				if (lastRow != null) {
+					View icon = setOnClick(createLauncherIcon(items.get(i), rowParams));
+					views.add(icon);
+					lastRow.addView(icon);
+				}
 			}
 			return view;
 		}
@@ -186,8 +194,11 @@ public class LauncherActivity extends BaseQuickCircleActivity implements View.On
 					layout.addView(lastRow);
 				}
 				int index = i < maxItemsPerLine ? i * 2 : (i - maxItemsPerLine) * 2 + 1;
-				if (lastRow != null)
-					lastRow.addView(setOnClick(createLauncherIcon(items.get(index), rowParams)));
+				if (lastRow != null) {
+					View icon = setOnClick(createLauncherIcon(items.get(index), rowParams));
+					views.add(icon);
+					lastRow.addView(icon);
+				}
 
 			}
 			return view;
