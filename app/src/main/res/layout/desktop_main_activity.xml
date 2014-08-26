@@ -51,7 +51,7 @@
                     android:contentDescription="@null"
                     android:padding="16dp"
                     android:id="@+id/jump_to"
-                    android:visibility="gone" />
+                    android:visibility="gone"/>
             </LinearLayout>
 
             <TextView

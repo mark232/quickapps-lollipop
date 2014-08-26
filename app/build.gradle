@@ -10,8 +10,9 @@ android {
         applicationId "com.yoavst.quickapps"
         minSdkVersion 19
         targetSdkVersion 20
-        versionCode 28
-        versionName "2.3"
+        versionCode 29
+        versionName "2.3.5"
+        resConfigs "xhdpi", "xxhdpi", "xxxhdpi"
         applicationVariants.all { variant ->
             if (variant.name == "release") {
                 def file = variant.outputFile

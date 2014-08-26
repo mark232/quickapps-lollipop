@@ -61,7 +61,8 @@ public class DialerFragment extends Fragment {
 
 	@AfterViews
 	void init() {
-		mQuickNumbers = new Gson().fromJson(new Preferences_(getActivity()).quickDials().get(), QUICK_NUMBERS_TYPE);
+		String quickDials = new Preferences_(getActivity()).quickDials().get();
+		mQuickNumbers = new Gson().fromJson(quickDials, QUICK_NUMBERS_TYPE);
 		mName.setSelected(true);
 		Cursor phones = getActivity().getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, null, null, null);
 		phones.moveToFirst();
@@ -123,10 +124,16 @@ public class DialerFragment extends Fragment {
 		int num = Integer.parseInt((String) view.getTag());
 		if (mQuickNumbers.containsKey(num)) {
 			Pair<String,String> contact = mQuickNumbers.get(num);
-			mNumber.setText(contact.second);
-			originalOldText = contact.second;
-			mName.setText(contact.first);
-			oldName = contact.first;
+			try {
+				Phonenumber.PhoneNumber phone = PhoneNumberUtil.getInstance().parse(contact.second,
+						getActivity().getResources().getConfiguration().locale.getCountry());
+				mNumber.setText("0" + phone.getNationalNumber());
+				originalOldText = contact.second;
+				mName.setText(contact.first);
+				oldName = contact.first;
+			} catch (NumberParseException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 

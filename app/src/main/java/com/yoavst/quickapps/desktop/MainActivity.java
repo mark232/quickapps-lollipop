@@ -3,13 +3,17 @@ package com.yoavst.quickapps.desktop;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v4.widget.DrawerLayout;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.joanzapata.android.iconify.IconDrawable;
+import com.joanzapata.android.iconify.Iconify;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.yoavst.quickapps.R;
 
@@ -38,12 +42,15 @@ public class MainActivity extends Activity {
 	LinearLayout mCircleHeader;
 	@ViewById(R.id.title)
 	TextView mCircleTitle;
+	@ViewById(R.id.jump_to)
+	ImageView mJumpTo;
 	@StringRes(R.string.app_name)
 	String APP_NAME;
 	DrawerLayout.DrawerListener mDrawerToggle;
 
 	@AfterViews
 	void init() {
+		mJumpTo.setImageDrawable(new IconDrawable(this, Iconify.IconValue.fa_share).color(Color.WHITE));
 		// create our manager instance after the content view is set
 		SystemBarTintManager tintManager = new SystemBarTintManager(this);
 		// enable status bar tint
@@ -95,9 +102,11 @@ public class MainActivity extends Activity {
 		if (position == 0) {
 			mCircleHeader.setVisibility(View.VISIBLE);
 			mTitle.setText("");
+			mJumpTo.setVisibility(View.VISIBLE);
 		} else {
 			mCircleHeader.setVisibility(View.GONE);
 			mTitle.setText(APP_NAME);
+			mJumpTo.setVisibility(View.GONE);
 		}
 		mDrawerLayout.closeDrawers();
 		// Set item selected

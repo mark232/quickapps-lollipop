@@ -2,14 +2,9 @@
 <resources>
     <string name="register_us_please">We need access to notifications</string>
     <string name="open_the_case">Open the case now</string>
-    <!-- Torch Part [START] -->
     <string name="torch_is_on">Torch is On</string>
     <string name="touch_to_turn_off">Touch to turn off</string>
-    <!-- Torch Part {END]   -->
-    <!-- Music Part [START] -->
     <string name="unknown">unknown</string>
-    <!-- Music Part {END]   -->
-    <!-- Calendar Part [START] -->
     <string name="today">Today</string>
     <string name="tomorrow">Tomorrow</string>
     <string name="all_day">(all day)</string>
@@ -21,14 +16,8 @@
     <string name="week_s">week/weeks</string>
     <string name="month_s">month/months</string>
     <string name="more_then_year">More then a year left</string>
-    <!-- Calendar Part {END]   -->
-    <!-- Notification Part [START] -->
     <string name="notification_empty">No notifications now</string>
     <string name="notification_removed">Notification removed</string>
-    <!-- Notification Part {END]   -->
-    <!-- Launcher Part [START] -->
-    <!-- Launcher Part {END]   -->
-    <!-- Toggles Part [START] -->
     <string name="wifi">Wi-Fi</string>
     <string name="wifi_off">Wi-Fi is turned off</string>
     <string name="wifi_on">Wi-Fi is turned on</string>
@@ -58,9 +47,6 @@
     <string name="brightness_max">High brightness</string>
     <string name="battery">Battery</string>
     <string name="charging">charging</string>
-
-    <!-- Toggles Part {END] -->
-    <!-- RSS Part {START] -->
     <string name="news_cant_init">Cannot load the module.</string>
     <string name="news_cant_init_subtext">please exit the app and try again.</string>
     <string name="news_network_error">Network error</string>
@@ -73,8 +59,6 @@
     <string name="news_no_content_subtext">Refresh to see new content</string>
     <string name="no_connection">No connection</string>
     <string name="start_downloading">Start Downloading</string>
-    <!-- RSS Part [END]   -->
-    <!-- Stopwatch & Timer Part {START] -->
     <string name="start">Start</string>
     <string name="pause">Pause</string>
     <string name="stop">Stop</string>
@@ -84,11 +68,7 @@
     <string name="stopwatch_run_on_back_message">Do you want the stopwatch to run on background?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
-    <!-- Stopwatch & Timer Part {END]  -->
-    <!-- Calculator Part {START] -->
     <string name="error">Error</string>
-    <!-- Calculator Part [END]   -->
-    <!-- Desktop Part {START] -->
     <string name="how_to_add">How to add</string>
     <string name="how_to_add_step_1">1. Click the button to open the settings</string>
     <string name="how_to_add_step_2">2. Choose "Select apps"</string>
@@ -145,5 +125,7 @@
     <string name="yesterday">Yesterday</string>
     <string name="speed_dial">Speed Dial</string>
     <string name="jump_to_setting">Jump to page</string>
-    <!-- Desktop Part {END]  -->
+    <string name="choose_number">Choose number</string>
+    <string name="empty_speed_dial">Empty speed dial</string>
+    <string name="speed_dial_instructions">(Click to edit, Long click to see the value)</string>
 </resources>
