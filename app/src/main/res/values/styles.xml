@@ -31,6 +31,7 @@
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:fitsSystemWindows">true</item>
         <item name="android:clipToPadding">false</item>
+        <item name="vpiCirclePageIndicatorStyle">@style/CustomCirclePageIndicatorLight</item>
     </style>
 
     <style name="Widget.Styled.ActionBar" parent="android:Widget.Holo.Light.ActionBar.Solid.Inverse">

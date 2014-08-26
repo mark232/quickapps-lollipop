@@ -18,6 +18,7 @@ The app uses LG Quick Circle SDK and QSlide SDK.
 * Calculator - Evaluate the math string using EvalEx library.
 * News - Use Feedly Cloud Api to receive the newest 20 articles from the user feed.
 * Compass - Use Compass sensor.
+* Dialer - call `ACTION_CALL` intent. The on-call screen is LG's one.
 
 ## Acknowledgements
 * LG for their Quick Circle and QSlide SDKs.  
@@ -28,7 +29,6 @@ The app uses LG Quick Circle SDK and QSlide SDK.
 * Jake Wharton for [viewpagerindicator](http://viewpagerindicator.com/).  
 * Pablo Fernandez For [Scribe-java](https://github.com/fernandezpablo85/scribe-java).  
 * [Jeppe Foldager](http://www.blackbearblanc.dk/) for its wonderful icons. 
-* Miras Absar for [Airy](https://github.com/mirasmithy/airy).
 * Udo Klimaschewski For [EvalEx](https://github.com/uklimaschewski/EvalEx).
 * Evgeny Shishkin for [RobotoTextView](https://github.com/johnkil/Android-RobotoTextView).
 * Jeff Gilfelt for [SystemBarTint](https://github.com/jgilfelt/SystemBarTint).

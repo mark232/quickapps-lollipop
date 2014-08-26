@@ -125,5 +125,4 @@ Türkçe Çeviri: Ali PERKÜN</string>
     <string name="show_millis_title">Milisaniye göster</string>
     <string name="show_millis_subtitle">Milisaniyeyi zamanlayıcıda göster</string>
     <string name="torch_enable_quick_mode">Hızlı modda El Fenerini etkinleştir</string>
-    <string name="torch_enable_quick_mode_subtitle">Modül üzerindeki hızlı moda tıklayarak ışığı yakın</string>
 </resources>

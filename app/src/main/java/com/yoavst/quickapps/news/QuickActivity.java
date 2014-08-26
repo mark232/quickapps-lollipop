@@ -55,11 +55,16 @@ public class QuickActivity extends BaseQuickCircleActivity implements DownloadMa
 				if (entries == null || entries.size() == 0)
 					showError(Error.Internet);
 				// Else show toast
-				Toast toast = Toast.makeText(this, getString(R.string.no_connection), Toast.LENGTH_SHORT);
-				toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 0);
-				toast.show();
+				noConnectionToast();
 				break;
 		}
+	}
+
+	@UiThread
+	void noConnectionToast() {
+		Toast toast = Toast.makeText(this, getString(R.string.no_connection), Toast.LENGTH_SHORT);
+		toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 0);
+		toast.show();
 	}
 
 	@Override

@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.graphics.drawable.GradientDrawable;
 import android.support.v4.view.ViewPager;
 
+import com.viewpagerindicator.CirclePageIndicator;
 import com.yoavst.quickapps.R;
 import com.yoavst.quickapps.desktop.modules.ModulesAdapter;
 
@@ -19,6 +20,8 @@ import org.androidannotations.annotations.ViewById;
 public class ModulesFragment extends Fragment implements ViewPager.OnPageChangeListener {
 	@ViewById(R.id.pager)
 	ViewPager mPager;
+	@ViewById(R.id.indicator)
+	CirclePageIndicator mIndicator;
 	int[] colors;
 
 	@AfterViews
@@ -30,8 +33,14 @@ public class ModulesFragment extends Fragment implements ViewPager.OnPageChangeL
 		}
 		ta.recycle();
 		mPager.setAdapter(new ModulesAdapter(getChildFragmentManager(), getActivity()));
-		mPager.setOnPageChangeListener(this);
-		onPageSelected(0);
+		mIndicator.setViewPager(mPager);
+		mIndicator.setOnPageChangeListener(this);
+		mPager.post(new Runnable() {
+			@Override
+			public void run() {
+				onPageSelected(0);
+			}
+		});
 
 	}
 

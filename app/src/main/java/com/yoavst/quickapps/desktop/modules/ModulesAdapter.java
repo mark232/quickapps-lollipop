@@ -52,6 +52,9 @@ public class ModulesAdapter extends FragmentPagerAdapter {
 			case 9:
 				fragment = NewsFragment_.builder().build();
 				break;
+			case 10:
+				fragment = DialerFragment_.builder().build();
+				break;
 		}
 		return fragment;
 	}

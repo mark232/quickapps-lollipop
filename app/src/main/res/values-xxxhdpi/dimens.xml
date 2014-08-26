@@ -19,4 +19,5 @@
     <dimen name="toggle">@dimen/small_item</dimen>
     <dimen name="padding_end">30dp</dimen>
     <dimen name="padding_start">45dp</dimen>
+    <dimen name="extra_padding_start">55dp</dimen>
 </resources>

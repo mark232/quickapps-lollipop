@@ -26,6 +26,8 @@ public interface Preferences {
 	boolean showBatteryToggle();
 	@DefaultBoolean(false)
 	boolean calculatorForceFloating();
+	@DefaultBoolean(false)
+	boolean dialerForceFloating();
 	@DefaultBoolean(true)
 	boolean stopwatchShowMillis();
 	String launcherItems();

@@ -1,5 +1,6 @@
 package com.yoavst.quickapps.calculator;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 
 import com.yoavst.quickapps.BaseQuickCircleActivity;
@@ -24,8 +25,12 @@ public class QuickActivity extends BaseQuickCircleActivity {
 
 	@Override
 	protected Intent getIntentForOpenCase() {
-		return new Intent().setClassName("com.android.calculator2",
-				"com.android.calculator2.Calculator").putExtra("com.lge.app.floating.launchAsFloating", forceFloating);
+		try {
+			return new Intent().setClassName("com.android.calculator2",
+					"com.android.calculator2.Calculator").putExtra("com.lge.app.floating.launchAsFloating", forceFloating);
+		} catch (ActivityNotFoundException e) {
+			return null;
+		}
 	}
 
 	@Override

@@ -12,6 +12,7 @@
     <string name="news_module_name" translatable="false">Quick News</string>
     <string name="clock_module_name" translatable="false">Quick Time</string>
     <string name="calculator_module_name" translatable="false">Quick Calculator</string>
+    <string name="dialer_module_name" translatable="false">Quick Dialer</string>
     <string-array name="toggles">
         <item>@string/wifi</item>
         <item>@string/data_data</item>
@@ -44,9 +45,6 @@
 &#8226;Vince Mi for <a href="https://github.com/vinc3m1/RoundedImageView">RoundedImageView</a>.<br>
         ]]>
     </string>
-    <string name="g2_compatibility_mode" translatable="false">G2 compatibility mode</string>
-    <string name="g2_compatibility_mode_off" translatable="false">G3 Mode</string>
-    <string name="g2_compatibility_mode_on" translatable="false">G2 Mode</string>
     <string name="quick" translatable="false">Quick</string>
     <string-array name="modules">
         <item>Torch</item>
@@ -59,8 +57,11 @@
         <item>Calculator</item>
         <item>Compass</item>
         <item>News</item>
+        <item>Dialer</item>
     </string-array>
     <string-array name="launcher_blacklist">
         <item>com.yoavst.quickapps.launcher.LauncherActivity_</item>
     </string-array>
+    <string name="asterisk" translatatable="false">*</string>
+    <string name="number_sign" translatatable="false">#</string>
 </resources>
