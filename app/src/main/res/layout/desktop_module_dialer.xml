@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <ScrollView
         android:paddingBottom="@dimen/activity_vertical_margin"
@@ -17,51 +17,148 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/settings"
+                android:text="@string/speed_dial"
                 android:layout_marginTop="6dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="1dp"
                 android:paddingTop="20dp"
-                style="?android:attr/listSeparatorTextViewStyle"/>
+                style="?android:attr/listSeparatorTextViewStyle" />
 
             <LinearLayout
-                android:id="@+id/qslide_row"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:layout_marginStart="@dimen/activity_horizontal_margin"
-                android:layout_marginEnd="22dp"
-                android:clickable="true"
-                android:background="@drawable/linear_selector"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="10dp">
 
-                <CheckBox
-                    android:id="@+id/qslide_checkbox"
-                    android:layout_width="wrap_content"
-                    android:checked="false"
-                    android:layout_height="match_parent"/>
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="80dp"
+                    android:layout_weight="1"
+                    android:id="@+id/digit1"
+                    android:tag="@string/digit1"
+                    android:text="@string/digit1"
+                    android:background="#7e57c2"
+                    android:layout_marginRight="2dp"
+                    android:textColor="@android:color/white"
+                    android:textSize="50sp" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="80dp"
+                    android:layout_weight="1"
+                    android:id="@+id/digit2"
+                    android:tag="@string/digit2"
+                    android:text="@string/digit2"
+                    android:layout_marginRight="2dp"
+                    android:background="#5c6bc0"
+                    android:textColor="@android:color/white"
+                    android:textSize="50sp" />
 
-                    <TextView
-                        android:text="@string/torch_force_floating"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"/>
-
-                    <TextView
-                        android:text="@string/force_floating_subtext_dialer"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceSmall"/>
-                </LinearLayout>
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="80dp"
+                    android:layout_weight="1"
+                    android:id="@+id/digit3"
+                    android:tag="@string/digit3"
+                    android:text="@string/digit3"
+                    android:layout_marginRight="2dp"
+                    android:background="#738ffe"
+                    android:textColor="@android:color/white"
+                    android:textSize="50sp" />
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="2dp">
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="80dp"
+                    android:layout_weight="1"
+                    android:id="@+id/digit4"
+                    android:tag="@string/digit4"
+                    android:text="@string/digit4"
+                    android:background="#673ab7"
+                    android:layout_marginRight="2dp"
+                    android:textColor="@android:color/white"
+                    android:textSize="50sp" />
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="80dp"
+                    android:layout_weight="1"
+                    android:id="@+id/digit5"
+                    android:tag="@string/digit5"
+                    android:text="@string/digit5"
+                    android:layout_marginRight="2dp"
+                    android:background="#3f51b5"
+                    android:textColor="@android:color/white"
+                    android:textSize="50sp" />
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="80dp"
+                    android:layout_weight="1"
+                    android:id="@+id/digit6"
+                    android:text="@string/digit6"
+                    android:tag="@string/digit6"
+                    android:layout_marginRight="2dp"
+                    android:background="#5677fc"
+                    android:textColor="@android:color/white"
+                    android:textSize="50sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="2dp">
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="80dp"
+                    android:layout_weight="1"
+                    android:id="@+id/digit7"
+                    android:text="@string/digit7"
+                    android:tag="@string/digit7"
+                    android:background="#512da8"
+                    android:layout_marginRight="2dp"
+                    android:textColor="@android:color/white"
+                    android:textSize="50sp" />
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="80dp"
+                    android:layout_weight="1"
+                    android:id="@+id/digit8"
+                    android:text="@string/digit8"
+                    android:tag="@string/digit8"
+                    android:layout_marginRight="2dp"
+                    android:background="#303f9f"
+                    android:textColor="@android:color/white"
+                    android:textSize="50sp" />
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="80dp"
+                    android:layout_weight="1"
+                    android:id="@+id/digit9"
+                    android:text="@string/digit9"
+                    android:tag="@string/digit9"
+                    android:layout_marginRight="2dp"
+                    android:background="#455ede"
+                    android:textColor="@android:color/white"
+                    android:textSize="50sp" />
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

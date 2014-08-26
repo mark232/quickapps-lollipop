@@ -22,7 +22,7 @@
         android:ellipsize="marquee"
         android:marqueeRepeatLimit="marquee_forever"
         android:singleLine="true"
-        android:id="@+id/name"/>
+        android:id="@+id/name" />
 
     <TextView
         android:layout_height="wrap_content"
@@ -45,38 +45,38 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/digit7"
+            android:id="@+id/digit1"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginLeft="20dp"
             android:scaleType="centerInside"
             android:textColor="@android:color/black"
-            android:text="@string/digit7"
-            android:tag="@string/digit7"
+            android:text="@string/digit1"
+            android:tag="@string/digit1"
             android:textSize="25dp"
             android:background="@drawable/floating_back_background_dialer_btn" />
 
         <Button
-            android:id="@+id/digit8"
+            android:id="@+id/digit2"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginLeft="20dp"
             android:scaleType="centerInside"
             android:textColor="@android:color/black"
-            android:text="@string/digit8"
-            android:tag="@string/digit8"
+            android:text="@string/digit2"
+            android:tag="@string/digit2"
             android:textSize="25dp"
             android:background="@drawable/floating_back_background_dialer_btn" />
 
         <Button
-            android:id="@+id/digit9"
+            android:id="@+id/digit3"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginLeft="20dp"
             android:scaleType="centerInside"
             android:textColor="@android:color/black"
-            android:text="@string/digit9"
-            android:tag="@string/digit9"
+            android:text="@string/digit3"
+            android:tag="@string/digit3"
             android:textSize="25dp"
             android:background="@drawable/floating_back_background_dialer_btn" />
     </LinearLayout>
@@ -133,38 +133,38 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/digit1"
+            android:id="@+id/digit7"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginLeft="20dp"
             android:scaleType="centerInside"
             android:textColor="@android:color/black"
-            android:text="@string/digit1"
-            android:tag="@string/digit1"
+            android:text="@string/digit7"
+            android:tag="@string/digit7"
             android:textSize="25dp"
             android:background="@drawable/floating_back_background_dialer_btn" />
 
         <Button
-            android:id="@+id/digit2"
+            android:id="@+id/digit8"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginLeft="20dp"
             android:scaleType="centerInside"
             android:textColor="@android:color/black"
-            android:text="@string/digit2"
-            android:tag="@string/digit2"
+            android:text="@string/digit8"
+            android:tag="@string/digit8"
             android:textSize="25dp"
             android:background="@drawable/floating_back_background_dialer_btn" />
 
         <Button
-            android:id="@+id/digit3"
+            android:id="@+id/digit9"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginLeft="20dp"
             android:scaleType="centerInside"
             android:textColor="@android:color/black"
-            android:text="@string/digit3"
-            android:tag="@string/digit3"
+            android:text="@string/digit9"
+            android:tag="@string/digit9"
             android:textSize="25dp"
             android:background="@drawable/floating_back_background_dialer_btn" />
     </LinearLayout>

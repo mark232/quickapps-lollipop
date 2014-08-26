@@ -1,10 +1,19 @@
 package com.yoavst.quickapps.desktop;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.content.res.TypedArray;
 import android.graphics.drawable.GradientDrawable;
+import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
 
+import com.joanzapata.android.iconify.IconDrawable;
+import com.joanzapata.android.iconify.Iconify;
 import com.viewpagerindicator.CirclePageIndicator;
 import com.yoavst.quickapps.R;
 import com.yoavst.quickapps.desktop.modules.ModulesAdapter;
@@ -41,7 +50,27 @@ public class ModulesFragment extends Fragment implements ViewPager.OnPageChangeL
 				onPageSelected(0);
 			}
 		});
-
+		View jumpTo = getActivity().findViewById(R.id.jump_to);
+		jumpTo.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				AlertDialog.Builder builder = new AlertDialog.Builder(ModulesFragment.this.getActivity());
+				builder.setTitle(R.string.jump_to_setting);
+				builder.setItems(R.array.modules, new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						mPager.setCurrentItem(which, true);
+					}
+				});
+				builder.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+					}
+				});
+				builder.show();
+			}
+		});
 	}
 
 	@Override

@@ -1,54 +1,46 @@
 package com.yoavst.quickapps.desktop.modules;
 
+import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
+import android.util.Pair;
 import android.view.View;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.Toast;
 
 import com.yoavst.quickapps.Preferences_;
 import com.yoavst.quickapps.R;
 
-import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
-import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
+
+import java.util.HashMap;
 
 /**
  * Created by Yoav.
  */
-@EFragment(R.layout.desktop_module_calculator)
-public class DialerFragment extends Fragment implements CompoundButton.OnCheckedChangeListener {
+@EFragment(R.layout.desktop_module_dialer)
+public class DialerFragment extends Fragment {
 
-	@ViewById(R.id.qslide_checkbox)
-	CheckBox mQslide;
 	@Pref
 	Preferences_ mPrefs;
+	HashMap<Integer, Pair<String, String>> mQuickNumbers = new HashMap<>(10);
+	int lastNum = -1;
+	public static final int PICK_CONTACT_REQUEST = 42;
 
-	@AfterViews
-	void init() {
-		mQslide.setChecked(mPrefs.dialerForceFloating().get());
-		mQslide.setOnCheckedChangeListener(this);
-
-	}
-
-	@Click({R.id.qslide_row})
-	void clickRow(View view) {
-		switch (view.getId()) {
-			case R.id.qslide_row:
-				mQslide.toggle();
-				break;
-		}
+	@Click({R.id.digit1, R.id.digit2, R.id.digit3,
+			R.id.digit4, R.id.digit5, R.id.digit6, R.id.digit7, R.id.digit8, R.id.digit9})
+	void onQuickDialClicked(View view) {
+		lastNum = Integer.parseInt((String) view.getTag());
 	}
 
 	@Override
-	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-		switch (buttonView.getId()) {
-			case R.id.qslide_checkbox:
-				mPrefs.dialerForceFloating().put(isChecked);
-				Toast.makeText(getActivity(), R.string.changed_successfully, Toast.LENGTH_SHORT).show();
-				break;
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (requestCode == PICK_CONTACT_REQUEST) {
+			if (resultCode == Activity.RESULT_OK) {
+				lastNum = -1;
+			}
 		}
 	}
+
 }

@@ -15,6 +15,7 @@
         <item name="radius">5dp</item>
         <item name="centered">true</item>
     </style>
+
     <style name="CustomCirclePageIndicatorLight">
         <item name="fillColor">#000</item>
         <item name="strokeColor">#000</item>
@@ -39,5 +40,4 @@
         <item name="android:background">@color/primary</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
-
 </resources>

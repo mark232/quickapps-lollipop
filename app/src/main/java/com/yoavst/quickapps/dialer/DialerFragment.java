@@ -11,12 +11,18 @@ import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.util.Pair;
+import android.util.SparseArray;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.Phonenumber;
+import com.yoavst.quickapps.Preferences_;
 import com.yoavst.quickapps.R;
 
 import org.androidannotations.annotations.AfterViews;
@@ -28,7 +34,10 @@ import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.res.ColorRes;
 
+import java.lang.reflect.Array;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by Yoav.
@@ -41,13 +50,18 @@ public class DialerFragment extends Fragment {
 	TextView mName;
 	@ColorRes(android.R.color.darker_gray)
 	int mSuggestionColor;
-	ArrayList<Pair<String, String>> mPhoneNumbers = new ArrayList<>();
 	String originalOldText = "";
 	String oldName = "";
 	Handler handler = new Handler();
+	ArrayList<Pair<String, String>> mPhoneNumbers = new ArrayList<>();
+	HashMap<Integer,Pair<String,String>> mQuickNumbers = new HashMap<>(10);
+	public static final Type QUICK_NUMBERS_TYPE = new TypeToken<HashMap<Integer,Pair<String,String>>>() {
+	}.getType();
+
 
 	@AfterViews
 	void init() {
+		mQuickNumbers = new Gson().fromJson(new Preferences_(getActivity()).quickDials().get(), QUICK_NUMBERS_TYPE);
 		mName.setSelected(true);
 		Cursor phones = getActivity().getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, null, null, null);
 		phones.moveToFirst();
@@ -101,6 +115,19 @@ public class DialerFragment extends Fragment {
 		removeSuggestion();
 		mNumber.append((String) view.getTag());
 		updateSuggestion(mNumber.getText().toString());
+	}
+
+	@LongClick({R.id.digit0, R.id.digit1, R.id.digit2, R.id.digit3,
+			R.id.digit4, R.id.digit5, R.id.digit6, R.id.digit7, R.id.digit8, R.id.digit9})
+	void onNumberLongClicked(View view) {
+		int num = Integer.parseInt((String) view.getTag());
+		if (mQuickNumbers.containsKey(num)) {
+			Pair<String,String> contact = mQuickNumbers.get(num);
+			mNumber.setText(contact.second);
+			originalOldText = contact.second;
+			mName.setText(contact.first);
+			oldName = contact.first;
+		}
 	}
 
 	@Click(R.id.delete)
@@ -170,5 +197,12 @@ public class DialerFragment extends Fragment {
 	void dial() {
 		if (mNumber.getText().length() >= 3)
 			startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + mNumber.getText())));
+	}
+
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		mPhoneNumbers.clear();
+		mPhoneNumbers = null;
 	}
 }

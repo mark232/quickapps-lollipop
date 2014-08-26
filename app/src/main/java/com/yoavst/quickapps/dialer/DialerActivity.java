@@ -14,16 +14,16 @@ import org.androidannotations.annotations.EActivity;
  */
 @EActivity
 public class DialerActivity extends BaseQuickCircleActivity {
-	boolean forceFloating = false;
+
 	@AfterViews
 	void init() {
 		getFragmentManager().beginTransaction().replace(R.id.quick_circle_fragment, DialerFragment_.builder().build()).commit();
-		forceFloating = new Preferences_(this).dialerForceFloating().get();
 	}
+
 	@Override
 	protected Intent getIntentForOpenCase() {
 		return new Intent().setClassName("com.android.contacts",
-				"alias.PeopleFloatingActivity").putExtra("com.lge.app.floating.launchAsFloating", forceFloating);
+				"alias.PeopleFloatingActivity").putExtra("com.lge.app.floating.launchAsFloating", true);
 	}
 
 	@Override
