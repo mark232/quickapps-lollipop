@@ -17,6 +17,7 @@ import org.androidannotations.annotations.EActivity;
 @EActivity
 public class QuickActivity extends BaseQuickCircleActivity {
 	boolean forceFloating = false;
+
 	@AfterViews
 	void init() {
 		getFragmentManager().beginTransaction().replace(R.id.quick_circle_fragment, CalculatorFragment_.builder().build()).commit();
@@ -25,12 +26,10 @@ public class QuickActivity extends BaseQuickCircleActivity {
 
 	@Override
 	protected Intent getIntentForOpenCase() {
-		try {
-			return new Intent().setClassName("com.android.calculator2",
-					"com.android.calculator2.Calculator").putExtra("com.lge.app.floating.launchAsFloating", forceFloating);
-		} catch (ActivityNotFoundException e) {
-			return null;
-		}
+		Intent intent = new Intent().setClassName("com.android.calculator2",
+				"com.android.calculator2.Calculator").putExtra("com.lge.app.floating.launchAsFloating", forceFloating);
+		boolean activityExists = intent.resolveActivityInfo(getPackageManager(), 0) != null;
+		return activityExists ? intent : null;
 	}
 
 	@Override

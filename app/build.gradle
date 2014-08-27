@@ -10,8 +10,8 @@ android {
         applicationId "com.yoavst.quickapps"
         minSdkVersion 19
         targetSdkVersion 20
-        versionCode 29
-        versionName "2.3.5"
+        versionCode 30
+        versionName "2.3.6"
         resConfigs "xhdpi", "xxhdpi", "xxxhdpi"
         applicationVariants.all { variant ->
             if (variant.name == "release") {

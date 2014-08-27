@@ -53,8 +53,8 @@
   <string name="news_network_error">Errore di connessione</string>
   <string name="news_network_error_subtext">Per favore verifica la tua connessione dati e riprova</string>
   <string name="loading">Caricamento...</string>
-    <string name="news_should_login">@string/login_to_feedly</string>
-    <string name="news_should_login_subtext">Per favore apri la custodia per il Login</string>
+  <string name="news_should_login">@string/login_to_feedly</string>
+  <string name="news_should_login_subtext">Per favore apri la custodia per il Login</string>
   <string name="login_to_feedly">Connettiti a Feedly</string>
   <string name="news_no_content">Nessun contenuto disponibile</string>
   <string name="news_no_content_subtext">Ricarica per vedere i nuovi contenuti</string>
@@ -111,10 +111,10 @@
   <string name="privacy_subtitle">Il contenuto delle vostre notifiche potrebbe essere segreto</string>
   <string name="launcher_control_items">Riordina i moduli</string>
   <string name="launcher_control_items_subtitle">Riordina i moduli nel launcher</string>
-  <string name="launcher_load_external">Load external modules</string>
-  <string name="launcher_load_external_subtitle">Show external modules in launcher</string>
-  <string name="launcher_auto_add">Auto add modules</string>
-  <string name="launcher_auto_add_subtitle">Automatically add new modules</string>
+  <string name="launcher_load_external">Carica i moduli esterni</string>
+  <string name="launcher_load_external_subtitle">Mostra i moduli esterni nel launcher</string>
+  <string name="launcher_auto_add">aggiungi automaticamente I moduli</string>
+  <string name="launcher_auto_add_subtitle">Aggiungi automaticamente i nuovi moduli</string>
   <string name="toggles_order_items">Riordina i pulsanti</string>
   <string name="toggles_order_items_subtitle">Riordina i pulsanti nel modulo</string>
   <string name="battery_title">Mostra il livello della batteria</string>
@@ -123,4 +123,9 @@
   <string name="show_millis_title">Mostra millisecondi</string>
   <string name="show_millis_subtitle">Mostra i millisecondi nel Timer</string>
   <string name="news_logout_feedly">Logout from feedly</string>
+  <string name="yesterday">Yesterday</string>
+  <string name="speed_dial">Speed Dial</string>
+  <string name="jump_to_setting">Jump to page</string>
+  <string name="choose_number">Choose number</string>
+  <string name="empty_speed_dial">Empty speed dial</string>
 </resources>

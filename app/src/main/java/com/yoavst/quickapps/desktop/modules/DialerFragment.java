@@ -33,13 +33,14 @@ public class DialerFragment extends Fragment {
 
 	@Pref
 	Preferences_ mPrefs;
-	HashMap<Integer, Pair<String, String>> mQuickNumbers = new HashMap<>(10);
+	HashMap<Integer, Pair<String, String>> mQuickNumbers;
 	int lastNum = -1;
 	public static final int PICK_CONTACT_REQUEST = 42;
 
 	@AfterViews
 	void init() {
 		mQuickNumbers = new Gson().fromJson(mPrefs.quickDials().get(), DialerFragment_.QUICK_NUMBERS_TYPE);
+		if (mQuickNumbers == null) mQuickNumbers = new HashMap<>(10);
 	}
 
 	@Click({R.id.digit1, R.id.digit2, R.id.digit3,

@@ -54,7 +54,7 @@ public class DialerFragment extends Fragment {
 	String oldName = "";
 	Handler handler = new Handler();
 	ArrayList<Pair<String, String>> mPhoneNumbers = new ArrayList<>();
-	HashMap<Integer,Pair<String,String>> mQuickNumbers = new HashMap<>(10);
+	HashMap<Integer,Pair<String,String>> mQuickNumbers;
 	public static final Type QUICK_NUMBERS_TYPE = new TypeToken<HashMap<Integer,Pair<String,String>>>() {
 	}.getType();
 
@@ -63,6 +63,7 @@ public class DialerFragment extends Fragment {
 	void init() {
 		String quickDials = new Preferences_(getActivity()).quickDials().get();
 		mQuickNumbers = new Gson().fromJson(quickDials, QUICK_NUMBERS_TYPE);
+		if (mQuickNumbers == null) mQuickNumbers = new HashMap<>(0);
 		mName.setSelected(true);
 		Cursor phones = getActivity().getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, null, null, null);
 		phones.moveToFirst();

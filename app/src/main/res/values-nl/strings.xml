@@ -122,5 +122,10 @@
   <string name="force_floating_subtext">Als je de Quick Circle wordt de rekenmachine geopend in Qslide modus</string>
   <string name="show_millis_title">Toon milliseconden</string>
   <string name="show_millis_subtitle">Milliseconden in de timer weergeven</string>
-  <string name="news_logout_feedly">Uitloggen bij feedly</string>
+  <string name="news_logout_feedly">Uitloggen bij Feedly</string>
+  <string name="yesterday">Gisteren</string>
+  <string name="speed_dial">Snelkiezen</string>
+  <string name="jump_to_setting">Ga naar pagina</string>
+  <string name="choose_number">Kies nummer</string>
+  <string name="empty_speed_dial">Snelkiezer legen</string>
 </resources>
