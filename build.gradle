@@ -16,6 +16,9 @@ allprojects {
         maven {
             url 'https://github.com/Goddchen/mvn-repo/raw/master/'
         }
+        maven {
+            url "http://mente.github.io/facebook-api-android-aar"
+        }
         jcenter()
     }
 }

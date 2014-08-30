@@ -48,7 +48,7 @@
             android:background="@android:color/background_light"
             tools:ignore="SpUsage">
 
-            <TextView
+            <com.AutoResizeTextView
                 android:id="@+id/title_error"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -67,7 +67,7 @@
                 android:layout_below="@+id/title_error"
                 android:src="@drawable/ic_error"/>
 
-            <TextView
+            <com.AutoResizeTextView
                 android:id="@+id/extra_error"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -50,7 +50,7 @@ public class MainActivity extends Activity {
 
 	@AfterViews
 	void init() {
-		mJumpTo.setImageDrawable(new IconDrawable(this, Iconify.IconValue.fa_share).color(Color.WHITE));
+		mJumpTo.setImageDrawable(new IconDrawable(this, Iconify.IconValue.fa_arrows_h).color(Color.WHITE));
 		// create our manager instance after the content view is set
 		SystemBarTintManager tintManager = new SystemBarTintManager(this);
 		// enable status bar tint

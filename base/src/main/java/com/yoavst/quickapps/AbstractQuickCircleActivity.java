@@ -84,9 +84,7 @@ public abstract class AbstractQuickCircleActivity extends Activity {
 		Window win = getWindow();
 		if (win != null) {
 			// Show the sample application view on top
-			win.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
-					| WindowManager.LayoutParams.FLAG_FULLSCREEN
-					| WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+			win.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
 		}
 	}
 
@@ -159,6 +157,7 @@ public abstract class AbstractQuickCircleActivity extends Activity {
 						startActivity(launchIntent);
 					//Finish the activity
 					AbstractQuickCircleActivity.this.finish();
+					overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 				}
 			}
 		}

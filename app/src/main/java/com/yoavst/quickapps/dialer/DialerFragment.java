@@ -1,23 +1,21 @@
 package com.yoavst.quickapps.dialer;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Handler;
 import android.provider.ContactsContract;
+import android.telephony.TelephonyManager;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.util.Pair;
-import android.util.SparseArray;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
@@ -34,7 +32,6 @@ import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.res.ColorRes;
 
-import java.lang.reflect.Array;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -54,13 +51,29 @@ public class DialerFragment extends Fragment {
 	String oldName = "";
 	Handler handler = new Handler();
 	ArrayList<Pair<String, String>> mPhoneNumbers = new ArrayList<>();
-	HashMap<Integer,Pair<String,String>> mQuickNumbers;
-	public static final Type QUICK_NUMBERS_TYPE = new TypeToken<HashMap<Integer,Pair<String,String>>>() {
+	HashMap<Integer, Pair<String, String>> mQuickNumbers;
+	public static final Type QUICK_NUMBERS_TYPE = new TypeToken<HashMap<Integer, Pair<String, String>>>() {
 	}.getType();
-
+	private static String sCountryRegion;
+	private static boolean sHasLeadingZero = false;
+	PhoneNumberUtil mNumberUtil = PhoneNumberUtil.getInstance();
 
 	@AfterViews
 	void init() {
+		if (sCountryRegion == null) {
+			try {
+				sCountryRegion = mNumberUtil.getRegionCodeForCountryCode(Integer.parseInt(GetCountryZipCode(getActivity())));
+			} catch (Exception e) {
+				sCountryRegion = "001";
+			}
+			Phonenumber.PhoneNumber number = mNumberUtil.getExampleNumber(sCountryRegion);
+			if (number == null) sHasLeadingZero = false;
+			else {
+				String formatted = mNumberUtil.format(number, PhoneNumberUtil.PhoneNumberFormat.NATIONAL);
+				if (formatted == null || formatted.length() == 0) sHasLeadingZero = false;
+				else sHasLeadingZero = formatted.startsWith("0");
+			}
+		}
 		String quickDials = new Preferences_(getActivity()).quickDials().get();
 		mQuickNumbers = new Gson().fromJson(quickDials, QUICK_NUMBERS_TYPE);
 		if (mQuickNumbers == null) mQuickNumbers = new HashMap<>(0);
@@ -71,7 +84,6 @@ public class DialerFragment extends Fragment {
 
 	}
 
-	@Background
 	void handleContacts(Cursor cursor) {
 		PhoneNumberUtil phoneUtil = PhoneNumberUtil.getInstance();
 		while (cursor.moveToNext()) {
@@ -80,7 +92,7 @@ public class DialerFragment extends Fragment {
 						getActivity().getResources().getConfiguration().locale.getCountry());
 				mPhoneNumbers.add(Pair.create(
 						cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME)),
-						"0" + phone.getNationalNumber()));
+						(sHasLeadingZero ? "0" : "") + phone.getNationalNumber()));
 			} catch (NumberParseException e) {
 				break;
 			}
@@ -124,12 +136,11 @@ public class DialerFragment extends Fragment {
 	void onNumberLongClicked(View view) {
 		int num = Integer.parseInt((String) view.getTag());
 		if (mQuickNumbers.containsKey(num)) {
-			Pair<String,String> contact = mQuickNumbers.get(num);
+			Pair<String, String> contact = mQuickNumbers.get(num);
 			try {
-				Phonenumber.PhoneNumber phone = PhoneNumberUtil.getInstance().parse(contact.second,
-						getActivity().getResources().getConfiguration().locale.getCountry());
-				mNumber.setText("0" + phone.getNationalNumber());
-				originalOldText = contact.second;
+				Phonenumber.PhoneNumber phone = mNumberUtil.parse(contact.second, sCountryRegion);
+				mNumber.setText((sHasLeadingZero ? "0" : "") + phone.getNationalNumber());
+				originalOldText = mNumber.getText().toString();
 				mName.setText(contact.first);
 				oldName = contact.first;
 			} catch (NumberParseException e) {
@@ -163,26 +174,18 @@ public class DialerFragment extends Fragment {
 		originalOldText = text;
 		if (originalOldText.length() >= 2) {
 			for (Pair<String, String> num : mPhoneNumbers) {
-				if (num.second.startsWith(originalOldText)) {
-					setText(num, false);
+				boolean zero = sHasLeadingZero && !originalOldText.startsWith("0");
+				if (num.second.startsWith((zero ? "0" : "") + originalOldText)) {
+					setText(num, zero);
 					return;
 				}
 			}
-			// Now again with adding 0
-			for (Pair<String, String> num : mPhoneNumbers) {
-				if (num.second.startsWith("0" + originalOldText)) {
-					setText(num, true);
-					return;
-				}
-			}
-		}
-		handler.post(new Runnable() {
+		} else handler.post(new Runnable() {
 			@Override
 			public void run() {
 				mName.setText("");
 			}
 		});
-
 	}
 
 	@UiThread
@@ -191,7 +194,7 @@ public class DialerFragment extends Fragment {
 		text.setSpan(new ForegroundColorSpan(mSuggestionColor), originalOldText.length(),
 				text.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 		mNumber.setText(text);
-		if (!oldName.equals(num.first)) {
+		if (!mName.getText().equals(num.first)) {
 			mName.setText(num.first);
 			oldName = num.first;
 		}
@@ -199,6 +202,8 @@ public class DialerFragment extends Fragment {
 
 	void removeSuggestion() {
 		mNumber.setText(originalOldText);
+		mName.setText("");
+		oldName = "";
 	}
 
 	@Click(R.id.dial)
@@ -212,5 +217,21 @@ public class DialerFragment extends Fragment {
 		super.onDestroy();
 		mPhoneNumbers.clear();
 		mPhoneNumbers = null;
+	}
+
+	public static String GetCountryZipCode(Context context) {
+		String CountryID = "";
+		String CountryZipCode = "";
+		TelephonyManager manager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+		CountryID = manager.getSimCountryIso().toUpperCase();
+		String[] rl = context.getResources().getStringArray(R.array.CountryCodes);
+		for (String aRl : rl) {
+			String[] g = aRl.split(",");
+			if (g[1].trim().equals(CountryID.trim())) {
+				CountryZipCode = g[0];
+				break;
+			}
+		}
+		return CountryZipCode;
 	}
 }

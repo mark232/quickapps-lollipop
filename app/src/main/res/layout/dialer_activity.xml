@@ -25,7 +25,7 @@
             android:layout_height="match_parent"
             tools:layout_height="277dip"
             android:src="@drawable/quickcover_mask"
-            android:scaleType="fitCenter"
+            android:scaleType="fitXY"
             android:layout_alignTop="@id/quick_circle_fragment"
             android:layout_centerHorizontal="true"
             android:layout_alignStart="@id/quick_circle_fragment"/>

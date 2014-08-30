@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.yoavst.quickapps" >
+    package="com.yoavst.quickapps">
 
     <permission
         android:name="android.permission.FLASHLIGHT"
         android:permissionGroup="android.permission-group.HARDWARE_CONTROLS"
         android:protectionLevel="normal" />
-
     <uses-permission android:name="android.permission.CAMERA" />
 
     <uses-feature android:name="android.hardware.camera" />
@@ -29,9 +28,8 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:largeHeap="true" >
+        android:largeHeap="true">
         <service android:name="com.lge.app.floating.FloatingWindowService" />
-
         <uses-library
             android:name="com.lge.app.floating"
             android:required="false" />
@@ -44,19 +42,16 @@
             android:screenOrientation="portrait"
             android:taskAffinity="com.yoavst.quickapps.torch"
             android:theme="@style/darkTheme" />
-
         <activity-alias
             android:name=".torch.PhoneActivityLauncher"
             android:icon="@drawable/torch_launcher"
             android:label="@string/torch_module_name"
-            android:targetActivity=".torch.PhoneActivity_" >
+            android:targetActivity=".torch.PhoneActivity_">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity-alias>
-
         <activity
             android:name=".torch.QuickActivity_"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -66,7 +61,7 @@
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"
             android:taskAffinity="com.yoavst.quickapps.torch"
-            android:theme="@style/darkTheme" >
+            android:theme="@style/darkTheme">
             <intent-filter>
                 <action android:name="com.lge.quickcover" />
             </intent-filter>
@@ -76,25 +71,24 @@
             android:name=".torch.WidgetProvider"
             android:icon="@drawable/torch_launcher"
             android:label="@string/torch_module_name"
-            android:taskAffinity="com.yoavst.quickapps.torch" >
+            android:taskAffinity="com.yoavst.quickapps.torch">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
-
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/torch_widget_provider" />
         </receiver>
         <receiver
             android:name=".torch.TorchReceiver"
-            android:taskAffinity="com.yoavst.quickapps.torch" >
+            android:taskAffinity="com.yoavst.quickapps.torch">
             <intent-filter>
                 <action android:name="com.yoavst.toggletorch" />
             </intent-filter>
         </receiver>
         <receiver
             android:name=".torch.NotificationReceiver"
-            android:taskAffinity="com.yoavst.quickapps.torch" >
+            android:taskAffinity="com.yoavst.quickapps.torch">
             <intent-filter>
                 <action android:name="com.yoavst.notificationtorch" />
             </intent-filter>
@@ -105,10 +99,9 @@
             android:enabled="true"
             android:icon="@drawable/torch_icon"
             android:label="@string/torch_module_name"
-            android:targetActivity=".torch.PhoneActivity_" >
+            android:targetActivity=".torch.PhoneActivity_">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="com.lge.intent.category.QSLIDE" />
             </intent-filter>
 
@@ -130,7 +123,7 @@
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"
             android:taskAffinity="com.yoavst.quickapps.compass"
-            android:theme="@style/darkTheme" >
+            android:theme="@style/darkTheme">
             <intent-filter>
                 <action android:name="com.lge.quickcover" />
             </intent-filter>
@@ -154,18 +147,17 @@
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"
             android:taskAffinity="com.yoavst.quickapps.music"
-            android:theme="@style/darkTheme" >
+            android:theme="@style/darkTheme">
             <intent-filter>
                 <action android:name="com.lge.quickcover" />
             </intent-filter>
         </activity>
-
         <service
             android:name=".music.RemoteControlService"
             android:icon="@drawable/music_launcher"
             android:label="@string/music_module_name"
             android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"
-            android:taskAffinity="com.yoavst.quickapps.music" >
+            android:taskAffinity="com.yoavst.quickapps.music">
             <intent-filter>
                 <action android:name="android.service.notification.NotificationListenerService" />
                 <action android:name="com.yoavst.quickmusic.BIND_RC_CONTROL_SERVICE" />
@@ -182,7 +174,7 @@
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"
             android:taskAffinity="com.yoavst.quickapps.calendar"
-            android:theme="@style/lightTheme" >
+            android:theme="@style/lightTheme">
             <intent-filter>
                 <action android:name="com.lge.quickcover" />
             </intent-filter>
@@ -198,18 +190,17 @@
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"
             android:taskAffinity="com.yoavst.quickapps.notifications"
-            android:theme="@style/darkTheme" >
+            android:theme="@style/darkTheme">
             <intent-filter>
                 <action android:name="com.lge.quickcover" />
             </intent-filter>
         </activity>
-
         <service
             android:name=".notifications.NotificationService"
             android:icon="@drawable/notifications_launcher"
             android:label="@string/notification_module_name"
             android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"
-            android:taskAffinity="com.yoavst.quickapps.notifications" >
+            android:taskAffinity="com.yoavst.quickapps.notifications">
             <intent-filter>
                 <action android:name="android.service.notification.NotificationListenerService" />
             </intent-filter>
@@ -225,7 +216,7 @@
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"
             android:taskAffinity="com.yoavst.quickapps.launcher"
-            android:theme="@style/darkTheme" >
+            android:theme="@style/darkTheme">
             <intent-filter>
                 <action android:name="com.lge.quickcover" />
             </intent-filter>
@@ -241,7 +232,7 @@
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"
             android:taskAffinity="com.yoavst.quickapps.toggles"
-            android:theme="@style/lightTheme" >
+            android:theme="@style/lightTheme">
             <intent-filter>
                 <action android:name="com.lge.quickcover" />
             </intent-filter>
@@ -266,7 +257,7 @@
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"
             android:taskAffinity="com.yoavst.quickapps.news"
-            android:theme="@style/lightTheme" >
+            android:theme="@style/lightTheme">
             <intent-filter>
                 <action android:name="com.lge.quickcover" />
             </intent-filter>
@@ -282,7 +273,7 @@
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"
             android:taskAffinity="com.yoavst.quickapps.clock"
-            android:theme="@style/lightTheme" >
+            android:theme="@style/lightTheme">
             <intent-filter>
                 <action android:name="com.lge.quickcover" />
             </intent-filter>
@@ -306,7 +297,7 @@
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"
             android:taskAffinity="com.yoavst.quickapps.calculator"
-            android:theme="@style/lightTheme" >
+            android:theme="@style/lightTheme">
             <intent-filter>
                 <action android:name="com.lge.quickcover" />
             </intent-filter>
@@ -319,7 +310,7 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:taskAffinity="com.yoavst.quickapps"
-            android:theme="@style/AppTheme" >
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -338,12 +329,11 @@
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"
             android:taskAffinity="com.yoavst.quickapps.dialer"
-            android:theme="@style/lightTheme" >
+            android:theme="@style/lightTheme">
             <intent-filter>
                 <action android:name="com.lge.quickcover" />
             </intent-filter>
         </activity>
         <!-- Dialer Part {END] -->
     </application>
-
 </manifest>

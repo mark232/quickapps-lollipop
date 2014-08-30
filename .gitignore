@@ -37,3 +37,6 @@ build/
 # Play Store publish plugin
 .store
 playstore_key.json
+
+# Premium module
+facebook/

@@ -25,7 +25,7 @@ The app uses LG Quick Circle SDK and QSlide SDK.
 * Marco Kirchner (@BigBoot) for the compass module and more!
 * Excilys team for [Android annotations](https://github.com/excilys/androidannotations/wiki) that made my life a lot easier.  
 * Joan Zapata for [android-iconify](https://github.com/JoanZapata/android-iconify).  
-* Google for Android, Support V4, V13 packages and GSON.  
+* Google for Android, Support V4, V13 packages, GSON and LibPhoneNumber.  
 * Jake Wharton for [viewpagerindicator](http://viewpagerindicator.com/).  
 * Pablo Fernandez For [Scribe-java](https://github.com/fernandezpablo85/scribe-java).  
 * [Jeppe Foldager](http://www.blackbearblanc.dk/) for its wonderful icons. 

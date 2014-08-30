@@ -97,11 +97,18 @@ public class DownloadManager {
 					JsonObject jsonObject;
 					try {
 						jsonObject = new JsonParser().parse(response.getBody()).getAsJsonObject();
+						if (jsonObject == null) throw new JsonParseException("Object is null");
 					} catch (JsonParseException exception) {
 						if (callback != null) callback.onFail(DownloadError.Other);
 						return;
 					}
-					String items = jsonObject.get("items").toString();
+					String items;
+					try {
+						items = jsonObject.get("items").toString();
+					} catch (Exception e) {
+						callback.onFail(DownloadError.Other);
+						return;
+					}
 					try {
 						ArrayList<Entry> entries = new Gson().fromJson(items, listType);
 						if (callback != null) callback.onSuccess(entries);
