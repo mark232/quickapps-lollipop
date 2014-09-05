@@ -10,8 +10,9 @@ android {
         applicationId "com.yoavst.quickapps"
         minSdkVersion 19
         targetSdkVersion 20
-        versionCode 32
-        versionName "2.3.8"
+        versionCode 35
+        versionName "2.5"
+        resConfigs "ar","ca","de","es","fi","fr","he","hu","it","iw","ko","nl","pl","pt","ru","tr"
         resConfigs "xhdpi", "xxhdpi", "xxxhdpi"
         applicationVariants.all { variant ->
             if (variant.name == "release") {
@@ -96,6 +97,9 @@ dependencies {
     compile 'com.makeramen:roundedimageview:1.3.0'
     compile 'com.googlecode.libphonenumber:libphonenumber:6.2.2'
     compile ('com.actionbarsherlock:viewpagerindicator:2.4.1') {
+        exclude module: 'support-v4'
+    }
+    compile ('com.google.android.gms:play-services:5.0.89') {
         exclude module: 'support-v4'
     }
 }

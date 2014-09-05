@@ -28,6 +28,8 @@ public interface Preferences {
 	boolean calculatorForceFloating();
 	@DefaultBoolean(true)
 	boolean stopwatchShowMillis();
+	@DefaultBoolean(true)
+	boolean showAppsThatInLg();
 	String launcherItems();
 	String togglesItems();
 	String quickDials();

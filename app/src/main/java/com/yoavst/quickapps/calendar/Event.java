@@ -16,19 +16,26 @@ public class Event implements Serializable {
 	boolean isAllDay = false;
 
 	public Event(long id, String title, long startDate, long endDate, String location) {
-		this.id = id;
-		this.title = title;
+		this(id, title, startDate, endDate, location, false);
+	}
+
+	public Event(long id, String title, long startDate, long endDate, String location, boolean isAllDay) {
+		this(id,title, null, location, isAllDay);
 		this.startDate = startDate;
 		this.endDate = endDate;
-		this.location = location;
 		this.date = CalendarUtil.getDateFromEvent(this);
 	}
 
 	public Event(long id, String title, String date, String location) {
+		this(id, title, date, location, false);
+	}
+
+	public Event(long id, String title, String date, String location, boolean isAllDay) {
 		this.id = id;
 		this.title = title;
 		this.date = date;
 		this.location = location;
+		this.isAllDay = isAllDay;
 	}
 
 	public Event setColor(int color) {
@@ -71,11 +78,6 @@ public class Event implements Serializable {
 	 */
 	public boolean isAllDay() {
 		return isAllDay;
-	}
-
-	public Event isAllDay(boolean isAllDay) {
-		this.isAllDay = isAllDay;
-		return this;
 	}
 
 	@Override

@@ -128,4 +128,7 @@
   <string name="jump_to_setting">Jump to page</string>
   <string name="choose_number">Choose number</string>
   <string name="empty_speed_dial">Empty speed dial</string>
+  <string name="speed_dial_instructions">(Click to edit, Long click to see the value)</string>
+  <string name="launcher_remove_lg">Show duplicated apps</string>
+  <string name="launcher_remove_lg_subtitle">Show apps that is visible on LG launcher</string>
 </resources>

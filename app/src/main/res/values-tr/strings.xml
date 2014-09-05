@@ -130,4 +130,7 @@ Türkçe Çeviri: Ali PERKÜN</string>
   <string name="jump_to_setting">Sayfaya atla</string>
   <string name="choose_number">Numara seç</string>
   <string name="empty_speed_dial">Hızlı arama boş</string>
+  <string name="speed_dial_instructions">(Click to edit, Long click to see the value)</string>
+  <string name="launcher_remove_lg">Show duplicated apps</string>
+  <string name="launcher_remove_lg_subtitle">Show apps that is visible on LG launcher</string>
 </resources>

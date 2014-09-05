@@ -1,17 +1,16 @@
 package com.yoavst.quickapps.calendar;
 
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.provider.CalendarContract;
 import android.provider.CalendarContract.Events;
 
-import com.google.ical.compat.javautil.DateIterable;
-import com.google.ical.compat.javautil.DateIteratorFactory;
 import com.yoavst.quickapps.Preferences_;
 import com.yoavst.quickapps.R;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -44,12 +43,12 @@ public class CalendarUtil {
 	private static final SimpleDateFormat hourFormatter = new SimpleDateFormat("HH:mm");
 	private static final SimpleDateFormat fullDateFormat = new SimpleDateFormat("EEE, MMM d");
 	private static final SimpleDateFormat otherDayFormatter = new SimpleDateFormat("MMM d, HH:mm");
+	private static final TimeZone timezone = Calendar.getInstance().getTimeZone();
 
 	public static ArrayList<Event> getCalendarEvents(Context context) {
 		CalendarResources.init(context);
 		boolean showRepeating = new Preferences_(context).showRepeatingEvents().get();
 		ArrayList<Event> events = new ArrayList<>();
-		TimeZone timezone = Calendar.getInstance().getTimeZone();
 		String selection = "((" + DTSTART + " >= ?) OR (" + DTEND + " >= ?))";
 		String milli = String.valueOf(System.currentTimeMillis());
 		String[] selectionArgs = new String[]{milli, milli};
@@ -73,8 +72,6 @@ public class CalendarUtil {
 				int color = cursor.getInt(6);
 				String rRule = cursor.getString(7);
 				String duration = cursor.getString(8);
-				String lowerCaseRule = rRule == null ? null : rRule.toLowerCase();
-				boolean isInfinity = (lowerCaseRule != null && !(lowerCaseRule.contains("until") || lowerCaseRule.contains("count")));
 				if (!isAllDay) {
 					// If the event not repeat itself - regular event
 					if (rRule == null) {
@@ -85,7 +82,7 @@ public class CalendarUtil {
 							events.add(new Event(id, title, startDate, endDate, location).setColor(color));
 					} else if (showRepeating) {
 						// Event that repeat itself
-						events = addEvents(events, getEventFromRepeating(rRule, startDate, duration, location, color, title, id, false), isInfinity);
+						events = addEvents(events, getEventFromRepeating(context, rRule, startDate, duration, location, color, title, id, false));
 					}
 				} else {
 					if (rRule == null) {
@@ -96,11 +93,11 @@ public class CalendarUtil {
 							int offset = timezone.getOffset(startDate);
 							long newTime = startDate - offset;
 							long endTime = Long.parseLong(endDateString) - offset;
-							events.add(new Event(id, title, newTime, endTime, location).setColor(color).isAllDay(true));
+							events.add(new Event(id, title, newTime, endTime, location, true).setColor(color));
 						}
 					} else if (showRepeating) {
 						// Repeat all day event, god why?!?
-						events = addEvents(events, getEventFromRepeating(rRule, startDate - timezone.getOffset(startDate), duration, location, color, title, id, true), isInfinity);
+						events = addEvents(events, getEventFromRepeating(context, rRule, startDate - timezone.getOffset(startDate), duration, location, color, title, id, true));
 					}
 				}
 				cursor.moveToNext();
@@ -129,14 +126,12 @@ public class CalendarUtil {
 					int color = repeatingCursor.getInt(5);
 					String rRule = repeatingCursor.getString(6);
 					String duration = repeatingCursor.getString(7);
-					String lowerCaseRule = rRule.toLowerCase();
-					boolean isInfinity = !(lowerCaseRule.contains("until") || lowerCaseRule.contains("count"));
 					if (!isAllDay) {
-						ArrayList<Event> repeatingEvents = getEventFromRepeating(rRule, startDate, duration, location, color, title, id, false);
-						events = addEvents(events, repeatingEvents, isInfinity);
+						ArrayList<Event> repeatingEvents = getEventFromRepeating(context, rRule, startDate, duration, location, color, title, id, false);
+						events = addEvents(events, repeatingEvents);
 					} else {
-						ArrayList<Event> repeatingEvents = getEventFromRepeating(rRule, startDate - timezone.getOffset(startDate), duration, location, color, title, id, true);
-						events = addEvents(events, repeatingEvents, isInfinity);
+						ArrayList<Event> repeatingEvents = getEventFromRepeating(context, rRule, startDate - timezone.getOffset(startDate), duration, location, color, title, id, true);
+						events = addEvents(events, repeatingEvents);
 					}
 					repeatingCursor.moveToNext();
 				}
@@ -156,7 +151,7 @@ public class CalendarUtil {
 		return events;
 	}
 
-	private static ArrayList<Event> addEvents(ArrayList<Event> list, ArrayList<Event> toAdd, boolean isInfinity) {
+	private static ArrayList<Event> addEvents(ArrayList<Event> list, ArrayList<Event> toAdd) {
 		Calendar calendar = Calendar.getInstance();
 		calendar.add(Calendar.MONTH, 6);
 		long milli = DateUtils.clearTime(calendar).getTimeInMillis();
@@ -167,40 +162,30 @@ public class CalendarUtil {
 		return list;
 	}
 
-	private static ArrayList<Event> getEventFromRepeating(String rRule, long startDate, String duration, String location, int color, String title, int id, boolean isAllDay) {
+	private static ArrayList<Event> getEventFromRepeating(Context context, String rRule, long startDate, String duration, String location, int color, String title, int id, boolean isAllDay) {
 		ArrayList<Event> events = new ArrayList<>();
-		String lowerCaseRule = rRule.toLowerCase();
-		if (!(lowerCaseRule.contains("until") || lowerCaseRule.contains("count"))) {
-			// It is infinity event, GOD DAMN
-			// We will give the event 15 times to being checked, otherwise fuck up
-			rRule += ";COUNT=10";
+		final String[] INSTANCE_PROJECTION = new String[]{
+				CalendarContract.Instances.EVENT_ID,      // 0
+				CalendarContract.Instances.BEGIN,         // 1
+				CalendarContract.Instances.END            // 2
+		};
+		Calendar endTime = Calendar.getInstance();
+		endTime.add(Calendar.MONTH, 6);
+		String selection = CalendarContract.Instances.EVENT_ID + " = ?";
+		Uri.Builder builder = CalendarContract.Instances.CONTENT_URI.buildUpon();
+		ContentUris.appendId(builder, System.currentTimeMillis());
+		ContentUris.appendId(builder, endTime.getTimeInMillis());
+		Cursor cursor = context.getContentResolver().query(builder.build(),
+				INSTANCE_PROJECTION,
+				selection,
+				new String[]{Integer.toString(id)},
+				null);
+		if (cursor.moveToFirst()) {
+			do {
+				events.add(new Event(id, title, cursor.getLong(1) - (isAllDay ? timezone.getOffset(startDate) : 0),
+						cursor.getLong(2) - (isAllDay ? timezone.getOffset(startDate) : 0), location, isAllDay).setColor(color));
+			} while (cursor.moveToNext());
 		}
-		try {
-			// We need GMT to get the real date (probably a bug)
-			DateIterable dateIterable = DateIteratorFactory.createDateIterable("RRULE:" + rRule, new Date(startDate), TimeZone.getTimeZone("GMT"), true);
-			// Now we need to get the end date using the duration :/
-			Duration smartDuration = new Duration();
-			try {
-				smartDuration.parse(duration);
-			} catch (Exception e) {
-				// Well, something is absolutely wrong
-			}
-			boolean isFirst = true;
-			for (Date date : dateIterable) {
-				Calendar calendar = Calendar.getInstance();
-				calendar.setTime(date);
-				if (!isFirst)
-					calendar.add(Calendar.DAY_OF_YEAR, -1);
-				else isFirst = false;
-				long endTime = smartDuration.addTo(calendar.getTimeInMillis());
-				events.add(new Event(id, title, calendar.getTimeInMillis(), endTime, location).setColor(color).isAllDay(isAllDay));
-			}
-		} catch (ParseException e) {
-			// Well, something is absolutely wrong, let's blame LG for that
-			e.printStackTrace();
-		}
-		// Fix a bug?!?
-		if (events.size() >= 2) events.remove(1);
 		return events;
 	}
 

@@ -128,4 +128,7 @@
   <string name="jump_to_setting">Ga naar pagina</string>
   <string name="choose_number">Kies nummer</string>
   <string name="empty_speed_dial">Snelkiezer legen</string>
+  <string name="speed_dial_instructions">(Klik om te bewerken, lang klikken om de huidige waarde te zien)</string>
+  <string name="launcher_remove_lg">Toon dubbele apps</string>
+  <string name="launcher_remove_lg_subtitle">Toon apps die beschikbaar zijn via de LG launcher</string>
 </resources>

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -11,8 +12,10 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -52,8 +55,9 @@ public class LauncherActivity extends BaseQuickCircleActivity implements View.On
 	}.getType();
 	public static final Gson gson;
 	public static ArrayList<ListItem> defaultItems;
-    private AppInstalledReceiver appInstalledReceiver = new AppInstalledReceiver(this);
-    private AppRemovedReceiver appRemovedReceiver = new AppRemovedReceiver(this);
+	private AppInstalledReceiver appInstalledReceiver = new AppInstalledReceiver(this);
+	private AppRemovedReceiver appRemovedReceiver = new AppRemovedReceiver(this);
+	private static ComponentWrapper[] components;
 
 	static {
 		GsonBuilder gsonBuilder = new GsonBuilder();
@@ -72,10 +76,12 @@ public class LauncherActivity extends BaseQuickCircleActivity implements View.On
 
 	@AfterViews
 	void init() {
+		if (!mPrefs.showAppsThatInLg().get())
+			updateComponents(this);
 		ArrayList<ListItem> allItems = getIconsFromPrefs(this);
 		items = new ArrayList<>(allItems.size());
 		for (ListItem item : allItems)
-			if (item.enabled)
+			if (item.enabled && canBeShown(item))
 				items.add(item);
 		views = new ArrayList<>(items.size());
 		iconSize = (int) TypedValue.applyDimension(
@@ -99,6 +105,35 @@ public class LauncherActivity extends BaseQuickCircleActivity implements View.On
 		getFragmentManager().beginTransaction().replace(R.id.quick_circle_fragment, isVertical ? new VerticalFragment() : new HorizontalFragment()).commit();
 	}
 
+	private static void updateComponents(Context context) {
+		Uri uri = Uri.parse("content://com.lge.lockscreensettings/quickwindow");
+		Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
+		if (cursor != null && cursor.moveToFirst()) {
+			components = new ComponentWrapper[cursor.getCount()];
+			int i = 0;
+			do {
+				components[i] = new ComponentWrapper(new ComponentName(cursor.getString(cursor.getColumnIndex("package")), cursor.getString(cursor.getColumnIndex("class"))),
+						cursor.getInt(cursor.getColumnIndex("_id")));
+				i++;
+			} while (cursor.moveToNext());
+		}
+	}
+
+	public static boolean removeSettings(Context context) {
+		updateComponents(context);
+		Uri uri = Uri.parse("content://com.lge.lockscreensettings/quickwindow");
+		int settings = -1;
+		for (ComponentWrapper wrapper : components) {
+			 if (wrapper.getComponent().getPackageName().equals("com.lge.clock")) {
+				settings = wrapper.getId();
+			}
+		}
+		if (settings != -1) {
+			int rows = context.getContentResolver().delete(ContentUris.withAppendedId(uri, settings), null, null);
+			return rows > 0;
+		} else return false;
+	}
+
 	@Click(R.id.change_orientation)
 	public void ChangeOrientation() {
 		boolean newState = !mPrefs.launcherIsVertical().get();
@@ -106,6 +141,14 @@ public class LauncherActivity extends BaseQuickCircleActivity implements View.On
 		setChangeDrawable(newState);
 		getFragmentManager().beginTransaction().replace(R.id.quick_circle_fragment, newState ? new VerticalFragment() : new HorizontalFragment()).commit();
 
+	}
+
+	boolean canBeShown(ListItem item) {
+		if (components == null) return true;
+		for (ComponentWrapper name : components) {
+			if (name.getComponent().flattenToString().equals(item.activity)) return false;
+		}
+		return true;
 	}
 
 	void setChangeDrawable(boolean isVertical) {
@@ -135,20 +178,20 @@ public class LauncherActivity extends BaseQuickCircleActivity implements View.On
 
 	@Override
 	public void onClick(View v) {
-        Intent intent = new Intent("com.lge.quickcover");
-        String componentName = v.getTag().toString();
-        if(componentName.equals("com.lge.camera/com.lge.camera.app.QuickWindowCameraActivity")) {
-            intent.setAction("com.lge.android.intent.action.STILL_IMAGE_CAMERA_COVER");
-        }
-        intent.setComponent(ComponentName.unflattenFromString(componentName));
-        startActivity(intent);
+		Intent intent = new Intent("com.lge.quickcover");
+		String componentName = v.getTag().toString();
+		if (componentName.equals("com.lge.camera/com.lge.camera.app.QuickWindowCameraActivity")) {
+			intent.setAction("com.lge.android.intent.action.STILL_IMAGE_CAMERA_COVER");
+		}
+		intent.setComponent(ComponentName.unflattenFromString(componentName));
+		startActivity(intent);
 		for (View view : views) {
 			view.setEnabled(false);
 		}
 		finish();
 	}
 
-    @SuppressLint("ValidFragment")
+	@SuppressLint("ValidFragment")
 	public class VerticalFragment extends Fragment {
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -211,39 +254,39 @@ public class LauncherActivity extends BaseQuickCircleActivity implements View.On
 	}
 
 	private ImageView createLauncherIcon(ListItem item, ViewGroup.LayoutParams params) {
-        RoundedImageView imageView = new RoundedImageView(this);
+		RoundedImageView imageView = new RoundedImageView(this);
 		imageView.setLayoutParams(params);
 		imageView.setBackground(null);
-        imageView.setImageDrawable(item.icon);
-        imageView.setTag(item.activity);
-        imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        imageView.setAdjustViewBounds(true);
-        imageView.setCornerRadius(iconSize / 2f);
-        imageView.setOval(false);
-        imageView.setBorderColor(Color.BLACK);
-        imageView.setBorderWidth(20f);
+		imageView.setImageDrawable(item.icon);
+		imageView.setTag(item.activity);
+		imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+		imageView.setAdjustViewBounds(true);
+		imageView.setCornerRadius(iconSize / 2f);
+		imageView.setOval(false);
+		imageView.setBorderColor(Color.BLACK);
+		imageView.setBorderWidth(20f);
 		return imageView;
 	}
 
 	public static ArrayList<ListItem> initDefaultIcons(Context context) {
-        Preferences_ prefs = new Preferences_(context);
-        boolean loadExternal = prefs.launcherLoadExternalModules().get();
+		Preferences_ prefs = new Preferences_(context);
+		boolean loadExternal = prefs.launcherLoadExternalModules().get();
 		if (defaultItems == null) {
-            final Intent myIntent = new Intent("com.lge.quickcover");
-            List<ResolveInfo> resInfoList = context.getPackageManager().queryIntentActivities(myIntent, 0);
-            defaultItems = new ArrayList<>(resInfoList.size());
-            List<String> blacklist = Arrays.asList(context.getResources().getStringArray(R.array.launcher_blacklist));
-            for (ResolveInfo info : resInfoList) {
-                String name = info.loadLabel(context.getPackageManager()).toString();
-                Drawable icon = info.loadIcon(context.getPackageManager());
-                String packageName = info.activityInfo.applicationInfo.packageName;
-                if((!packageName.equals(context.getPackageName()) && !loadExternal) ||
-                     blacklist.contains(info.activityInfo.name))
-                    continue;
-                String activity = new ComponentName(packageName, info.activityInfo.name).flattenToString();
-                LauncherActivity.ListItem item = new LauncherActivity.ListItem(name, icon, activity, true);
-                defaultItems.add(item);
-            }
+			final Intent myIntent = new Intent("com.lge.quickcover");
+			List<ResolveInfo> resInfoList = context.getPackageManager().queryIntentActivities(myIntent, 0);
+			defaultItems = new ArrayList<>(resInfoList.size());
+			List<String> blacklist = Arrays.asList(context.getResources().getStringArray(R.array.launcher_blacklist));
+			for (ResolveInfo info : resInfoList) {
+				String name = info.loadLabel(context.getPackageManager()).toString();
+				Drawable icon = info.loadIcon(context.getPackageManager());
+				String packageName = info.activityInfo.applicationInfo.packageName;
+				if ((!packageName.equals(context.getPackageName()) && !loadExternal) ||
+						blacklist.contains(info.activityInfo.name))
+					continue;
+				String activity = new ComponentName(packageName, info.activityInfo.name).flattenToString();
+				LauncherActivity.ListItem item = new LauncherActivity.ListItem(name, icon, activity, true);
+				defaultItems.add(item);
+			}
 		}
 		prefs.launcherItems().put(gson.toJson(defaultItems, listType));
 		return defaultItems;
@@ -255,18 +298,18 @@ public class LauncherActivity extends BaseQuickCircleActivity implements View.On
 		else {
 			ArrayList<ListItem> items = gson.fromJson(prefs.launcherItems().get(), listType);
 			if (defaultItems == null) initDefaultIcons(context);
-            boolean autoAdd = prefs.launcherAutoAddModules().get();
-            for (int i = items.size() - 1; i >= 0; i--) {
-                if(!defaultItems.contains(items.get(i))) {
-                    items.remove(i);
-                } else {
-                    try {
-	                    items.get(i).icon = context.getPackageManager().getActivityIcon(ComponentName.unflattenFromString(items.get(i).activity));
-                    } catch (PackageManager.NameNotFoundException e) {
-                        items.remove(i);
-                    }
-                }
-            }
+			boolean autoAdd = prefs.launcherAutoAddModules().get();
+			for (int i = items.size() - 1; i >= 0; i--) {
+				if (!defaultItems.contains(items.get(i))) {
+					items.remove(i);
+				} else {
+					try {
+						items.get(i).icon = context.getPackageManager().getActivityIcon(ComponentName.unflattenFromString(items.get(i).activity));
+					} catch (PackageManager.NameNotFoundException e) {
+						items.remove(i);
+					}
+				}
+			}
 			for (ListItem item : defaultItems) {
 				if (!items.contains(item)) {
 					if (!autoAdd) {
@@ -280,126 +323,141 @@ public class LauncherActivity extends BaseQuickCircleActivity implements View.On
 		}
 	}
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        IntentFilter filterAdd = new IntentFilter(Intent.ACTION_PACKAGE_ADDED);
-        filterAdd.addDataScheme("package");
-        registerReceiver(appInstalledReceiver, filterAdd);
-        IntentFilter filterRemove = new IntentFilter(Intent.ACTION_PACKAGE_REMOVED);
-        filterRemove.addDataScheme("package");
-        registerReceiver(appRemovedReceiver, filterRemove);
-    }
+	@Override
+	protected void onResume() {
+		super.onResume();
+		IntentFilter filterAdd = new IntentFilter(Intent.ACTION_PACKAGE_ADDED);
+		filterAdd.addDataScheme("package");
+		registerReceiver(appInstalledReceiver, filterAdd);
+		IntentFilter filterRemove = new IntentFilter(Intent.ACTION_PACKAGE_REMOVED);
+		filterRemove.addDataScheme("package");
+		registerReceiver(appRemovedReceiver, filterRemove);
+	}
 
-    @Override
-    protected void onPause() {
-        unregisterReceiver(appInstalledReceiver);
-        unregisterReceiver(appRemovedReceiver);
-        super.onPause();
-    }
+	@Override
+	protected void onPause() {
+		unregisterReceiver(appInstalledReceiver);
+		unregisterReceiver(appRemovedReceiver);
+		super.onPause();
+	}
 
 	public static class ListItem {
 		public String name;
 		public Drawable icon;
-        public String activity;
+		public String activity;
 		@Since(2.05)
 		public boolean enabled;
 
 		public ListItem(String name, Drawable icon, String activity, boolean enabled) {
 			this.name = name;
 			this.enabled = enabled;
-            this.icon = icon;
-            this.activity = activity;
+			this.icon = icon;
+			this.activity = activity;
 		}
 
-        @Override
-        public int hashCode() {
-            return activity.hashCode() + 29;
-        }
+		@Override
+		public int hashCode() {
+			return activity.hashCode() + 29;
+		}
 
-        @Override
-        public boolean equals(Object obj) {
-            if (obj == null) {
-                return false;
-            }
-            if (obj == this) {
-                return true;
-            }
-            if (obj.getClass() == this.getClass()) {
-                ListItem item = (ListItem) obj;
-                if (this.activity.equals(item.activity)) {
-                    return true;
-                }
-            }
-            return false;
-        }
-    }
+		@Override
+		public boolean equals(Object obj) {
+			if (obj == null) {
+				return false;
+			}
+			if (obj == this) {
+				return true;
+			}
+			if (obj.getClass() == this.getClass()) {
+				ListItem item = (ListItem) obj;
+				if (this.activity.equals(item.activity)) {
+					return true;
+				}
+			}
+			return false;
+		}
+	}
 
-    private class AppRemovedReceiver extends BroadcastReceiver {
-        private LauncherActivity activity;
+	private class AppRemovedReceiver extends BroadcastReceiver {
+		private LauncherActivity activity;
 
-        public AppRemovedReceiver(LauncherActivity launcherActivity) {
-            activity = launcherActivity;
-        }
+		public AppRemovedReceiver(LauncherActivity launcherActivity) {
+			activity = launcherActivity;
+		}
 
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            Bundle b = intent.getExtras();
-            int uid = b.getInt(Intent.EXTRA_UID);
-            String[] packages = context.getPackageManager().getPackagesForUid(uid);
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			Bundle b = intent.getExtras();
+			int uid = b.getInt(Intent.EXTRA_UID);
+			String[] packages = context.getPackageManager().getPackagesForUid(uid);
+			for (String pkg : packages) {
+				for (ListItem item : LauncherActivity.defaultItems) {
+					String itemPkg = ComponentName.unflattenFromString(item.activity).getPackageName();
+					if (pkg.equals(itemPkg)) {
+						Intent i = activity.getIntent();
+						activity.finish();
+						defaultItems = null;
+						startActivity(i);
+						return;
+					}
+				}
+			}
+		}
+	}
 
-            for(String pkg : packages) {
-               for(ListItem item : LauncherActivity.defaultItems) {
-                   String itemPkg = ComponentName.unflattenFromString(item.activity).getPackageName();
-                   if(pkg.equals(itemPkg)) {
-                       Intent i = activity.getIntent();
-                       activity.finish();
-                       defaultItems = null;
-                       startActivity(i);
-                       return;
-                   }
-               }
-            }
-        }
-    }
+	private class AppInstalledReceiver extends BroadcastReceiver {
+		private LauncherActivity activity;
 
-    private class AppInstalledReceiver extends BroadcastReceiver {
-        private LauncherActivity activity;
+		public AppInstalledReceiver(LauncherActivity launcherActivity) {
+			activity = launcherActivity;
+		}
 
-        public AppInstalledReceiver(LauncherActivity launcherActivity) {
-            activity = launcherActivity;
-        }
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			Bundle b = intent.getExtras();
+			int uid = b.getInt(Intent.EXTRA_UID);
+			String[] packages = context.getPackageManager().getPackagesForUid(uid);
+			List<ResolveInfo> resInfoList = context.getPackageManager().queryIntentActivities(new Intent("com.lge.quickcover"), 0);
+			ArrayList<String> quickcircleList = new ArrayList<>(resInfoList.size());
+			for (ResolveInfo info : resInfoList) {
+				quickcircleList.add(new ComponentName(info.activityInfo.applicationInfo.packageName, info.activityInfo.name).flattenToString());
+			}
+			for (String pkg : packages) {
+				PackageInfo info;
+				try {
+					info = context.getPackageManager().getPackageInfo(pkg, PackageManager.GET_ACTIVITIES);
+				} catch (PackageManager.NameNotFoundException e) {
+					continue;
+				}
+				for (ActivityInfo aInfo : info.activities) {
+					ComponentName name = new ComponentName(aInfo.applicationInfo.packageName, aInfo.name);
+					if (quickcircleList.contains(name.flattenToString())) {
+						Intent i = activity.getIntent();
+						activity.finish();
+						defaultItems = null;
+						startActivity(i);
+						return;
+					}
+				}
+			}
+		}
+	}
 
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            Bundle b = intent.getExtras();
-            int uid = b.getInt(Intent.EXTRA_UID);
-            String[] packages = context.getPackageManager().getPackagesForUid(uid);
+	public static class ComponentWrapper {
+		private final ComponentName component;
+		private final int id;
 
-            List<ResolveInfo> resInfoList = context.getPackageManager().queryIntentActivities(new Intent("com.lge.quickcover"), 0);
-            ArrayList<String> quickcircleList = new ArrayList<>(resInfoList.size());
-            for(ResolveInfo info : resInfoList) {
-                quickcircleList.add(new ComponentName(info.activityInfo.applicationInfo.packageName, info.activityInfo.name).flattenToString());
-            }
+		public ComponentWrapper(ComponentName component, int id) {
+			this.component = component;
+			this.id = id;
+		}
 
-            for(String pkg : packages) {
-                PackageInfo info;
-                try {
-                    info = context.getPackageManager().getPackageInfo(pkg, PackageManager.GET_ACTIVITIES);
-                } catch (PackageManager.NameNotFoundException e) {
-                    continue;
-                }
-                for(ActivityInfo aInfo : info.activities) {
-                    ComponentName name = new ComponentName(aInfo.applicationInfo.packageName, aInfo.name);
-                    if(quickcircleList.contains(name.flattenToString())) {
-                        Intent i = activity.getIntent();
-                        activity.finish();
-                        defaultItems = null;
-                        startActivity(i);
-                        return;
-                    }
-                }
-            }
-        }
-    }
+		public ComponentName getComponent() {
+			return component;
+		}
+
+		public int getId() {
+			return id;
+		}
+	}
 }

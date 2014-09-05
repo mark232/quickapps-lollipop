@@ -6,16 +6,23 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.joanzapata.android.iconify.IconDrawable;
 import com.joanzapata.android.iconify.Iconify;
+import com.personagraph.api.PGAgent;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.yoavst.quickapps.R;
+import com.yoavst.quickapps.launcher.LauncherActivity_;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -29,7 +36,6 @@ import org.androidannotations.annotations.res.StringRes;
  */
 @EActivity(R.layout.desktop_main_activity)
 public class MainActivity extends Activity {
-
 	@ViewById(R.id.extended_header)
 	TextView mHeader;
 	@ViewById(R.id.leftDrawerListView)
@@ -44,12 +50,32 @@ public class MainActivity extends Activity {
 	TextView mCircleTitle;
 	@ViewById(R.id.jump_to)
 	ImageView mJumpTo;
+	@ViewById(R.id.adView)
+	AdView mAdView;
 	@StringRes(R.string.app_name)
 	String APP_NAME;
 	DrawerLayout.DrawerListener mDrawerToggle;
 
 	@AfterViews
 	void init() {
+		mAdView.setAdListener(new AdListener() {
+			@Override
+			public void onAdFailedToLoad(int errorCode) {
+				super.onAdFailedToLoad(errorCode);
+				mAdView.setVisibility(View.GONE);
+			}
+
+			@Override
+			public void onAdLoaded() {
+				super.onAdLoaded();
+				mAdView.setVisibility(View.VISIBLE);
+			}
+		});
+		AdRequest adRequest = new AdRequest.Builder()
+				.addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+				.addKeyword("Quick Circle, LG G3")
+				.build();
+		mAdView.loadAd(adRequest);
 		mJumpTo.setImageDrawable(new IconDrawable(this, Iconify.IconValue.fa_arrows_h).color(Color.WHITE));
 		// create our manager instance after the content view is set
 		SystemBarTintManager tintManager = new SystemBarTintManager(this);
@@ -75,6 +101,14 @@ public class MainActivity extends Activity {
 			@Override
 			public void run() {
 				selectItem(2);
+			}
+		});
+		mListView.addFooterView(getLayoutInflater().inflate(R.layout.desktop_hide_settings, mListView, false), null, false);
+		findViewById(R.id.hide_settings).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				LauncherActivity_.removeSettings(MainActivity.this);
+				Toast.makeText(MainActivity.this, R.string.reboot_for_update, Toast.LENGTH_SHORT).show();
 			}
 		});
 	}
@@ -111,7 +145,7 @@ public class MainActivity extends Activity {
 		mDrawerLayout.closeDrawers();
 		// Set item selected
 		((NavigationDrawerItem) mListView.getItemAtPosition(position)).setSelected(true);
-		for (int j = 0; j < mListView.getChildCount(); j++)
+		for (int j = 0; j < mListView.getChildCount() - 1; j++)
 			((DrawerAdapter.ViewHolder) mListView.getChildAt(j).getTag()).title.setTypeface(null, Typeface.NORMAL);
 		((DrawerAdapter.ViewHolder) mListView.getChildAt(position).getTag()).title.setTypeface(null, Typeface.BOLD);
 	}
@@ -123,5 +157,30 @@ public class MainActivity extends Activity {
 
 	public void setCircleTitle(CharSequence text) {
 		mCircleTitle.setText(text);
+	}
+
+	@Override
+	public void onDestroy() {
+		mAdView.destroy();
+		super.onDestroy();
+	}
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+		PGAgent.startSession(this);
+	}
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+		PGAgent.endSession(this);
+	}
+
+	@Override
+	public void onBackPressed() {
+		if (mDrawerLayout.isDrawerOpen(mListView)) {
+			mDrawerLayout.closeDrawer(mListView);
+		} else super.onBackPressed();
 	}
 }

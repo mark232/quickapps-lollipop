@@ -41,6 +41,8 @@ public class LauncherFragment extends Fragment implements CompoundButton.OnCheck
 	CheckBox mLoadExternal;
 	@ViewById(R.id.auto_load_checkbox)
 	CheckBox mAutoLoad;
+	@ViewById(R.id.remove_lg_checkbox)
+	CheckBox mRemoveLg;
 	@Pref
 	Preferences_ mPrefs;
 	ArrayList<LauncherActivity.ListItem> mItems;
@@ -78,8 +80,10 @@ public class LauncherFragment extends Fragment implements CompoundButton.OnCheck
 		sortItems();
 		mLoadExternal.setChecked(mPrefs.launcherLoadExternalModules().get());
 		mAutoLoad.setChecked(mPrefs.launcherAutoAddModules().get());
+		mRemoveLg.setChecked(mPrefs.showAppsThatInLg().get());
 		mLoadExternal.setOnCheckedChangeListener(this);
 		mAutoLoad.setOnCheckedChangeListener(this);
+		mRemoveLg.setOnCheckedChangeListener(this);
 	}
 
 	void sortItems() {
@@ -176,7 +180,7 @@ public class LauncherFragment extends Fragment implements CompoundButton.OnCheck
 		}
 	}
 
-	@Click({R.id.modules_auto_load_row, R.id.modules_load_external_row})
+	@Click({R.id.modules_auto_load_row, R.id.modules_load_external_row, R.id.modules_remove_lg_row})
 	void clickRow(View view) {
 		switch (view.getId()) {
 			case R.id.modules_load_external_row:
@@ -184,6 +188,9 @@ public class LauncherFragment extends Fragment implements CompoundButton.OnCheck
 				break;
 			case R.id.modules_auto_load_row:
 				mAutoLoad.toggle();
+				break;
+			case R.id.modules_remove_lg_row:
+				mRemoveLg.toggle();
 				break;
 		}
 	}
@@ -199,6 +206,10 @@ public class LauncherFragment extends Fragment implements CompoundButton.OnCheck
 				break;
 			case R.id.auto_load_checkbox:
 				mPrefs.launcherAutoAddModules().put(isChecked);
+				Toast.makeText(getActivity(), R.string.changed_successfully, Toast.LENGTH_SHORT).show();
+				break;
+			case R.id.remove_lg_checkbox:
+				mPrefs.showAppsThatInLg().put(isChecked);
 				Toast.makeText(getActivity(), R.string.changed_successfully, Toast.LENGTH_SHORT).show();
 				break;
 		}

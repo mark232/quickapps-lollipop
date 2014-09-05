@@ -122,10 +122,13 @@
   <string name="force_floating_subtext">Po otwarciu etui zostanie uruchomiony kalkulator w trybie pływającym</string>
   <string name="show_millis_title">Pokaż millisekundy</string>
   <string name="show_millis_subtitle">Pokaż millisekundy w zegarze</string>
-  <string name="news_logout_feedly">Logout from feedly</string>
-  <string name="yesterday">Yesterday</string>
-  <string name="speed_dial">Speed Dial</string>
-  <string name="jump_to_setting">Jump to page</string>
-  <string name="choose_number">Choose number</string>
-  <string name="empty_speed_dial">Empty speed dial</string>
+  <string name="news_logout_feedly">Wyloguj się z feedly</string>
+  <string name="yesterday">Wczoraj</string>
+  <string name="speed_dial">Szybkie wybieranie</string>
+  <string name="jump_to_setting">Idź do Strony</string>
+  <string name="choose_number">Wybierz numer</string>
+  <string name="empty_speed_dial">Wyczyść szybkie wybieranie</string>
+  <string name="speed_dial_instructions">(Click to edit, Long click to see the value)</string>
+  <string name="launcher_remove_lg">Show duplicated apps</string>
+  <string name="launcher_remove_lg_subtitle">Show apps that is visible on LG launcher</string>
 </resources>

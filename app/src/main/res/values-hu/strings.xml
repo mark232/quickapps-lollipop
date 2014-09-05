@@ -11,11 +11,11 @@
   <string name="all_day">(minden nap)</string>
   <string name="now">Most</string>
   <string name="in">Belül</string>
-  <string name="minute_s">perc</string>
-  <string name="hour_s">óra</string>
-  <string name="day_s">nap</string>
-  <string name="week_s">hét</string>
-  <string name="month_s">hónap</string>
+  <string name="minute_s">perc/perc</string>
+  <string name="hour_s">óra/óra</string>
+  <string name="day_s">nap/nap</string>
+  <string name="week_s">hét/hét</string>
+  <string name="month_s">hónap/hónap</string>
   <string name="more_then_year">Több mint egy év múlva</string>
   <string name="notification_empty">Nincsenek új értesítések</string>
   <string name="notification_removed">Értesítés törölve</string>
@@ -123,4 +123,12 @@
   <string name="show_millis_title">Milliszekundum megjelenítése</string>
   <string name="show_millis_subtitle">Milliszekundum megjelenítése az időzítőben</string>
   <string name="news_logout_feedly">Logout from feedly</string>
+  <string name="yesterday">Yesterday</string>
+  <string name="speed_dial">Speed Dial</string>
+  <string name="jump_to_setting">Jump to page</string>
+  <string name="choose_number">Choose number</string>
+  <string name="empty_speed_dial">Empty speed dial</string>
+  <string name="speed_dial_instructions">(Click to edit, Long click to see the value)</string>
+  <string name="launcher_remove_lg">Show duplicated apps</string>
+  <string name="launcher_remove_lg_subtitle">Show apps that is visible on LG launcher</string>
 </resources>

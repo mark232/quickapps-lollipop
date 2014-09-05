@@ -111,10 +111,10 @@
   <string name="privacy_subtitle">Le contenu de votre notification est peut-être secret</string>
   <string name="launcher_control_items">Trier les modules</string>
   <string name="launcher_control_items_subtitle">Trier les modules dans le lanceur</string>
-  <string name="launcher_load_external">Load external modules</string>
-  <string name="launcher_load_external_subtitle">Show external modules in launcher</string>
-  <string name="launcher_auto_add">Auto add modules</string>
-  <string name="launcher_auto_add_subtitle">Automatically add new modules</string>
+  <string name="launcher_load_external">Charger les modules externes</string>
+  <string name="launcher_load_external_subtitle">Montrer les modules externes dans le lanceur</string>
+  <string name="launcher_auto_add">Ajout automatique de modules</string>
+  <string name="launcher_auto_add_subtitle">Ajoute automatiquement des modules</string>
   <string name="toggles_order_items">Trier les interrupteurs</string>
   <string name="toggles_order_items_subtitle">Trier les interrupteurs dans le module</string>
   <string name="battery_title">Voir le pourcentage de la batterie</string>
@@ -122,10 +122,13 @@
   <string name="force_floating_subtext">A l\'ouverture de la coque, la calculatrice en mode flottante sera lancée</string>
   <string name="show_millis_title">Afficher les millisecondes</string>
   <string name="show_millis_subtitle">Afficher les millisecondes sur la minuterie</string>
-  <string name="news_logout_feedly">Logout from feedly</string>
-  <string name="yesterday">Yesterday</string>
-  <string name="speed_dial">Speed Dial</string>
-  <string name="jump_to_setting">Jump to page</string>
-  <string name="choose_number">Choose number</string>
-  <string name="empty_speed_dial">Empty speed dial</string>
+  <string name="news_logout_feedly">Deconnexion de feedly</string>
+  <string name="yesterday">Hier</string>
+  <string name="speed_dial">Numérotation rapide</string>
+  <string name="jump_to_setting">Saute à la page</string>
+  <string name="choose_number">Choisir numero</string>
+  <string name="empty_speed_dial">Vider numérotation rapide</string>
+  <string name="speed_dial_instructions">(Cliquez pour modifier, Appui long pour voir la valeur)</string>
+  <string name="launcher_remove_lg">Voir les applications copiées</string>
+  <string name="launcher_remove_lg_subtitle">Voir les applications visibles sur le lanceur LG</string>
 </resources>

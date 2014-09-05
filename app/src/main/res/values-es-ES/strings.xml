@@ -111,10 +111,10 @@
   <string name="privacy_subtitle">El contenido de la notificación puede ser secreto</string>
   <string name="launcher_control_items">Ordenar módulos</string>
   <string name="launcher_control_items_subtitle">Ordenar los módulos en el lanzador</string>
-  <string name="launcher_load_external">Load external modules</string>
-  <string name="launcher_load_external_subtitle">Show external modules in launcher</string>
-  <string name="launcher_auto_add">Auto add modules</string>
-  <string name="launcher_auto_add_subtitle">Automatically add new modules</string>
+  <string name="launcher_load_external">Cargar módulos externos</string>
+  <string name="launcher_load_external_subtitle">Mostrar módulos externos en el lanzador</string>
+  <string name="launcher_auto_add">Añadir módulos automáticamente</string>
+  <string name="launcher_auto_add_subtitle">Añadir módulos nuevos automáticamente</string>
   <string name="toggles_order_items">Ordenar toggles</string>
   <string name="toggles_order_items_subtitle">Ordenar los interruptores en el módulo</string>
   <string name="battery_title">Mostrar el porcentaje de la batería</string>
@@ -123,9 +123,12 @@
   <string name="show_millis_title">Mostrar milisegundos</string>
   <string name="show_millis_subtitle">Mostrar milisegundos en el temporizador</string>
   <string name="news_logout_feedly">Logout from feedly</string>
-  <string name="yesterday">Yesterday</string>
+  <string name="yesterday">Ayer</string>
   <string name="speed_dial">Speed Dial</string>
-  <string name="jump_to_setting">Jump to page</string>
-  <string name="choose_number">Choose number</string>
+  <string name="jump_to_setting">Ir a la página</string>
+  <string name="choose_number">Elige número</string>
   <string name="empty_speed_dial">Empty speed dial</string>
+  <string name="speed_dial_instructions">(Click to edit, Long click to see the value)</string>
+  <string name="launcher_remove_lg">Show duplicated apps</string>
+  <string name="launcher_remove_lg_subtitle">Show apps that is visible on LG launcher</string>
 </resources>
