@@ -10,27 +10,46 @@ import org.androidannotations.annotations.sharedpreferences.SharedPref;
 public interface Preferences {
 	@DefaultBoolean(false)
 	boolean torchForceFloating();
+
 	@DefaultBoolean(true)
 	boolean showRepeatingEvents();
+
 	@DefaultBoolean(true)
 	boolean showLocation();
+
 	@DefaultBoolean(true)
 	boolean notificationShowContent();
-    @DefaultBoolean(true)
-    boolean launcherIsVertical();
-    @DefaultBoolean(false)
-    boolean launcherLoadExternalModules();
-    @DefaultBoolean(true)
-    boolean launcherAutoAddModules();
+
+	@DefaultBoolean(true)
+	boolean launcherIsVertical();
+
+	@DefaultBoolean(false)
+	boolean launcherLoadExternalModules();
+
+	@DefaultBoolean(true)
+	boolean launcherAutoAddModules();
+
 	@DefaultBoolean(true)
 	boolean showBatteryToggle();
+
 	@DefaultBoolean(false)
 	boolean calculatorForceFloating();
+
 	@DefaultBoolean(true)
 	boolean stopwatchShowMillis();
+
 	@DefaultBoolean(true)
 	boolean showAppsThatInLg();
+
+	@DefaultBoolean(false)
+	boolean amPmInNotifications();
+
+	@DefaultBoolean(false)
+	boolean amPmInCalendar();
+
 	String launcherItems();
+
 	String togglesItems();
+
 	String quickDials();
 }

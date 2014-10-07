@@ -13,6 +13,7 @@
     <string name="clock_module_name" translatable="false">Quick Time</string>
     <string name="calculator_module_name" translatable="false">Quick Calculator</string>
     <string name="dialer_module_name" translatable="false">Quick Dialer</string>
+    <string name="ball_module_name" translatable="false">Quick 8 Ball</string>
     <string-array name="toggles">
         <item>@string/wifi</item>
         <item>@string/data_data</item>
@@ -58,6 +59,7 @@
         <item>Compass</item>
         <item>News</item>
         <item>Dialer</item>
+        <item>8 Ball</item>
     </string-array>
     <string-array name="launcher_blacklist">
         <item>com.yoavst.quickapps.launcher.LauncherActivity_</item>

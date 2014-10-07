@@ -31,6 +31,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Since;
 import com.google.gson.reflect.TypeToken;
 import com.makeramen.RoundedImageView;
+import com.yoavst.quickapps.BaseFragment;
 import com.yoavst.quickapps.BaseQuickCircleActivity;
 import com.yoavst.quickapps.Preferences_;
 import com.yoavst.quickapps.R;
@@ -124,7 +125,7 @@ public class LauncherActivity extends BaseQuickCircleActivity implements View.On
 		Uri uri = Uri.parse("content://com.lge.lockscreensettings/quickwindow");
 		int settings = -1;
 		for (ComponentWrapper wrapper : components) {
-			 if (wrapper.getComponent().getPackageName().equals("com.lge.clock")) {
+			if (wrapper.getComponent().getPackageName().equals("com.lge.clock")) {
 				settings = wrapper.getId();
 			}
 		}
@@ -192,7 +193,7 @@ public class LauncherActivity extends BaseQuickCircleActivity implements View.On
 	}
 
 	@SuppressLint("ValidFragment")
-	public class VerticalFragment extends Fragment {
+	public class VerticalFragment extends BaseFragment {
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 			View view = inflater.inflate(R.layout.launcher_fragment_vertical, container, false);
@@ -216,10 +217,11 @@ public class LauncherActivity extends BaseQuickCircleActivity implements View.On
 			}
 			return view;
 		}
+
 	}
 
 	@SuppressLint("ValidFragment")
-	public class HorizontalFragment extends Fragment {
+	public class HorizontalFragment extends BaseFragment {
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 			View view = inflater.inflate(R.layout.launcher_fragment_horizontal, container, false);

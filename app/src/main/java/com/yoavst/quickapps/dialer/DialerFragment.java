@@ -1,6 +1,5 @@
 package com.yoavst.quickapps.dialer;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -20,6 +19,7 @@ import com.google.gson.reflect.TypeToken;
 import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.Phonenumber;
+import com.yoavst.quickapps.BaseFragment;
 import com.yoavst.quickapps.Preferences_;
 import com.yoavst.quickapps.R;
 
@@ -40,7 +40,7 @@ import java.util.HashMap;
  * Created by Yoav.
  */
 @EFragment(R.layout.dialer_fragment)
-public class DialerFragment extends Fragment {
+public class DialerFragment extends BaseFragment {
 	@ViewById(R.id.number)
 	TextView mNumber;
 	@ViewById(R.id.name)

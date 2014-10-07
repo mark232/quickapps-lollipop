@@ -60,8 +60,10 @@ public class StopwatchManager {
 
 	public static void stopTimer() {
 		sRunnable = null;
-		sStopwatch.cancel();
-		sStopwatch = null;
+		if (sStopwatch != null) {
+			sStopwatch.cancel();
+			sStopwatch = null;
+		}
 		sMilliseconds = 0;
 		sPeriod = 0;
 	}

@@ -55,6 +55,8 @@ public class ModulesAdapter extends FragmentPagerAdapter {
 			case 10:
 				fragment = DialerFragment_.builder().build();
 				break;
+			case 11:
+				fragment = CompassFragment_.builder().build();
 		}
 		return fragment;
 	}

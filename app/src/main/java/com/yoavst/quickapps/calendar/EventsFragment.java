@@ -1,9 +1,9 @@
 package com.yoavst.quickapps.calendar;
 
-import android.app.Fragment;
 import android.view.View;
 import android.widget.TextView;
 
+import com.yoavst.quickapps.BaseFragment;
 import com.yoavst.quickapps.Preferences_;
 import com.yoavst.quickapps.R;
 
@@ -18,7 +18,7 @@ import org.androidannotations.annotations.sharedpreferences.Pref;
  * Created by Yoav.
  */
 @EFragment(R.layout.calendar_fragment)
-public class EventsFragment extends Fragment {
+public class EventsFragment extends BaseFragment {
 	@ViewById(R.id.title)
 	TextView mTitle;
 	@ViewById(R.id.location)

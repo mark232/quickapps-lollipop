@@ -131,4 +131,30 @@
     <string name="launcher_remove_lg">Show duplicated apps</string>
     <string name="launcher_remove_lg_subtitle">Show apps that is visible on LG launcher</string>
     <string name="hide_settings_from_quick_circle">Hide Setting from Quick Circle</string>
+    <string name="am_pm_title">12 hours clock</string>
+    <string name="am_pm_subtitle">Use AM/PM instead of 24 hours</string>
+    <string name="ask_a_question">Ask a question</string>
+    <string name="thinking">Thinking...</string>
+    <string-array name="magic_ball">
+        <item>It is certain</item>
+        <item>It is decidedly so</item>
+        <item>Without a doubt</item>
+        <item>Yes definitely</item>
+        <item>You may rely on it</item>
+        <item>As I see it, yes</item>
+        <item>Most likely</item>
+        <item>Outlook good</item>
+        <item>Yes</item>
+        <item>Signs point to yes</item>
+        <item>Reply hazy try again</item>
+        <item>Ask again later</item>
+        <item>Better not tell you now</item>
+        <item>Cannot predict now</item>
+        <item>Concentrate and ask again</item>
+        <item>Don\'t count on it</item>
+        <item>My reply is no</item>
+        <item>My sources say no</item>
+        <item>Outlook not so good</item>
+        <item>Very doubtful</item>
+    </string-array>
 </resources>

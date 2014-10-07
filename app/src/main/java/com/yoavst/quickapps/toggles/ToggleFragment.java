@@ -1,6 +1,5 @@
 package com.yoavst.quickapps.toggles;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,12 +10,13 @@ import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.yoavst.quickapps.BaseFragment;
 import com.yoavst.quickapps.R;
 
 /**
  * Created by Yoav.
  */
-public abstract class ToggleFragment extends Fragment {
+public abstract class ToggleFragment extends BaseFragment {
 	protected ImageButton mToggleIcon;
 	protected TextView mToggleText;
 	protected TextView mToggleTitle;
@@ -24,7 +24,7 @@ public abstract class ToggleFragment extends Fragment {
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		RelativeLayout relativeLayout = (RelativeLayout) inflater.inflate(R.layout.toggles_fragment,null);
+		RelativeLayout relativeLayout = (RelativeLayout) inflater.inflate(R.layout.toggles_fragment, container, false);
 		mToggleIcon = (ImageButton) relativeLayout.findViewById(R.id.toggle_icon);
 		mToggleText = (TextView) relativeLayout.findViewById(R.id.toggle_text);
 		mToggleTitle = (TextView) relativeLayout.findViewById(R.id.toggle_title);

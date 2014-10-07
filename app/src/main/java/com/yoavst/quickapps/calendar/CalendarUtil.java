@@ -17,6 +17,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.Locale;
 import java.util.TimeZone;
 
 import static android.provider.CalendarContract.Events.ALL_DAY;
@@ -40,13 +41,22 @@ public class CalendarUtil {
 			"EEE, MMM d, yyyy");
 	private static final SimpleDateFormat dateFormatter = new SimpleDateFormat(
 			"EEE, MMM d, HH:mm");
+	private static final SimpleDateFormat dateFormatterAmPm = new SimpleDateFormat(
+			"EEE, MMM d, hh:mm");
+	private static final SimpleDateFormat dateFormatterAmPmNotSame = new SimpleDateFormat(
+			"EEE, MMM d, hh:mm a", Locale.US);
 	private static final SimpleDateFormat hourFormatter = new SimpleDateFormat("HH:mm");
+	private static final SimpleDateFormat hourFormatterAmPmSame = new SimpleDateFormat("hh:mm", Locale.US);
+	private static final SimpleDateFormat hourFormatterAmPm = new SimpleDateFormat("hh:mm a", Locale.US);
 	private static final SimpleDateFormat fullDateFormat = new SimpleDateFormat("EEE, MMM d");
 	private static final SimpleDateFormat otherDayFormatter = new SimpleDateFormat("MMM d, HH:mm");
+	private static final SimpleDateFormat otherDayFormatterAmPm = new SimpleDateFormat("MMM d, hh:mm a");
 	private static final TimeZone timezone = Calendar.getInstance().getTimeZone();
+	private static boolean useAmPm = false;
 
 	public static ArrayList<Event> getCalendarEvents(Context context) {
 		CalendarResources.init(context);
+		useAmPm = new Preferences_(context).amPmInCalendar().get();
 		boolean showRepeating = new Preferences_(context).showRepeatingEvents().get();
 		ArrayList<Event> events = new ArrayList<>();
 		String selection = "((" + DTSTART + " >= ?) OR (" + DTEND + " >= ?))";
@@ -55,7 +65,7 @@ public class CalendarUtil {
 		Cursor cursor = context.getContentResolver()
 				.query(
 						Events.CONTENT_URI,
-						new String[]{_ID, TITLE, DTSTART, DTEND, EVENT_LOCATION, ALL_DAY, DISPLAY_COLOR, RRULE, DURATION}, selection,
+						new String[]{_ID, TITLE, DTSTART, DTEND, EVENT_LOCATION, ALL_DAY, DISPLAY_COLOR, RRULE}, selection,
 						selectionArgs, null
 				);
 		cursor.moveToFirst();
@@ -71,7 +81,6 @@ public class CalendarUtil {
 				boolean isAllDay = cursor.getInt(5) != 0;
 				int color = cursor.getInt(6);
 				String rRule = cursor.getString(7);
-				String duration = cursor.getString(8);
 				if (!isAllDay) {
 					// If the event not repeat itself - regular event
 					if (rRule == null) {
@@ -82,7 +91,7 @@ public class CalendarUtil {
 							events.add(new Event(id, title, startDate, endDate, location).setColor(color));
 					} else if (showRepeating) {
 						// Event that repeat itself
-						events = addEvents(events, getEventFromRepeating(context, rRule, startDate, duration, location, color, title, id, false));
+						events = addEvents(events, getEventFromRepeating(context, startDate, location, color, title, id, false));
 					}
 				} else {
 					if (rRule == null) {
@@ -97,7 +106,7 @@ public class CalendarUtil {
 						}
 					} else if (showRepeating) {
 						// Repeat all day event, god why?!?
-						events = addEvents(events, getEventFromRepeating(context, rRule, startDate - timezone.getOffset(startDate), duration, location, color, title, id, true));
+						events = addEvents(events, getEventFromRepeating(context, startDate - timezone.getOffset(startDate), location, color, title, id, true));
 					}
 				}
 				cursor.moveToNext();
@@ -110,7 +119,7 @@ public class CalendarUtil {
 			Cursor repeatingCursor = context.getContentResolver()
 					.query(
 							Events.CONTENT_URI,
-							new String[]{_ID, TITLE, DTSTART, EVENT_LOCATION, ALL_DAY, DISPLAY_COLOR, RRULE, DURATION}, repeatingSections,
+							new String[]{_ID, TITLE, DTSTART, EVENT_LOCATION, ALL_DAY, DISPLAY_COLOR}, repeatingSections,
 							selectionArgs, null
 					);
 			repeatingCursor.moveToFirst();
@@ -124,13 +133,11 @@ public class CalendarUtil {
 					String location = repeatingCursor.getString(3);
 					boolean isAllDay = repeatingCursor.getInt(4) != 0;
 					int color = repeatingCursor.getInt(5);
-					String rRule = repeatingCursor.getString(6);
-					String duration = repeatingCursor.getString(7);
 					if (!isAllDay) {
-						ArrayList<Event> repeatingEvents = getEventFromRepeating(context, rRule, startDate, duration, location, color, title, id, false);
+						ArrayList<Event> repeatingEvents = getEventFromRepeating(context, startDate, location, color, title, id, false);
 						events = addEvents(events, repeatingEvents);
 					} else {
-						ArrayList<Event> repeatingEvents = getEventFromRepeating(context, rRule, startDate - timezone.getOffset(startDate), duration, location, color, title, id, true);
+						ArrayList<Event> repeatingEvents = getEventFromRepeating(context, startDate - timezone.getOffset(startDate), location, color, title, id, true);
 						events = addEvents(events, repeatingEvents);
 					}
 					repeatingCursor.moveToNext();
@@ -162,7 +169,7 @@ public class CalendarUtil {
 		return list;
 	}
 
-	private static ArrayList<Event> getEventFromRepeating(Context context, String rRule, long startDate, String duration, String location, int color, String title, int id, boolean isAllDay) {
+	private static ArrayList<Event> getEventFromRepeating(Context context, long startDate, String location, int color, String title, int id, boolean isAllDay) {
 		ArrayList<Event> events = new ArrayList<>();
 		final String[] INSTANCE_PROJECTION = new String[]{
 				CalendarContract.Instances.EVENT_ID,      // 0
@@ -192,11 +199,9 @@ public class CalendarUtil {
 	public static String getDateFromEvent(Event event) {
 		if (event.getDate() != null) return event.getDate();
 		else if (event.isAllDay()) {
-			Calendar startPlusOneDay = Calendar.getInstance();
-			startPlusOneDay.setTimeInMillis(event.getStartDate());
+			Calendar startPlusOneDay = calendarByMillis(event.getStartDate());
 			startPlusOneDay.add(Calendar.DAY_OF_YEAR, 1);
-			Calendar endTime = Calendar.getInstance();
-			endTime.setTimeInMillis(event.getEndDate());
+			Calendar endTime = calendarByMillis(event.getEndDate());
 			if (DateUtils.isSameDay(startPlusOneDay, endTime)) {
 				startPlusOneDay.add(Calendar.DAY_OF_YEAR, -1);
 				if (DateUtils.isToday(startPlusOneDay))
@@ -221,19 +226,58 @@ public class CalendarUtil {
 			Date first = new Date(event.getStartDate());
 			Date end = new Date(event.getEndDate());
 			if (DateUtils.isSameDay(first, end)) {
-				if (DateUtils.isToday(first))
-					text = CalendarResources.today + " " + hourFormatter.format(first) + " - " + hourFormatter.format(end);
-				else if (DateUtils.isWithinDaysFuture(first, 1))
-					text = CalendarResources.tomorrow + " " + hourFormatter.format(first) + " - " + hourFormatter.format(end);
-				else
-					text = dateFormatter.format(first) + " - " + hourFormatter.format(end);
+				if (DateUtils.isToday(first)) {
+					if (useAmPm) {
+						if (isSameAmPm(event.getStartDate(), event.getEndDate()))
+							text = CalendarResources.today + " " + hourFormatterAmPmSame.format(first) + " - " + hourFormatterAmPm.format(end);
+						else
+							text = CalendarResources.today + " " + hourFormatterAmPm.format(first) + " - " + hourFormatterAmPm.format(end);
+					} else
+						text = CalendarResources.today + " " + hourFormatter.format(first) + " - " + hourFormatter.format(end);
+				} else if (DateUtils.isWithinDaysFuture(first, 1)) {
+					if (useAmPm) {
+						if (isSameAmPm(event.getStartDate(), event.getEndDate()))
+							text = CalendarResources.tomorrow + " " + hourFormatterAmPmSame.format(first) + " - " + hourFormatterAmPm.format(end);
+						else
+							text = CalendarResources.tomorrow + " " + hourFormatterAmPm.format(first) + " - " + hourFormatterAmPm.format(end);
+					} else
+						text = CalendarResources.tomorrow + " " + hourFormatter.format(first) + " - " + hourFormatter.format(end);
+				} else {
+					if (useAmPm) {
+						if (isSameAmPm(event.getStartDate(), event.getEndDate()))
+							text = dateFormatterAmPm.format(first) + " - " + hourFormatterAmPm.format(end);
+						else
+							text = dateFormatterAmPmNotSame.format(first) + " - " + hourFormatterAmPm.format(end);
+					} else text = dateFormatter.format(first) + " - " + hourFormatter.format(end);
+				}
 			} else if (DateUtils.isToday(first)) {
-				text = CalendarResources.today + hourFormatter.format(first) + " - " + otherDayFormatter.format(end);
-			} else {
-				text = otherDayFormatter.format(first) + " - " + otherDayFormatter.format(end);
-			}
+				if (useAmPm) {
+					if (isSameAmPm(event.getStartDate(), event.getEndDate()))
+						text = CalendarResources.today + hourFormatterAmPmSame.format(first) + " - " + hourFormatterAmPm.format(end);
+					else
+						text = CalendarResources.today + hourFormatterAmPm.format(first) + " - " + hourFormatterAmPm.format(end);
+				} else
+					text = CalendarResources.today + hourFormatter.format(first) + " - " + otherDayFormatter.format(end);
+			} else
+				text = getOtherDayFormatter().format(first) + " - " + getOtherDayFormatter().format(end);
 			return text;
 		}
+	}
+
+	private static boolean isSameAmPm(long start, long end) {
+		Calendar starting = calendarByMillis(start);
+		Calendar ending = calendarByMillis(end);
+		return starting.get(Calendar.AM_PM) == ending.get(Calendar.AM_PM);
+	}
+
+	private static Calendar calendarByMillis(long millis) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTimeInMillis(millis);
+		return calendar;
+	}
+
+	private static SimpleDateFormat getOtherDayFormatter() {
+		return useAmPm ? otherDayFormatterAmPm : otherDayFormatter;
 	}
 
 	public static Intent launchEventById(long id) {

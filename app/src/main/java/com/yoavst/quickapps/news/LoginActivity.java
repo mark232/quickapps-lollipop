@@ -41,6 +41,7 @@ import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 import org.apache.http.NameValuePair;
 import org.scribe.exceptions.OAuthConnectionException;
+import org.scribe.exceptions.OAuthException;
 import org.scribe.model.Token;
 import org.scribe.model.Verifier;
 
@@ -130,7 +131,7 @@ public class LoginActivity extends Activity {
 			Token accessToken = mManager.getService().getAccessToken(EMPTY_TOKEN, verifier);
 			mManager.saveToken(accessToken);
 			success();
-		} catch (OAuthConnectionException exception) {
+		} catch (OAuthException exception) {
 			handleLoginError("Error! please try again");
 		}
 	}

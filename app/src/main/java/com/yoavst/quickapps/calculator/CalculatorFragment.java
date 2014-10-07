@@ -1,10 +1,10 @@
 package com.yoavst.quickapps.calculator;
 
-import android.app.Fragment;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.yoavst.quickapps.BaseFragment;
 import com.yoavst.quickapps.Expression;
 import com.yoavst.quickapps.R;
 
@@ -23,7 +23,7 @@ import java.text.DecimalFormat;
  * Created by Yoav.
  */
 @EFragment(R.layout.calculator_fragment)
-public class CalculatorFragment extends Fragment {
+public class CalculatorFragment extends BaseFragment {
 	@ViewById(R.id.text_line)
 	TextView mText;
 	@ViewById(R.id.answer_line)

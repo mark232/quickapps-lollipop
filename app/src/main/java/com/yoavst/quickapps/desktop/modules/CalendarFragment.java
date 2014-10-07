@@ -31,18 +31,22 @@ public class CalendarFragment extends Fragment implements CompoundButton.OnCheck
 	CheckBox mRepeating;
 	@ViewById(R.id.location_checkbox)
 	CheckBox mLocation;
+	@ViewById(R.id.am_pm_checkbox)
+	CheckBox mAmPm;
 	@Pref
 	Preferences_ mPrefs;
 
 	@AfterViews
 	void init() {
 		mRepeating.setChecked(mPrefs.showRepeatingEvents().get());
-		mRepeating.setChecked(mPrefs.showLocation().get());
+		mLocation.setChecked(mPrefs.showLocation().get());
+		mAmPm.setChecked(mPrefs.amPmInCalendar().get());
 		mRepeating.setOnCheckedChangeListener(this);
 		mLocation.setOnCheckedChangeListener(this);
+		mAmPm.setOnCheckedChangeListener(this);
 	}
 
-	@Click({R.id.repeating_row, R.id.location_row})
+	@Click({R.id.repeating_row, R.id.location_row,R.id.am_pm_row})
 	void clickRow(View view) {
 		switch (view.getId()) {
 			case R.id.repeating_row:
@@ -50,6 +54,9 @@ public class CalendarFragment extends Fragment implements CompoundButton.OnCheck
 				break;
 			case R.id.location_row:
 				mLocation.toggle();
+				break;
+			case R.id.am_pm_row:
+				mAmPm.toggle();
 				break;
 		}
 	}
@@ -63,6 +70,10 @@ public class CalendarFragment extends Fragment implements CompoundButton.OnCheck
 				break;
 			case R.id.location_checkbox:
 				mPrefs.showLocation().put(isChecked);
+				Toast.makeText(getActivity(), R.string.changed_successfully, Toast.LENGTH_SHORT).show();
+				break;
+			case R.id.am_pm_checkbox:
+				mPrefs.amPmInCalendar().put(isChecked);
 				Toast.makeText(getActivity(), R.string.changed_successfully, Toast.LENGTH_SHORT).show();
 				break;
 		}

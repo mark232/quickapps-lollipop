@@ -1,6 +1,8 @@
 package com.yoavst.quickapps;
 
 import android.app.Application;
+import android.content.Context;
+import android.content.ContextWrapper;
 
 import com.personagraph.api.PGAgent;
 

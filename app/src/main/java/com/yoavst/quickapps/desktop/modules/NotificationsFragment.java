@@ -30,6 +30,8 @@ public class NotificationsFragment extends Fragment implements CompoundButton.On
 
 	@ViewById(R.id.privacy_checkbox)
 	CheckBox mPrivacy;
+	@ViewById(R.id.am_pm_checkbox)
+	CheckBox mAmPm;
 	@Pref
 	Preferences_ mPrefs;
 
@@ -42,14 +44,19 @@ public class NotificationsFragment extends Fragment implements CompoundButton.On
 	void init() {
 		mPrivacy.setChecked(mPrefs.notificationShowContent().get());
 		mPrivacy.setOnCheckedChangeListener(this);
+		mAmPm.setChecked(mPrefs.amPmInNotifications().get());
+		mAmPm.setOnCheckedChangeListener(this);
 	}
 
 
-	@Click({R.id.privacy_row})
+	@Click({R.id.privacy_row, R.id.am_pm_row})
 	void clickRow(View view) {
 		switch (view.getId()) {
 			case R.id.privacy_row:
 				mPrivacy.toggle();
+				break;
+			case R.id.am_pm_row:
+				mAmPm.toggle();
 				break;
 		}
 	}
@@ -59,6 +66,10 @@ public class NotificationsFragment extends Fragment implements CompoundButton.On
 		switch (buttonView.getId()) {
 			case R.id.privacy_checkbox:
 				mPrefs.notificationShowContent().put(isChecked);
+				Toast.makeText(getActivity(), R.string.changed_successfully,Toast.LENGTH_SHORT).show();
+				break;
+			case R.id.am_pm_checkbox:
+				mPrefs.amPmInNotifications().put(isChecked);
 				Toast.makeText(getActivity(), R.string.changed_successfully,Toast.LENGTH_SHORT).show();
 				break;
 		}

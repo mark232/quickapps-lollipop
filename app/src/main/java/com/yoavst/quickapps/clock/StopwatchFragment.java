@@ -1,6 +1,5 @@
 package com.yoavst.quickapps.clock;
 
-import android.app.Fragment;
 import android.os.Handler;
 import android.text.Html;
 import android.view.View;
@@ -8,6 +7,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.yoavst.quickapps.BaseFragment;
 import com.yoavst.quickapps.Preferences_;
 import com.yoavst.quickapps.R;
 
@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit;
  * Created by Yoav.
  */
 @EFragment(R.layout.clock_stopwatch_fragment)
-public class StopwatchFragment extends Fragment {
+public class StopwatchFragment extends BaseFragment {
 	@ViewById(R.id.time)
 	TextView mTime;
 	@ViewById(R.id.start)

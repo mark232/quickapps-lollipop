@@ -85,6 +85,7 @@ public abstract class AbstractQuickCircleActivity extends Activity {
 		if (win != null) {
 			// Show the sample application view on top
 			win.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+			win.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		}
 	}
 

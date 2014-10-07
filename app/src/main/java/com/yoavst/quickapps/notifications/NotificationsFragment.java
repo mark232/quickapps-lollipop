@@ -1,25 +1,22 @@
 package com.yoavst.quickapps.notifications;
 
-import android.app.Fragment;
 import android.app.Notification;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.service.notification.StatusBarNotification;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.yoavst.quickapps.BaseFragment;
 import com.yoavst.quickapps.Preferences_;
 import com.yoavst.quickapps.R;
 import com.yoavst.quickapps.calendar.DateUtils;
 
 import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.ViewById;
-import org.androidannotations.annotations.res.StringRes;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import java.text.SimpleDateFormat;
@@ -30,7 +27,7 @@ import java.util.Date;
  * Created by Yoav.
  */
 @EFragment(R.layout.notification_fragment)
-public class NotificationsFragment extends Fragment {
+public class NotificationsFragment extends BaseFragment {
 	@ViewById(R.id.notification_icon)
 	ImageView mNotificationIcon;
 	@ViewById(R.id.notification_time)
@@ -45,8 +42,9 @@ public class NotificationsFragment extends Fragment {
 	static String yesterday;
 	@Pref
 	Preferences_ mPrefs;
-	private static final SimpleDateFormat dayFormatter = new SimpleDateFormat("MMM d, HH:mm");
+	private static final SimpleDateFormat dayFormatter = new SimpleDateFormat("MMM d");
 	private static final SimpleDateFormat hourFormatter = new SimpleDateFormat("HH:mm");
+	private static final SimpleDateFormat hourFormatterAmPm = new SimpleDateFormat("hh:mm a");
 
 	public StatusBarNotification getNotification() {
 		return mNotification;
@@ -83,12 +81,20 @@ public class NotificationsFragment extends Fragment {
 			Date date = new Date(time);
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTimeInMillis(time);
-			if (DateUtils.isToday(date))
-				mNotificationTime.setText(today + " " + hourFormatter.format(date));
-			else if (DateUtils.isYesterday(calendar))
-				mNotificationTime.setText(yesterday + " " + hourFormatter.format(date));
-			else
-				mNotificationTime.setText(dayFormatter.format(date));
+			boolean isAmPm = mPrefs.amPmInNotifications().get();
+			if (DateUtils.isToday(date)) {
+				mNotificationTime.setText(today + " " + parseHour(date,isAmPm));
+			}
+			else if (DateUtils.isYesterday(calendar)) {
+				mNotificationTime.setText(yesterday + " " + parseHour(date,isAmPm));
+			}
+			else {
+				mNotificationTime.setText(dayFormatter.format(date) + ", " + parseHour(date,isAmPm));
+			}
 		}
+	}
+
+	String parseHour(Date date, boolean isAmPm) {
+		return isAmPm ? hourFormatterAmPm.format(date) : hourFormatter.format(date);
 	}
 }
