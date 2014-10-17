@@ -124,7 +124,7 @@ public abstract class AbstractQuickCircleActivity extends Activity {
 				"com.lge.internal");
 		circleWidth = getResources().getDimensionPixelSize(id);
 		id = getResources()
-				.getIdentifier("config_cover_window_height", "dimen", "com.lge.internal");
+				.getIdentifier("config_circle_window_height", "dimen", "com.lge.internal");
 		circleHeight = getResources().getDimensionPixelSize(id);
 		id = getResources()
 				.getIdentifier("config_circle_window_x_pos", "dimen", "com.lge.internal");
