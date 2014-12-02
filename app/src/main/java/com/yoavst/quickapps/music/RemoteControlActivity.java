@@ -19,6 +19,12 @@ import android.widget.TextView;
 import com.yoavst.quickapps.BaseQuickCircleActivity;
 import com.yoavst.quickapps.R;
 
+import android.util.Log;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.content.pm.ServiceInfo;
+import java.util.List;
+
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 
@@ -165,9 +171,10 @@ public class RemoteControlActivity extends BaseQuickCircleActivity {
 	@Override
 	public void onStart() {
 		super.onStart();
-		Intent intent = new Intent("com.yoavst.quickmusic.BIND_RC_CONTROL_SERVICE");
+		Intent myIntent = new Intent("com.yoavst.quickmusic.BIND_RC_CONTROL_SERVICE");
+		Intent intent = createExplicitFromImplicitIntent(getApplicationContext(),myIntent);
 		try {
-			bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+			getApplicationContext().bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
 		} catch (RuntimeException e) {
 			showUnregistered();
 		}
@@ -186,19 +193,25 @@ public class RemoteControlActivity extends BaseQuickCircleActivity {
 		@Override
 		public void onServiceConnected(ComponentName className, IBinder service) {
 			//Getting the binder and activating RemoteController instantly
-			RemoteControlService.RCBinder binder = (RemoteControlService.RCBinder) service;
-			mRCService = binder.getService();
-			if (!mRCService.setRemoteControllerEnabled()) {
-				// Not registered on the settings
+			try {
+				RemoteControlService.RCBinder binder = (RemoteControlService.RCBinder) service;
+				mRCService = binder.getService();
+				if (!mRCService.setRemoteControllerEnabled()) {
+					// Not registered on the settings
+					showUnregistered();
+				}
+				mRCService.setClientUpdateListener(mClientUpdateListener);
+				mBound = true;
+			} catch (RuntimeException e) {
 				showUnregistered();
+				mBound = false;
 			}
-			mRCService.setClientUpdateListener(mClientUpdateListener);
-			mBound = true;
 		}
 
 		@Override
 		public void onServiceDisconnected(ComponentName name) {
 			mBound = false;
+			mRCService = null;
 		}
 	};
 
@@ -207,4 +220,23 @@ public class RemoteControlActivity extends BaseQuickCircleActivity {
 		mTitleText.setText(R.string.open_the_case);
 		mRegistered = false;
 	}
+
+	public static Intent createExplicitFromImplicitIntent(Context context, Intent implicitIntent) {
+		PackageManager pm = context.getPackageManager();
+		List<ResolveInfo> resolveInfo = pm.queryIntentServices(implicitIntent, 0);
+	
+		if (resolveInfo == null || resolveInfo.size() != 1) {
+			return implicitIntent;
+		}
+		
+		ResolveInfo serviceInfo = resolveInfo.get(0);
+		String packageName = serviceInfo.serviceInfo.packageName;
+		String className = serviceInfo.serviceInfo.name;
+		ComponentName component = new ComponentName(packageName, className);
+	
+		Intent explicitIntent = new Intent(implicitIntent);
+		explicitIntent.setComponent(component);
+
+		return explicitIntent;
+    }
 }
