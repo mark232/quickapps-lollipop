@@ -116,7 +116,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 ads:adSize="BANNER"
-                ads:adUnitId="ca-app-pub-3328409722635254/2189974929"/>
+                ads:adUnitId="ca-app-pub-5770429058811218/3710574885"/>
         </RelativeLayout>
 
         <ListView

@@ -76,10 +76,10 @@
   <string name="how_to_add_step_3">3. Add the modules you want</string>
   <string name="how_to_add_tip">Tip: The Quick Launcher is a regular module that let you access all the other modules!</string>
   <string name="go_to_settings">Go to settings</string>
-  <string name="about">Quick Circle Apps is a group of modules for LG G3 Quick Circle case. The app also contains some QSlide modules.</string>
+  <string name="about">Quick Circle Apps for Lollipop is a group of modules for LG G3 Quick Circle case. The app also contains some QSlide modules. </string>
   <string name="about_2">The app uses LG Quick Circle SDK.</string>
-  <string name="about_3">Author: Yoav Sternberg</string>
-  <string name="about_4">Contact: yoav.goop@gmail.com</string>
+  <string name="about_3">Original version: Yoav Sternberg (yoav.goop@gmail.com)</string>
+  <string name="about_4">Lollipop version: Marko Vene (marko@itpartner.si)</string>
   <string name="about_mail_chooser">Choose mail client</string>
   <string name="about_intent_failed">No mail clients installed</string>
   <string name="source_description">The source for Quick Circle Apps is stored on Github. The app uses Gradle to manage all the dependencies.</string>
