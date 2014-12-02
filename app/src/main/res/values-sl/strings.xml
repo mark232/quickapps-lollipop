@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="register_us_please">Potrebujemo dostop do obvestil</string>
+    <string name="open_the_case">Odprite ohišje</string>
+    <string name="torch_is_on">Lučka je prižgana</string>
+    <string name="touch_to_turn_off">Pritisni za izklop luči</string>
+    <string name="unknown">neznano</string>
+    <string name="today">Danes</string>
+    <string name="tomorrow">Jutri</string>
+    <string name="all_day">(cel dan)</string>
+    <string name="now">Zdaj</string>
+    <string name="in">V</string>
+    <string name="minute_s">minuti/minutah</string>
+    <string name="hour_s">uri/urah</string>
+    <string name="day_s">dnevu/dnevih</string>
+    <string name="week_s">tednu/tednih</string>
+    <string name="month_s">mescu/mescih</string>
+    <string name="more_then_year">Več kot leto</string>
+    <string name="notification_empty">Ni obvestil</string>
+    <string name="notification_removed">Obvestilo odstranjeno</string>
+    <string name="wifi">Wi-Fi</string>
+    <string name="wifi_off">Wi-Fi je ugasnjen</string>
+    <string name="wifi_on">Wi-Fi je prižgan</string>
+    <string name="wifi_connected">Povezan na Wi-Fi omrežje <b><i>%1$s</i></b></string>
+    <string name="wifi_network_available">Na voljo odprta Wi-Fi omrežja</string>
+    <string name="wifi_turning_off">Ugašam Wi-Fi</string>
+    <string name="wifi_turning_on">Prižigam Wi-Fi</string>
+    <string name="sound_sound">Zvok</string>
+    <string name="sound_vibrate">Vibracije</string>
+    <string name="sound_silent">Tišina</string>
+    <string name="data_data">Podatki</string>
+    <string name="data_off">Podatkovna povezava je ugasnjena</string>
+    <string name="data_on">Podatkovna povezava je prižgana</string>
+    <string name="data_off_airplane">Letalski način - Podatkovna povezava ugasnjena</string>
+    <string name="bluetooth">Bluetooth</string>
+    <string name="bluetooth_off">Bluetooth je ugasnjen</string>
+    <string name="bluetooth_on">Bluetooth je prižgan</string>
+    <string name="bluetooth_turning_off">Ugašam Bluetooth</string>
+    <string name="bluetooth_turning_on">Prižigam Bluetooth</string>
+    <string name="hotSpot">Hotspot</string>
+    <string name="hotSpot_off">Hotspot je onemogočen</string>
+    <string name="hotSpot_on">Hotspot je omogočen</string>
+    <string name="cant_change_airplane_mode">Ne morem spremeniti letalskega načina</string>
+    <string name="brightness">Svetlost</string>
+    <string name="brightness_auto">Automatična svetlost</string>
+    <string name="brightness_med">Srednja svetlost</string>
+    <string name="brightness_max">Visoka svetlost</string>
+    <string name="battery">Baterija</string>
+    <string name="charging">polnenje</string>
+    <string name="news_cant_init">Ne morem zagnati modula.</string>
+    <string name="news_cant_init_subtext">prosim zaprite aplikacijo in poizkusite ponovno.</string>
+    <string name="news_network_error">Napaka na omrežju</string>
+    <string name="news_network_error_subtext">Prosim preverite povezavo na internet in poizkusite ponovno</string>
+    <string name="loading">Nalagam…</string>
+    <string name="news_should_login">@string/login_to_feedly</string>
+    <string name="news_should_login_subtext">prosim odprite ovitek za prijavo</string>
+    <string name="login_to_feedly">Prijava v Feedly</string>
+    <string name="news_no_content">No vsebine</string>
+    <string name="news_no_content_subtext">Osveži za novo vsebino</string>
+    <string name="no_connection">Ni povezave</string>
+    <string name="start_downloading">Prižnem prenašanje</string>
+    <string name="start">Začni</string>
+    <string name="pause">Pauza</string>
+    <string name="stop">Ustavi</string>
+    <string name="resume">Nadaljuj</string>
+    <string name="brightness_low">Nizka svetlost</string>
+    <string name="stopwatch_run_on_back">Dela v ozadju</string>
+    <string name="stopwatch_run_on_back_message">Ali želite da štoparca dela v ozadju?</string>
+    <string name="yes">Da</string>
+    <string name="no">Ne</string>
+    <string name="error">Napaka</string>
+    <string name="how_to_add">Kako dodam</string>
+    <string name="how_to_add_step_1">1. Pritisni gumb za odprje nastavitev</string>
+    <string name="how_to_add_step_2">2. Izberi "Select apps"</string>
+    <string name="how_to_add_step_3">3. Izberi željene module</string>
+    <string name="how_to_add_tip">Nasvet: S Quick Launcher-jem imate dostop do vseh ostalih modulov!</string>
+    <string name="go_to_settings">Pojdi v nasvative</string>
+    <string name="about">Quick Circle Apps is a group of modules for LG G3 Quick Circle case. The app also contains some QSlide modules.</string>
+    <string name="about_2">The app uses LG Quick Circle SDK.</string>
+    <string name="about_3">Author: Yoav Sternberg (yoav.goop@gmail.com)</string>
+    <string name="about_4">Modder: Marko Vene (marko@itpartner.si</string>
+    <string name="about_mail_chooser">Izberi mail klienta</string>
+    <string name="about_intent_failed">Ni nameščenega mail klienta</string>
+    <string name="source_description">Izvirna koda za Quick Circle Apps je shranjena na Github. Aplikacija uporablja Gradle za upravljanje vseh odvisnosti.</string>
+    <string name="about_libraries">Krediti:</string>
+    <string-array name="drawer_primary_items">
+        <item>Moduli</item>
+        <item>Izvor</item>
+    </string-array>
+    <string-array name="drawer_secondary_items">
+        <item>Kako dodati</item>
+        <item>O</item>
+    </string-array>
+    <string name="settings">Nastavitve</string>
+    <string name="torch_launcher_shortcut">Bljižnica do lučke</string>
+    <string name="torch_launcher_shortcut_subtext">Prikaži modul lučka v app drawer</string>
+    <string name="torch_qslide_shortcut">QSlide bljižnica</string>
+    <string name="torch_qslide_shortcut_subtext">Prikaži modul lučka v QSlide baru</string>
+    <string name="reboot_for_update">Ponovno zaženi telefon za potrditev sprememb</string>
+    <string name="restart_launcher_for_update">Ponovno zaženi telefon za potrditev sprememb</string>
+    <string name="torch_force_floating">Prisili lebdeč način</string>
+    <string name="torch_force_floating_subtext">Prisili QSlide lebdeč način za modul lučko</string>
+    <string name="changed_successfully">Sprememba uspešna</string>
+    <string name="music_listener_title">Odpti Notification Listener Settings</string>
+    <string name="music_listener_subtitle">Modul mora imeti dovoljenje za obvestila da deluje</string>
+    <string name="repeating_title">Prikaži ponavljajoče dogodke</string>
+    <string name="location_title">Prikaži lokacijo dogodka</string>
+    <string name="location_subtitle">Vsi, ki imajo dostop lahko vidijo lokacijo dogodka</string>
+    <string name="privacy_title">Prikaži vsebino obvestil</string>
+    <string name="privacy_subtitle">Vsebina obvestil je lahko skrivnost</string>
+    <string name="launcher_control_items">Uredi module</string>
+    <string name="launcher_control_items_subtitle">Uredi module v zaganjalniku</string>
+    <string name="launcher_load_external">Naloži zunanje module</string>
+    <string name="launcher_load_external_subtitle">Prikaz zunanjih modulov v zaganjalniku</string>
+    <string name="launcher_auto_add">Automatično dodaj module</string>
+    <string name="launcher_auto_add_subtitle">Automatično dodaj nove module</string>
+    <string name="toggles_order_items">Uredi vrstni red</string>
+    <string name="toggles_order_items_subtitle">Uredi vrstni red modulov</string>
+    <string name="battery_title">Prikaži procente baterije</string>
+    <string name="battery_subtitle">Prikaži procente baterije kot prvi podatek</string>
+    <string name="force_floating_subtext">Ob odprtem okvirju, bo odprl računalo v lebdečem načinu</string>
+    <string name="show_millis_title">Prikaz millisekund</string>
+    <string name="show_millis_subtitle">Prikaz millisekund v štoparci</string>
+    <string name="news_logout_feedly">Odjava iz feedly-ja</string>
+    <string name="yesterday">Včeraj</string>
+    <string name="speed_dial">Hitri klic</string>
+    <string name="jump_to_setting">Skok na stran</string>
+    <string name="choose_number">Izberi številko</string>
+    <string name="empty_speed_dial">Sprazni hitri klic</string>
+    <string name="speed_dial_instructions">(Pritisni za urejanje, dolg pritisk za pogled vrednosti)</string>
+    <string name="launcher_remove_lg">Prikaži podvojene aplikacije</string>
+    <string name="launcher_remove_lg_subtitle">Prikaži aplikacije, ki so vidne na LG launcher-ju</string>
+    <string name="hide_settings_from_quick_circle">Skrij nastavitve iz Quick Circle-a</string>
+    <string name="am_pm_title">12 urna ura</string>
+    <string name="am_pm_subtitle">Uporabi AM/PM namesto 24 ur</string>
+    <string name="ask_a_question">Vprašaj vprašanje</string>
+    <string name="thinking">Razmišljam...</string>
+    <string-array name="magic_ball">
+         <item>Zagotovo</item>
+         <item>To je nedvomno tako</item>
+         <item>Brez dvoma</item>
+         <item>Da, zagotovo</item>
+         <item>Lahko se zaneseš na njega</item>
+         <item>Kot vidim, ja</item>
+         <item>Najverjetneje</item>
+         <item>Izgleda dobro</item>
+         <item>Da</item>
+         <item>Znaki kažejo na da</item>
+         <item>Odgovori so megleni, poizkusite ponovno</item>
+         <item>Vprašajte znova pozneje</item>
+         <item>Bolje, da ne ti povem zdaj</item>
+         <item>Ne morem napovedati zdaj</item>
+         <item>Skoncentriraj se in ponovno vpraši</item>
+         <item>Ne računajo na njega</item>
+         <item>Moj odgovor je ne</item>
+         <item>Moji viri pravijo ne</item>
+         <item>Izgleda ne tako dobro</item>
+         <item>Zelo vprašljivo</item>
+    </string-array>
+</resources>
