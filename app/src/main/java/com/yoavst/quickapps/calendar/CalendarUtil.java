@@ -301,7 +301,7 @@ public class CalendarUtil {
 			long minutesLeft = secondsLeft / 60;
 			if (minutesLeft < 60)
 				return CalendarResources.in + " " + minutesLeft + " " + (minutesLeft > 1 ? CalendarResources.minutes : CalendarResources.minute);
-			long hoursLeft = minutesLeft / 50;
+			long hoursLeft = minutesLeft / 60;
 			if (hoursLeft < 24)
 				return CalendarResources.in + " " + hoursLeft + " " + (hoursLeft > 1 ? CalendarResources.hours : CalendarResources.hour);
 			int days = (int) (hoursLeft / 24);
