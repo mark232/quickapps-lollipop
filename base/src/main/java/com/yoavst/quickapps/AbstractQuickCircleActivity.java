@@ -120,20 +120,26 @@ public abstract class AbstractQuickCircleActivity extends Activity {
 		//Get a case type;
 		quickCaseType = Settings.Global.getInt(mContentResolver, "cover_type", 0/*default value*/);
 		//[START] Get the QuickCircle window information
-		int id = getResources().getIdentifier("config_circle_window_width", "dimen",
-				"com.lge.internal");
-		circleWidth = getResources().getDimensionPixelSize(id);
-		id = getResources()
-				.getIdentifier("config_circle_window_height", "dimen", "com.lge.internal");
-		circleHeight = getResources().getDimensionPixelSize(id);
-		id = getResources()
-				.getIdentifier("config_circle_window_x_pos", "dimen", "com.lge.internal");
-		circleXpos = getResources().getDimensionPixelSize(id);
-		id = getResources()
-				.getIdentifier("config_circle_window_y_pos", "dimen", "com.lge.internal");
-		circleYpos = getResources().getDimensionPixelSize(id);
-		id = getResources().getIdentifier("config_circle_diameter", "dimen", "com.lge.internal");
-		circleDiameter = getResources().getDimensionPixelSize(id);
+		//int id = getResources().getIdentifier("config_circle_window_width", "dimen","com.lge.internal");
+		//circleWidth = getResources().getDimensionPixelSize(id);
+		//Log.d("circleWidth", Integer.toString(circleWidth));
+		circleWidth = 1144;
+		//id = getResources().getIdentifier("config_circle_window_height", "dimen", "com.lge.internal");
+		//circleHeight = getResources().getDimensionPixelSize(id);
+		//Log.d("circleHeight", Integer.toString(circleHeight));
+		circleHeight = 1101;
+		//id = getResources().getIdentifier("config_circle_window_x_pos", "dimen", "com.lge.internal");
+		//circleXpos = getResources().getDimensionPixelSize(id);
+		//Log.d("circleXpos", Integer.toString(circleXpos));
+		circleXpos = -20;
+		//id = getResources().getIdentifier("config_circle_window_y_pos", "dimen", "com.lge.internal");
+		//circleYpos = getResources().getDimensionPixelSize(id);
+		//Log.d("circleYpos", Integer.toString(circleYpos));
+		circleYpos = 0;
+		//id = getResources().getIdentifier("config_circle_diameter", "dimen", "com.lge.internal");
+		//circleDiameter = getResources().getDimensionPixelSize(id);
+		//Log.d("circleDiameter", Integer.toString(circleDiameter));
+		circleDiameter = 1046;
 	}
 
 	private BroadcastReceiver mIntentReceiver = new BroadcastReceiver() {

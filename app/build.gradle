@@ -3,16 +3,16 @@ apply plugin: 'android-apt'
 apply plugin: 'playpublisher'
 
 android {
-    compileSdkVersion 20
-    buildToolsVersion "20.0.0"
+    compileSdkVersion 21
+    buildToolsVersion "21.1.1"
 
     defaultConfig {
         applicationId "com.yoavst.quickapps"
         minSdkVersion 19
-        targetSdkVersion 20
+        targetSdkVersion 21
         versionCode 40
-        versionName "2.6.3"
-        resConfigs "ar","ca","de","es","fi","fr","he","hu","it","iw","ko","nl","pl","pt","ru","tr"
+        versionName "2.6.6"
+        resConfigs "ar","ca","de","es","fi","fr","he","hu","it","iw","ko","nl","pl","pt","ru","tr","sl"
         resConfigs "xhdpi", "xxhdpi", "xxxhdpi"
         applicationVariants.all { variant ->
             if (variant.name == "release") {
